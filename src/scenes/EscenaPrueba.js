@@ -16,7 +16,6 @@ export default class EscenaPrueba extends Phaser.Scene{
 
         this.add.text(120, 110, "OK", {font: "96px Courier", fill: "#000000"});
 
-       this.scene.start('MainScene');
     }
     update(time, delta){
 
