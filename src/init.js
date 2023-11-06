@@ -1,14 +1,16 @@
 
 import Bootloader from "./scenes/bootloader.js";
+import Scene_Pruebasprites from "./scenes/scene_Pruebasprites.js";
 import A from './scenes/EscenaPrueba.js';
-import MainScene from './scenes/MainScene.js';
+import MainScene from './scenes/MainSceneAntiguo.js';
+import MainMenu from "./scenes/MainMenu.js";
 
   const config = {
     width: 800,
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Bootloader, A, MainScene],
+    scene: [Bootloader, Scene_Pruebasprites, MainMenu, A, MainScene],
     physics: { 
       default: 'arcade', 
       arcade: { 

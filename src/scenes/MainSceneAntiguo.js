@@ -1,7 +1,7 @@
 
 
 
-export default class MainScene extends Phaser.Scene {
+export default class MainSceneAntiguo extends Phaser.Scene {
     constructor() {
       // Nombre de la escena para el SceneManager
       super({ key: 'MainScene' }); 
