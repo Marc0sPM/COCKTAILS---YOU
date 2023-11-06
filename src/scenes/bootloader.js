@@ -20,7 +20,9 @@ class Bootloader extends Phaser.Scene{
         // Importamos img de Cartel Game
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         // Importamos img botón Play
-        this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png")
+        this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
+        // Importamos img de fondo del Menú
+        this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg")
     }
 }
 

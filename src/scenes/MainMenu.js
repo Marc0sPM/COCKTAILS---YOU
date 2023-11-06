@@ -4,6 +4,10 @@ class MainMenu extends Phaser.Scene{
     }
     create() {
         console.log("MainMenu")
+        // Crea el fondo
+        let background = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "mainMenuBackground");
+        // Reducimos el tamaño del fondo
+        background.setScale(0.8);
 
         // Crea un botón
         let button = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "playButton");
