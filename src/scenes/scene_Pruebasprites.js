@@ -6,15 +6,19 @@ class Scene_Pruebasprites extends Phaser.Scene{
     create(){
         console.log("Scene 1");
 
-        let background;
+        let background,
+            playerPrueba,
+            player;
         
         // Pintamos el fondo
         background = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "background");
         background.setScale(0.7);
 
-        // Pintamos al player
-        this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "playerPrueba");
+        // Pintamos al playerPrueba
+        playerPrueba = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "playerPrueba");
         
+        // Pintamos Player
+        player = this.add.spritesheet(100, 100, "player");
     }
 }
 

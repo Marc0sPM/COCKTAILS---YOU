@@ -1,4 +1,3 @@
-
 import Bootloader from "./scenes/bootloader.js";
 import Scene_Pruebasprites from "./scenes/scene_Pruebasprites.js";
 import A from './scenes/EscenaPrueba.js';

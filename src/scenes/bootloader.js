@@ -6,10 +6,10 @@ class Bootloader extends Phaser.Scene{
     preload(){
         console.log("Preload de Bootloader")
 
-        this.load.on("complete", ()=>{
-            // Iniciamos la escena para probar sprites
-            this.scene.start("MainMenu");
-        })
+        // this.load.on("complete", ()=>{
+        //     // Iniciamos la escena para probar sprites
+        //     this.scene.start("MainMenu");
+        // })
 
         // Importamos el Cursor
         this.load.image("cursor", "./assets/cursor.png");
@@ -22,7 +22,14 @@ class Bootloader extends Phaser.Scene{
         // Importamos img botón Play
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
         // Importamos img de fondo del Menú
-        this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg")
+        this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
+
+        // Importamos animación de andar
+        this.load.spritesheet("player", "./assets/sprites/Player/sprites-walk.png", {frameWidth: 48, frameHeight: 48});
+    }
+
+    create(){
+        this.scene.launch("MainMenu");
     }
 }
 
