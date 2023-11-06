@@ -1,4 +1,5 @@
 
+import Bootloader from "./scenes/bootloader.js";
 import A from './scenes/EscenaPrueba.js';
 import MainScene from './scenes/MainScene.js';
 
@@ -7,7 +8,7 @@ import MainScene from './scenes/MainScene.js';
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [A, MainScene],
+    scene: [Bootloader, A, MainScene],
     physics: { 
       default: 'arcade', 
       arcade: { 
