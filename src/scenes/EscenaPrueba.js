@@ -16,10 +16,11 @@ export default class EscenaPrueba extends Phaser.Scene{
         //intancia el player
         this.player = new Player(this, 300, 300);
         //se agrega player a escena
-        console.EscenaPrueba
+        
 
         console.log('create A')
     }
-    update(time, delta){
+    update(){
+        this.player.update();
     }
 }

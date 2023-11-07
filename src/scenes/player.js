@@ -1,5 +1,5 @@
 
-export default class Player extends Phaser.GameObjects.Sprite{
+export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
         super(scene, x, y, {key: 'player'})
         this.scene.add.existing(this);
@@ -18,15 +18,12 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.speed = 200;
         this.play('player_idle');
     }
-    preload(){
-        //no funciona
-        console.log('preloadPlayer')
-    }
-    update(time,delta ){
+    update( ){
            
-         console.log(time)//no funciona
+         console.log('update Player')//no funciona
 
         if (this.cursors.up.isDown) {
+            this.play('player_talk', true)
             this.setVelocityY(-this.speed);
         } else if (this.cursors.down.isDown) {
             this.setVelocityY(this.speed);
@@ -39,6 +36,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         } else if (this.cursors.right.isDown) {
             this.setVelocityX(this.speed);
         } else {
+            this.play('player_idle', true)
             this.setVelocityX(0);
         }
     }
