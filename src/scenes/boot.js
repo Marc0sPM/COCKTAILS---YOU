@@ -26,7 +26,7 @@ export default class Boot extends Phaser.Scene{
         this.load.spritesheet('player_idleSprite', "./assets/sprites/Player/player_idle.png",
         {frameWidth: 48, frameHeight: 48})   
         //Player - walk
-        this.load.spritesheet('player_walk', "./assets/sprites/Player/player_walk.png",
+        this.load.spritesheet('player_walkSprite', "./assets/sprites/Player/player_walk.png",
         {frameWidth: 48, frameHeight: 48})   
     }
     create(){
@@ -38,8 +38,8 @@ export default class Boot extends Phaser.Scene{
         });
         this.anims.create({
             key: 'player_walk',
-            frames: this.anims.generateFrameNames('player_walk', { start: 0, end: 3}),
-            frameRate: 2,
+            frames: this.anims.generateFrameNames('player_walkSprite', { start: 0, end: 7}),
+            frameRate: 10,
             repeat: -1
         });
 
