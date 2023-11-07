@@ -23,19 +23,25 @@ export default class Boot extends Phaser.Scene{
 
         /*----- / ANIMACIONES /-----*/
         //Player - idle 
-        this.load.spritesheet('player_idle', "/assets/sprites/Player/sprites-idle.png",
+        this.load.spritesheet('player_idleSprite', "./assets/sprites/Player/player_idle.png",
         {frameWidth: 48, frameHeight: 48})   
         //Player - walk
-        this.load.spritesheet('player_walk', "/assets/sprites/Player/sprites-walk.png",
+        this.load.spritesheet('player_walk', "./assets/sprites/Player/player_walk.png",
         {frameWidth: 48, frameHeight: 48})   
     }
     create(){
         this.anims.create({
             key: 'player_idle',
-            frames: this.anims.generateFrameNames('player_idle', { start: 0, end: 3}),
+            frames: this.anims.generateFrameNames('player_idleSprite', { start: 0, end: 3}),
             frameRate: 2,
             repeat: -1
-        })
+        });
+        this.anims.create({
+            key: 'player_walk',
+            frames: this.anims.generateFrameNames('player_walk', { start: 0, end: 3}),
+            frameRate: 2,
+            repeat: -1
+        });
 
         this.scene.start("MainMenu");
     }

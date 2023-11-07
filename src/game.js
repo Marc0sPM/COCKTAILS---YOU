@@ -1,5 +1,5 @@
 import Boot from "./scenes/boot.js";
-import Scene_Pruebasprites from "./scenes/scene_Pruebasprites.js";
+
 import A from './scenes/EscenaPrueba.js';
 import MainScene from './scenes/MainSceneAntiguo.js';
 import MainMenu from "./scenes/MainMenu.js";
@@ -11,7 +11,7 @@ import MainMenu from "./scenes/MainMenu.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, Scene_Pruebasprites, MainMenu, A, MainScene],
+    scene: [Boot, MainMenu, A, MainScene],
     physics: { 
       default: 'arcade', 
       arcade: { 

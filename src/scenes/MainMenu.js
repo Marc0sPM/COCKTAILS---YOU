@@ -1,3 +1,4 @@
+
 class MainMenu extends Phaser.Scene{
     constructor(){
         super({key: "MainMenu"});
@@ -20,6 +21,8 @@ class MainMenu extends Phaser.Scene{
             // Carga la escena que desees al hacer clic en el botón
             this.scene.start('A');
         });
+        
+        
     }
 }
 
