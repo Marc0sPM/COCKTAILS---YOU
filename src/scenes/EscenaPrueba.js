@@ -1,3 +1,5 @@
+import Player from "/game/player.js"
+
 export default class EscenaPrueba extends Phaser.Scene{
     constructor(){
         super({key: 'A' });
@@ -7,15 +9,8 @@ export default class EscenaPrueba extends Phaser.Scene{
         
     }
     create(){
-        let graphics = this.add.graphics();
-
-        graphics.fillStyle(0xff3300, 1);
-
-        graphics.fillRect(100, 200, 600, 300);
-        graphics.fillRect(100,100,100,100);
-
-        this.add.text(120, 110, "OK", {font: "96px Courier", fill: "#000000"});
-
+        
+        this.player = new Player(this, 300, 300, 'player');
     }
     update(time, delta){
 

@@ -1,6 +1,7 @@
-class Bootloader extends Phaser.Scene{
+export default class Boot extends Phaser.Scene{
+    
     constructor(){
-        super({key: "Bootloader"});
+        super({key: "Boot"});
     }
 
     preload(){
@@ -11,26 +12,32 @@ class Bootloader extends Phaser.Scene{
         //     this.scene.start("MainMenu");
         // })
 
-        // Importamos el Cursor
+        //Cargamos sprites
         this.load.image("cursor", "./assets/cursor.png");
-        // Importamos img Personaje de Prueba
         this.load.image("playerPrueba", "./assets/sprites/PersonajeMovPrueba.png");
-        // Importamos img de fondo
         this.load.image("background", "./assets/sprites/FondoTemporal.jpg");
-        // Importamos img de Cartel Game
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
-        // Importamos img botón Play
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
-        // Importamos img de fondo del Menú
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
+        
 
-        // Importamos animación de andar
-        this.load.spritesheet("player", "./assets/sprites/Player/sprites-walk.png", {frameWidth: 48, frameHeight: 48});
+        /*----- / ANIMACIONES /-----*/
+        //Player - idle 
+        this.load.spritesheet('player_idle', "/assets/sprites/Player/sprites-idle.png",
+        {frameWidth: 48, frameHeight: 48})   
+        //Player - walk
+        this.load.spritesheet('player_walk', "/assets/sprites/Player/sprites-walk.png",
+        {frameWidth: 48, frameHeight: 48})   
     }
-
     create(){
-        this.scene.launch("MainMenu");
+        this.anims.create({
+            key: 'player_idle',
+            frames: this.anims.generateFrameNames('player_idle', { start: 0, end: 3}),
+            frameRate: 2,
+            repeat: -1
+        })
+
+        this.scene.start("MainMenu");
     }
 }
 
-export default Bootloader;
