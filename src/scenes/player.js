@@ -34,14 +34,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
 
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);
+            this.anims.play('player_walk', true)
             this.setFlipX(true);
         } else if (this.cursors.right.isDown) {
+            this.anims.play('player_walk', true)
             this.setFlip(false)
             this.setVelocityX(this.speed);
-        } else {
-        
-            this.play('player_idle', true)
-            this.setVelocityX(0);
+        }else this.setVelocityX(0)
+        if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+            this.anims.play('player_idle', true)
         }
+        
     }
 }
