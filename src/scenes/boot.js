@@ -19,6 +19,12 @@ export default class Boot extends Phaser.Scene{
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
+
+        // Carga del mapa
+        this.load.image("floor", "./assets/sprites/floorTiles.png");
+        this.load.image("barObjects", "./assets/sprites/tilesetBar.png");
+
+        this.load.tilemapTiledJSON("barTiled", "./assets/barTiled.json");
         
 
         /*----- / ANIMACIONES /-----*/
