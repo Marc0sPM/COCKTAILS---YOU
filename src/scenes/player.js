@@ -1,3 +1,5 @@
+let lookingRight = Boolean(true); 
+
 
 export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
@@ -5,7 +7,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.setScale(2);
-        
         
         this.cursors = scene.input.keyboard.addKeys({
              up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -18,7 +19,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.speed = 200;
     }
     update( ){
-
         if (this.cursors.up.isDown) {
 
             this.setVelocityY(-this.speed);
@@ -35,11 +35,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);
             this.anims.play('player_walk', true)
-            this.setFlipX(true);
+            //si mira a la derecha que haga el flip y calcule la nueva posicion sin salto
+            if(lookingRight){
+                lookingRight = Boolean(false);
+                this.setFlipX(true);
+                this.x -= 48 //es lo que mide el sprite
+            }
         } else if (this.cursors.right.isDown) {
             this.anims.play('player_walk', true)
-            this.setFlip(false)
             this.setVelocityX(this.speed);
+            if(!lookingRight){
+                lookingRight = Boolean(true);
+                this.setFlip(false)
+               this.x += 48 //es lo que mide el sprite
+                
+            }
         }else this.setVelocityX(0)
         if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
             this.anims.play('player_idle', true)
