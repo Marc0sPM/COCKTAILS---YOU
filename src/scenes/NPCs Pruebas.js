@@ -1,12 +1,12 @@
 // Definir la clase
-class Npc extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, color, numero, informacion, destinoX, destinoY) {
+class Npc extends infoNPC {
+    constructor(scene, x, y, type, destinoX, destinoY) {
         super(scene, x, y, 'npc'); // Reemplaza 'nombreDeTuSprite' con el nombre de tu sprite
 
         // Atributos personalizados
         this.color = color;
         this.numero = numero;
-        this.informacion = informacion;
+        this.type = type;
         this.destinoX = destinoX;
         this.destinoY = destinoY;
 
