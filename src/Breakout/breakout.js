@@ -4,7 +4,7 @@ export default class Breakout extends Phaser.Scene{
     }
     create(){
         this.physics.world.setBoundsCollision(true, true, true, false);
-     this.add.image(400, 250, 'background');
+     this.add.image(400, 250, 'backgroundBreakout');
      this.gameoverImage = this.add.image(400, 90, 'gameOver');
      this.gameoverImage.visible = false;
 
