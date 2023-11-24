@@ -28,10 +28,10 @@ export default class EscenaVivuPrueba extends Phaser.Scene{
 
 
         // Capas del mapa
-        let groundLayer = map.createStaticLayer("floorTiles", floor, 0, 0);
-        let wallLayer = map.createStaticLayer("tilesetBar", barObjects, 0, 0);
-        let woodLayer = map.createStaticLayer("tilesetBar", barObjects, 0, 0);
-        let variousLayer = map.createStaticLayer("tilesetBar", barObjects, 0, 0);
+        let groundLayer = map.createLayer("floorTiles", floor, 0, 0);
+        let wallLayer = map.createLayer("tilesetBar", barObjects, 0, 0);
+        let woodLayer = map.createLayer("tilesetBar", barObjects, 0, 0);
+        let variousLayer = map.createLayer("tilesetBar", barObjects, 0, 0);
     }
     update(){
         this.player.update();
