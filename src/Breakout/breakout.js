@@ -9,18 +9,18 @@ export default class Breakout extends Phaser.Scene{
      this.gameoverImage.visible = false;
 
      //barra
-     this.paddle = this.physics.add.image(400, 360, 'paddle').setimmovable();
+     this.paddle = this.physics.add.image(400, 360, 'paddle').setImmovable();
      this.paddle.body.allowGravity = false;
 
      //pelota
      this.ball = this.physics.add.image(400,30,'ball');
-     this.ball.setCollideWorldbounds(true);
+     this.ball.setCollideWorldBounds(true);
 
-     let velocity = 100 * Phaser.math.between(1.3 ,2);
-     if(Phaser.math.between(0,10) > 5){
+     let velocity = 100 * Phaser.Math.Between(1.3 ,2);
+     if(Phaser.Math.Between(0,10) > 5){
          velocity = 0- velocity;
      }
-     this.ball.setvelocity(velocity,10);
+     this.ball.setVelocity(velocity,10);
 
      //movimiento con cursores
      this.cursors = this.input.keyboard.createCursorKeys();
@@ -31,13 +31,13 @@ export default class Breakout extends Phaser.Scene{
    }
    update(){
      if(this.cursors.left.isDown){
-        this.paddle.setvelocityX(-500);
+        this.paddle.setVelocityX(-500);
      }
      else if(this.cursors.right.isDown){
-     this.paddle.setvelocityX(500);
+     this.paddle.setVelocityX(500);
      }
      else{
-        this.paddle.setvelocityX(0);
+        this.paddle.setVelocityX(0);
      }
      
      if(this.ball.y > 500){
