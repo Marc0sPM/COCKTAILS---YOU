@@ -22,5 +22,6 @@ export default class EscenaPrueba extends Phaser.Scene{
     }
     update(){
         this.player.update();
+        
     }
 }

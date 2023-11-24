@@ -35,19 +35,22 @@ export default class Boot extends Phaser.Scene{
         this.load.tilemapTiledJSON("barTiled", "./assets/barTiled.json");
         
 
-        /*----- / ANIMACIONES /-----*/
+        /*----- / ANIMACIONES / -----*/
         //Player - idle 
         this.load.spritesheet('player_idleSprite', "./assets/sprites/Player/player_idle.png",
         {frameWidth: 48, frameHeight: 48})   
         //Player - walk
         this.load.spritesheet('player_walkSprite', "./assets/sprites/Player/player_walk.png",
         {frameWidth: 48, frameHeight: 48})   
+
+
+        /*----- / FRASES / -----*/
     }
     create(){
         this.anims.create({
             key: 'player_idle',
             frames: this.anims.generateFrameNames('player_idleSprite', { start: 0, end: 3}),
-            frameRate: 2,
+            frameRate: 7,
             repeat: -1
         });
         this.anims.create({

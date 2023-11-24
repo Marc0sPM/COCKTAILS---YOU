@@ -1,19 +1,17 @@
 import Boot from "./scenes/boot.js";
-
 import A from './scenes/EscenaPrueba.js';
 import MainScene from './scenes/MainSceneAntiguo.js';
 import MainMenu from "./scenes/MainMenu.js";
 import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
-
-
+import barScene from "./scenes/barScene.js";
 
   const config = {
     width: 800,
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout],
+    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
