@@ -5,13 +5,14 @@ export default class Customer extends Phaser.Physics.Arcade.Sprite {
 
       
         scene.add.existing(this);
+        this.setScale(2);
     }
     
     update(){
-        if(y < destinoY) this.setVelocityY(1)
+        if(this.y < this.destinoY) this.setVelocityY(1)
         else this.setVelocityY(0)
     }    
 }
 
 // Crear una instancia de la clase
-var miInstancia = new MiObjeto(scene, x, y, color, numero, informacion, destinoX, destinoY);
+// var miInstancia = new MiObjeto(scene, x, y, color, numero, informacion, destinoX, destinoY);

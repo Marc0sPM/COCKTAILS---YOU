@@ -1,10 +1,10 @@
-
-
+import Player from "./player.js";
+import Customer from "./customer.js"
 export default class barScene extends Phaser.Scene{
     constructor(customersQuantity){
         console.log("constructor")
         // super(/*customersQuantity,*/ {key: "BarScene"});
-        super({key: "BarScene"});
+        super({key: 'barScene'});
         // this.customerSpawn = [{x :300 , y: 600}]
         // this.customerDestiny = [{x: 300, y: 250}]
         // this.playerSpawn = [{x: 500, y:200} ]
@@ -20,10 +20,13 @@ export default class barScene extends Phaser.Scene{
         this.player = new Player(this, 300, 300);
         //se agrega player a escena
         
+        //se agrega customer a la escena
+        this.customer = new Customer(this, 400, 400, 0, 400,0,0)
         console.log("create barScene")
     }
     update(){
         this.player.update();
+        this.customer.update();
         //this.customer.update();
     }
     generateRandomCustomer(){
