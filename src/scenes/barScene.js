@@ -1,5 +1,4 @@
-import Customer from "./customer";
-import Player from "./player";
+
 
 export default class barScene extends Phaser.Scene{
     constructor(customersQuantity){
