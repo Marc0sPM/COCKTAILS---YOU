@@ -21,7 +21,19 @@ class MainMenu extends Phaser.Scene{
             // Carga la escena que desees al hacer clic en el botón
             this.scene.start('EscenaVivuPrueba');   // Volver a poner "A"
         });
-        
+
+
+        // Botón Breakout
+        let buttonBreakout = this.add.image(this.sys.game.config.width/4, 
+        this.sys.game.config.height/2 + this.sys.game.config.height/3, "playButton");
+        buttonBreakout.setScale(0.25);
+        buttonBreakout.setInteractive();
+
+        // Escucha el evento "pointerdown" en el botón
+        button.on("pointerdown", () => {
+            // Carga la escena que desees al hacer clic en el botón
+            this.scene.start('Breakout');   // Volver a poner "A"
+        });
         
     }
 }
