@@ -4,6 +4,7 @@ import A from './scenes/EscenaPrueba.js';
 import MainScene from './scenes/MainSceneAntiguo.js';
 import MainMenu from "./scenes/MainMenu.js";
 import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
+import Breakout from "./Breakout/breakout.js";
 
 
 
@@ -12,7 +13,7 @@ import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba],
+    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
