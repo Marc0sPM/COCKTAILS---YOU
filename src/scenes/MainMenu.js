@@ -15,7 +15,6 @@ class MainMenu extends Phaser.Scene{
 
         // Habilita la interacción con el botón
         button.setInteractive();
-
         // Escucha el evento "pointerdown" en el botón
         button.on("pointerdown", () => {
             // Carga la escena que desees al hacer clic en el botón

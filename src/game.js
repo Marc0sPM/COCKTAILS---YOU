@@ -1,8 +1,8 @@
 import Boot from "./scenes/boot.js";
-
 import A from './scenes/EscenaPrueba.js';
 import MainScene from './scenes/MainSceneAntiguo.js';
 import MainMenu from "./scenes/MainMenu.js";
+import barScene from "./scenes/barScene.js";
 
 
 
@@ -11,7 +11,7 @@ import MainMenu from "./scenes/MainMenu.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene],
+    scene: [Boot, MainMenu, A, MainScene, barScene],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
