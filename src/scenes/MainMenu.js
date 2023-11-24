@@ -40,7 +40,6 @@ class MainMenu extends Phaser.Scene{
         //-------------------------------------------------//
 
 
-
         //-------------------------------------------------//
         // Botón barScene
         let buttonBarScene = this.add.image(this.sys.game.config.width/4 + this.sys.game.config.width/2, 
