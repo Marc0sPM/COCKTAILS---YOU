@@ -45,38 +45,42 @@ export default class Breakout extends Phaser.Scene{
          this.limaCount = 0;
          this.limonCount = 0;
          this.moraCount = 0;
-
+         
          // Frutas disponibles
          const frutas = ['azucar', 'lima', 'limon', 'mora'];
-
+         
          // Crear bloques
-         for (let row = 0; row < blockConfig.rows; row++) {
+         for (let row = 0; row < 4; row++) {
 
-             for (let col = 0; col < blockConfig.cols; col++)
+             for (let col = 0; col < 8; col++)
            {
-              const x = col * blockConfig.width + blockConfig.xOffset;
-              const y = row * blockConfig.height + blockConfig.yOffset;
+              const x = col * this.blockConfig.width + this.blockConfig.xOffset;
+              const y = row * this.blockConfig.height + this.blockConfig.yOffset;
               const block = this.physics.add.image(x, y, 'blocks').setImmovable();
               block.setCollideWorldBounds(true);
               this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
               
               // Asignar fruta aleatoria
-              const randomFruta = Phaser.Math.RND.pick(frutas);
-              block.setData('fruta', randomFruta);
-         //      switch (fruta) {
-         //       case 'azucar':
-         //           this.block.add.image('azucar');
-         //           break;
-         //       case 'lima':
-         //          this.block.add.image('lima,limon');
-         //           break;
-         //       case 'limon':
-         //          this.block.add.image('lima,limon');
-         //           break;
-         //       case 'mora':
-         //          this.block.add.image('mora');
-         //           break;
-         //   }
+               const randomFruta = Phaser.Math.RND.pick(frutas);
+               
+               block.setData('fruta', randomFruta);
+               switch (randomFruta) {
+                    case 'azucar':
+                    const azucar = this.physics.add.image(x, y, 'azucar').setScale(0.1).setImmovable();
+                    this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar));
+                    break;
+                    case 'lima':
+                    case 'limon':
+                    const limon = this.physics.add.image(x, y, 'lima,limon').setScale(0.1).setImmovable();
+                    this.physics.add.collider(this.ball, limon, () => this.handleBlockCollision(limon));
+                    break;
+                    case 'mora':
+                    const mora = this.physics.add.image(x, y, 'mora').setScale(0.1).setImmovable();
+                    this.physics.add.collider(this.ball, mora, () => this.handleBlockCollision(mora));
+                    break;
+               }
+               
+              
               
          }
       }
@@ -89,9 +93,10 @@ export default class Breakout extends Phaser.Scene{
    }
 
   incrementarContadorFruta(fruta) {
-      switch (randomFruta) {
+      switch (fruta) {
           case 'azucar':
               this.azucarCount++;
+              
               break;
           case 'lima':
               this.limaCount++;
@@ -107,8 +112,8 @@ export default class Breakout extends Phaser.Scene{
   createBlocks(){
       // Configuración de los bloques
       const blockConfig = {
-      width: 80,
-      height: 30,
+      width: 20,
+      height: 5,
       cols: 8,
       rows: 4,
       xOffset: 60,
