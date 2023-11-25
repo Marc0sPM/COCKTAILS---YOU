@@ -26,6 +26,9 @@ export default class Boot extends Phaser.Scene{
         this.load.image('ball', '\\assets\\sprites\\breakout\\ball.png');
         this.load.image('blocks', '\\assets\\sprites\\breakout\\blocks.png');
         this.load.image('gameOver', '\\assets\\sprites\\breakout\\gameOver.png');
+        this.load.image('azucar', '\\assets\\sprites\\breakout\\azucar.png');
+        this.load.image('lima,limon', '\\assets\\sprites\\breakout\\lima,limon.png');
+        this.load.image('mora', '\\assets\\sprites\\breakout\\mora.png');
    
 
         // Carga del mapa
