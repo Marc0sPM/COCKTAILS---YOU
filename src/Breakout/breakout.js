@@ -1,6 +1,14 @@
 export default class Breakout extends Phaser.Scene{
     constructor(){
         super({key:'Breakout'});
+        this.blockConfig = {
+         width: 80,
+         height: 30,
+         cols: 8,
+         rows: 4,
+         xOffset: 60,
+         yOffset: 100,
+     };
     }
     create(){
         this.physics.world.setBoundsCollision(true, true, true, false);
@@ -55,22 +63,22 @@ export default class Breakout extends Phaser.Scene{
               // Asignar fruta aleatoria
               const randomFruta = Phaser.Math.RND.pick(frutas);
               block.setData('fruta', randomFruta);
-              switch (fruta) {
-               case 'azucar':
-                   this.block.add.image('azucar');
-                   break;
-               case 'lima':
-                  this.block.add.image('lima,limon');
-                   break;
-               case 'limon':
-                  this.block.add.image('lima,limon');
-                   break;
-               case 'mora':
-                  this.block.add.image('mora');
-                   break;
-           }
+         //      switch (fruta) {
+         //       case 'azucar':
+         //           this.block.add.image('azucar');
+         //           break;
+         //       case 'lima':
+         //          this.block.add.image('lima,limon');
+         //           break;
+         //       case 'limon':
+         //          this.block.add.image('lima,limon');
+         //           break;
+         //       case 'mora':
+         //          this.block.add.image('mora');
+         //           break;
+         //   }
               
-            }
+         }
       }
    }
 
@@ -81,7 +89,7 @@ export default class Breakout extends Phaser.Scene{
    }
 
   incrementarContadorFruta(fruta) {
-      switch (fruta) {
+      switch (randomFruta) {
           case 'azucar':
               this.azucarCount++;
               break;
