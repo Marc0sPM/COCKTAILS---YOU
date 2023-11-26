@@ -37,13 +37,15 @@ export default class EscenaVivuPrueba extends Phaser.Scene{
 
         // Profundidad de las capas
         groundLayer.setDepth(0);
-        wallLayer.setDepth(1);
-        woodLayer.setDepth(2);
-        variousLayer.setDepth(3);
+        wallLayer.setDepth(2);
+        woodLayer.setDepth(3);
+        variousLayer.setDepth(4);
         
-        this.player.setDepth(4);
+        this.player.setDepth(1);
 
         // Colisiones del Player con la escena
+        this.physics.world.enable([wallLayer, woodLayer, variousLayer]);
+        
         this.physics.add.collider(this.player, wallLayer);
         this.physics.add.collider(this.player, woodLayer);
         this.physics.add.collider(this.player, variousLayer);
