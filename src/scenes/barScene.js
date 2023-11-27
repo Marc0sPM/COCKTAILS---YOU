@@ -16,12 +16,14 @@ export default class barScene extends Phaser.Scene{
     create(){
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
+        
         //intancia el player
         this.player = new Player(this, 300, 300);
         //se agrega player a escena
         
-        //se agrega customer a la escena
-        this.customer = new Customer(this, 400, 400, 0, 400,0,0)
+        //algo que espere cierto tiempo entre costumers o para texto de tutorial
+        this.generateRandomCustomer()
+        
         console.log("create barScene")
     }
     update(){
@@ -34,7 +36,7 @@ export default class barScene extends Phaser.Scene{
 
         //Asignacion  de dialogos en base al customer
         this.customerDialog = this.generateRandomDialog() + (4 * this.customerType);
-        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.customerDestiny.x, this.customerDestiny.y)
+        this.customer = new Customer(this, this.x, this.y, this.customerType, this.destinoY)
     }
     generateRandomDialog(){
         return Phaser.Math.Between(1, 4);
