@@ -9,10 +9,11 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
 
-        this.x = 400
-        this.y = 400
+        this.x = x
+        this.y = y
         this.destinoY = 200
-        
+        this.type = type;
+
         this.setScale(2);
         this.speed = 1;
         
