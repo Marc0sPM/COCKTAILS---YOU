@@ -9,24 +9,28 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
 
-        this.x = x
-        this.y = y
+        //ver si queremos crearlos siempre en el mismo sitio-> no hace falta pasarle la posicion y se crea aqui
+        // this.x = x; esto es por si queremos instancialos en distintos lugares
+        // this.y = y;
+        
+        this.x = 400
+        this.y = 400
         this.destinoY = 200
         this.type = type;
 
         this.setScale(2);
-        this.speed = 1;
+        
         
     }
     
     update(){
 
         if(this.y > this.destinoY) {
-            //this.setVelocityY(speed)
+            this.setVelocityY(-200)
             //console.log("me muevo")
         }
         else{
-            //this.setVelocityY(0)
+            this.setVelocityY(0)
             //console.log("no me muevo")
         }    
         
