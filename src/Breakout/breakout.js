@@ -47,38 +47,46 @@ export default class Breakout extends Phaser.Scene{
          this.moraCount = 0;
          
          // Frutas disponibles
-         const frutas = ['azucar', 'lima', 'limon', 'mora'];
-         
+         let fruta = 'azucar';
+         let x;
+         let y;
          // Crear bloques
          for (let row = 0; row < 4; row++) {
 
              for (let col = 0; col < 8; col++)
            {
-              const x = col * this.blockConfig.width + this.blockConfig.xOffset;
-              const y = row * this.blockConfig.height + this.blockConfig.yOffset;
+            // falta hacer los bloques de las frutas 
+               x = col * this.blockConfig.width + this.blockConfig.xOffset;
+               y = row * this.blockConfig.height + this.blockConfig.yOffset;
               const block = this.physics.add.image(x, y, 'blocks').setImmovable();
               block.setCollideWorldBounds(true);
               this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
               
               // Asignar fruta aleatoria
-               const randomFruta = Phaser.Math.RND.pick(frutas);
-               
-               block.setData('fruta', randomFruta);
-               switch (randomFruta) {
-                    case 'azucar':
-                    const azucar = this.physics.add.image(x, y, 'azucar').setScale(0.1).setImmovable();
-                    this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar));
-                    break;
-                    case 'lima':
-                    case 'limon':
-                    const limon = this.physics.add.image(x, y, 'lima,limon').setScale(0.1).setImmovable();
-                    this.physics.add.collider(this.ball, limon, () => this.handleBlockCollision(limon));
-                    break;
-                    case 'mora':
-                    const mora = this.physics.add.image(x, y, 'mora').setScale(0.1).setImmovable();
-                    this.physics.add.collider(this.ball, mora, () => this.handleBlockCollision(mora));
-                    break;
-               }
+              if(col == 0){
+                let rnd = Phaser.Math.Between(0, 7);
+                col = col + rnd;
+                x = col * this.blockConfig.width + this.blockConfig.xOffset;
+                //frutas.splice(1,randomFruta);
+                switch (fruta) {
+                     case 'azucar':
+                     const azucar = this.physics.add.image(x, y, 'azucar').setScale(0.1).setImmovable();
+                     this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar));
+                     break;
+                     case 'lima':
+                     case 'limon':
+                     const limon = this.physics.add.image(x, y, 'lima,limon').setScale(0.1).setImmovable();
+                     this.physics.add.collider(this.ball, limon, () => this.handleBlockCollision(limon));
+                     break;
+                     case 'mora':
+                     const mora = this.physics.add.image(x, y, 'mora').setScale(0.1).setImmovable();
+                     this.physics.add.collider(this.ball, mora, () => this.handleBlockCollision(mora));
+                     break;
+                }
+                col = 0;
+              }
+              
+              
                
               
               
