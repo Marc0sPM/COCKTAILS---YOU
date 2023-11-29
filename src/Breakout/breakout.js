@@ -13,8 +13,11 @@ export default class Breakout extends Phaser.Scene{
     create(){
         this.physics.world.setBoundsCollision(true, true, true, false);
         this.add.image(400, 250, 'backgroundBreakout');
-        this.gameoverImage = this.add.image(400, 90, 'gameOver');
+        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
         this.gameoverImage.visible = false;
+
+        this.win = this.add.image(400, 300, 'win').setScale(0.8);
+        this.win.visible = false;
 
         //barra
         this.paddle = this.physics.add.image(400, 560, 'paddle').setImmovable();
@@ -42,9 +45,9 @@ export default class Breakout extends Phaser.Scene{
 
          // Contadores de frutas
          this.azucarCount = 0;
-         this.limaCount = 0;
-         this.limonCount = 0;
-         this.moraCount = 0;
+         this.limaCount = 1;
+         this.limonCount = 1;
+         this.moraCount = 1;
          
          // Frutas disponibles
          let fruta;
@@ -59,34 +62,41 @@ export default class Breakout extends Phaser.Scene{
 
              for (col = 0; col < 8; col++)
                {
-                     x = (col * this.blockConfig.width +55) + this.blockConfig.xOffset;
+                     x = (col * this.blockConfig.width +58) + this.blockConfig.xOffset;
                      y = row * this.blockConfig.height + this.blockConfig.yOffset;
                      const block = this.physics.add.image(x, y, 'block').setImmovable();
-                     block.setCollideWorldBounds(true);
+                     block.tipo = 'normal'; 
                      this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
                }              
                 
               // Asignar fruta aleatoria
                 let rnd = Phaser.Math.Between(0, 7);
                 col = rnd;
-                x = (col *this.blockConfig.width+55)+ this.blockConfig.xOffset;
+                x = (col *this.blockConfig.width+58)+ this.blockConfig.xOffset;
                 y = row * this.blockConfig.height + this.blockConfig.yOffset;
                 switch (fruta) {
                      case 'azucar':
+                        this.azucarCount++;
                      const azucar = this.physics.add.image(x, y, 'blockazucar').setImmovable();
+                     //block.tipo = 'fruta'; 
                      this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar));
-                     azucar.setCollideWorldBounds(true);
                      break;
                      case 'lima':
+                        this.limaCount++;
                      const lima = this.physics.add.image(x, y, 'blocklima').setScale(0.1).setImmovable();
+                     //block.tipo = 'fruta'; 
                      this.physics.add.collider(this.ball, lima, () => this.handleBlockCollision(lima));
                       break;
                      case 'limon':
+                        this.limonCount++;
                      const limon = this.physics.add.image(x, y, 'blocklimon').setScale(0.1).setImmovable();
+                     //block.tipo = 'fruta'; 
                      this.physics.add.collider(this.ball, limon, () => this.handleBlockCollision(limon));
                      break;
                      case 'mora':
+                        this.moraCount++;
                      const mora = this.physics.add.image(x, y, 'blockmora').setScale(0.1).setImmovable();
+                     //block.tipo = 'fruta'; 
                      this.physics.add.collider(this.ball, mora, () => this.handleBlockCollision(mora));
                      break;
                 }
@@ -99,25 +109,29 @@ export default class Breakout extends Phaser.Scene{
    
 
   handleBlockCollision(block) {
-      const fruta = block.getData('fruta');
-      block.destroy(); // Romper el bloque
-      this.incrementarContadorFruta(fruta);
+    //   if(//poner el tipo del bloque sin que de fallo){
+    //     block.destroy();
+    //   }
+    //   else{}
+        block.destroy(); // Romper el bloque
+        this.decrementarContadorFruta(fruta);
+      
    }
 
-  incrementarContadorFruta(fruta) {
+  decrementarContadorFruta(fruta) {
       switch (fruta) {
           case 'azucar':
-              this.azucarCount++;
+              this.azucarCount--;
               
               break;
           case 'lima':
-              this.limaCount++;
+              this.limaCount--;
               break;
           case 'limon':
-              this.limonCount++;
+              this.limonCount--;
               break;
           case 'mora':
-              this.moraCount++;
+              this.moraCount--;
               break;
       }
   }
@@ -132,6 +146,7 @@ export default class Breakout extends Phaser.Scene{
       yOffset: 100,
    }
   }
+  //cambiar el mainmenu por la escena necesaria.
    update(){
      if(this.cursors.left.isDown){
         this.paddle.setVelocityX(-500);
@@ -146,6 +161,13 @@ export default class Breakout extends Phaser.Scene{
      if(this.ball.y > 700){
         this.gameoverImage.visible = true;
         this.scene.pause();
+        //setTimeout(this.scene.start('MainMenu'), 3000);
+     }
+     if(this.azucarCount == 0||this.limaCount == 0 ||this.limonCount == 0 ||this.mora == 0){
+        this.win.visible = true;
+        this.scene.pause();
+        //setTimeout(this.scene.start('MainMenu'), 3000);
+        
      }
    }
    

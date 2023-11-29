@@ -30,6 +30,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('blocklima', '\\assets\\sprites\\breakout\\blocklima.png');
         this.load.image('blocklimon', '\\assets\\sprites\\breakout\\blocklimon.png');
         this.load.image('blockazucar', '\\assets\\sprites\\breakout\\blockazucar.png');
+        this.load.image('win', '\\assets\\sprites\\breakout\\win.png');
 
         // Carga del mapa
         this.load.image("floor", "./assets/sprites/floorTiles.png");
