@@ -28,7 +28,7 @@ export default class Breakout extends Phaser.Scene{
          if(Phaser.Math.Between(0,10) > 5){
           velocity = 0- velocity;
          }
-        this.ball.setVelocity(velocity,120);
+        this.ball.setVelocity(velocity,125);
 
         //movimiento con cursores
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -47,52 +47,56 @@ export default class Breakout extends Phaser.Scene{
          this.moraCount = 0;
          
          // Frutas disponibles
-         let fruta = 'azucar';
+         let fruta;
+         if(fruta == null){
+            fruta = 'azucar';
+         }
          let x;
          let y;
+         let col;
          // Crear bloques
          for (let row = 0; row < 4; row++) {
 
-             for (let col = 0; col < 8; col++)
-           {
-            // falta hacer los bloques de las frutas 
-               x = col * this.blockConfig.width + this.blockConfig.xOffset;
-               y = row * this.blockConfig.height + this.blockConfig.yOffset;
-              const block = this.physics.add.image(x, y, 'blocks').setImmovable();
-              block.setCollideWorldBounds(true);
-              this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
-              
+             for (col = 0; col < 8; col++)
+               {
+                     x = (col * this.blockConfig.width +55) + this.blockConfig.xOffset;
+                     y = row * this.blockConfig.height + this.blockConfig.yOffset;
+                     const block = this.physics.add.image(x, y, 'block').setImmovable();
+                     block.setCollideWorldBounds(true);
+                     this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
+               }              
+                
               // Asignar fruta aleatoria
-              if(col == 0){
                 let rnd = Phaser.Math.Between(0, 7);
-                col = col + rnd;
-                x = col * this.blockConfig.width + this.blockConfig.xOffset;
-                //frutas.splice(1,randomFruta);
+                col = rnd;
+                x = (col *this.blockConfig.width+55)+ this.blockConfig.xOffset;
+                y = row * this.blockConfig.height + this.blockConfig.yOffset;
                 switch (fruta) {
                      case 'azucar':
-                     const azucar = this.physics.add.image(x, y, 'azucar').setScale(0.1).setImmovable();
+                     const azucar = this.physics.add.image(x, y, 'blockazucar').setImmovable();
                      this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar));
+                     azucar.setCollideWorldBounds(true);
                      break;
                      case 'lima':
+                     const lima = this.physics.add.image(x, y, 'blocklima').setScale(0.1).setImmovable();
+                     this.physics.add.collider(this.ball, lima, () => this.handleBlockCollision(lima));
+                      break;
                      case 'limon':
-                     const limon = this.physics.add.image(x, y, 'lima,limon').setScale(0.1).setImmovable();
+                     const limon = this.physics.add.image(x, y, 'blocklimon').setScale(0.1).setImmovable();
                      this.physics.add.collider(this.ball, limon, () => this.handleBlockCollision(limon));
                      break;
                      case 'mora':
-                     const mora = this.physics.add.image(x, y, 'mora').setScale(0.1).setImmovable();
+                     const mora = this.physics.add.image(x, y, 'blockmora').setScale(0.1).setImmovable();
                      this.physics.add.collider(this.ball, mora, () => this.handleBlockCollision(mora));
                      break;
                 }
-                col = 0;
-              }
-              
-              
+                
+                
                
-              
-              
-         }
-      }
-   }
+               
+        }
+    }
+   
 
   handleBlockCollision(block) {
       const fruta = block.getData('fruta');
