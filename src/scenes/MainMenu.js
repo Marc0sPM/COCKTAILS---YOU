@@ -21,7 +21,7 @@ class MainMenu extends Phaser.Scene{
         // Escucha el evento "pointerdown" en el botón
         button.on("pointerdown", () => {
             // Carga la escena que desees al hacer clic en el botón
-            this.scene.start('EscenaVivuPrueba');   // Volver a poner "A"
+            this.scene.start('Hielos');   // Volver a poner "A"
         });
         //-------------------------------------------------//
 
