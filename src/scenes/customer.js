@@ -3,8 +3,11 @@
 
 // Definir la clase
 export default class Costumer extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y, type, destinoY) {
-        super(scene, x, y, type, destinoY, {key:'customer'}); 
+    constructor(scene, x, y, type,dialogue, destinoY) {
+        super(scene, x, y, {key:'customer'}); 
+        this.type = type;
+        this.dialogue = dialogue
+        this.destinoY = destinoY
 
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
