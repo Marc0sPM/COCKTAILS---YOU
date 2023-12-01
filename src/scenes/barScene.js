@@ -11,9 +11,10 @@ export default class barScene extends Phaser.Scene {
         // this.customerDestiny = [{x: 300, y: 250}]
         // this.playerSpawn = [{x: 500, y:200} ]
         // console.log("constructor termina")
+        this.showDialogueOnce = false;
     }
     preload() {
-        console.log("preload barScene")
+        
     }
     create() {
         //Se agregan fisicas a la escena
@@ -26,7 +27,7 @@ export default class barScene extends Phaser.Scene {
         //algo que espere cierto tiempo entre costumers o para texto de tutorial
         this.generateRandomCustomer()
 
-        console.log("create barScene")
+       
     }
     update() {
         this.player.update();
@@ -36,17 +37,21 @@ export default class barScene extends Phaser.Scene {
 
         const availableTypes = Object.keys(dialogues);
         this.customerType = availableTypes[Phaser.Math.Between(0, availableTypes.length)];
-        console.log(this.customerType);
+        
 
         const possibleDialogues = dialogues[this.customerType];
         this.dialogue = possibleDialogues[Phaser.Math.Between(0, possibleDialogues.length)];
-        console.log(this.dialogue);
+        
         
         this.customer = new Customer(this, this.x, this.y, this.customerType, this.dialogue, this.destinoY)
     }
+    
     showDialogue(){
-        console.log("llama a dialogue");
-        this.add.text(this.dialogue)
-
+        if(this.showDialogueOnce == false){
+            console.log(this.dialogue)
+            console.log(this.customerType)
+            this.showDialogueOnce = true;
+        }
+       
     }
 }
