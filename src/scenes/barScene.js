@@ -1,6 +1,7 @@
 import Player from "./player.js";
 import Customer from "./customer.js"
-import { dialogues } from "./../Dialogs.js"
+import { dialogues } from "../Dialogues.js";
+
 export default class barScene extends Phaser.Scene {
     constructor(customersQuantity) {
         console.log("constructor")
@@ -30,16 +31,22 @@ export default class barScene extends Phaser.Scene {
     update() {
         this.player.update();
         this.customer.update();
-        //this.customer.update();
     }
     generateRandomCustomer() {
 
-        const availableTypes = Object.keys(dialogues)
+        const availableTypes = Object.keys(dialogues);
         this.customerType = availableTypes[Phaser.Math.Between(0, availableTypes.length)];
+        console.log(this.customerType);
 
         const possibleDialogues = dialogues[this.customerType];
         this.dialogue = possibleDialogues[Phaser.Math.Between(0, possibleDialogues.length)];
+        console.log(this.dialogue);
         
         this.customer = new Customer(this, this.x, this.y, this.customerType, this.dialogue, this.destinoY)
+    }
+    showDialogue(){
+        console.log("llama a dialogue");
+        this.add.text(this.dialogue)
+
     }
 }

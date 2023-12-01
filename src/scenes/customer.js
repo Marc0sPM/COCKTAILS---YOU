@@ -34,6 +34,7 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         }
         else{
             this.setVelocityY(0)
+            this.scene.showDialogue()
             //console.log("no me muevo")
         }    
         
