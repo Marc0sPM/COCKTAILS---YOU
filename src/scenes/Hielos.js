@@ -30,8 +30,9 @@ export default class Hielos extends Phaser.Scene {
         this.physics.add.collider(this.cube, this.target, this.onCollision, null, this);
 
         // Texto para mostrar cuando se completa la colisión
-        this.completionText = this.add.text(this.sys.game.config.width/2, this.sys.game.config.height/2, 'Completado', { fontSize: '32px', fill: '#fff' });
+        this.completionText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Completado', { fontSize: '32px', fill: '#fff' });
         this.completionText.setOrigin(0.5); // Establecer el origen en el centro para centrar el texto
+        this.completionText.setVisible(false); // Inicialmente, oculta el texto
 
         console.log('create Hielos');
     }
@@ -69,8 +70,13 @@ export default class Hielos extends Phaser.Scene {
         if (!this.completionText.visible) {
             // Manejar la colisión entre el hielo y el objetivo
             this.completionText.setVisible(true);
-            // Puedes agregar lógica adicional aquí, como reiniciar el nivel, etc.
+
+            // Ocultar el texto después de un tiempo
+            this.time.delayedCall(2000, () => {
+                this.completionText.setVisible(false);
+            }, null, this);
+
+            // Enviar al GameManager minijuego completado
         }
     }
-    
 }
