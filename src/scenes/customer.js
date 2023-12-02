@@ -16,9 +16,6 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         // this.x = x; esto es por si queremos instancialos en distintos lugares
         // this.y = y;
         
-        this.x = 400
-        this.y = 400
-        this.destinoY = 200
         this.type = type;
 
         this.setScale(2);
