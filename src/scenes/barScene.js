@@ -5,12 +5,14 @@ import { dialogues } from "../Dialogues.js";
 export default class barScene extends Phaser.Scene {
     constructor(customersQuantity) {
         console.log("constructor")
-        // super(/*customersQuantity,*/ {key: "BarScene"});
+        // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
         super({ key: 'barScene' });
         this.customerSpawn = {x :400 , y: 600}
         this.customerDestiny = {x: 300, y: 250}
-        // this.playerSpawn = [{x: 500, y:200} ]
-        // console.log("constructor termina")
+
+        //Cabiar cuando tenga el tile map hecho ;P
+        this.cloudPos = {x: 500, y: 500}
+
         this.showDialogueOnce = false;
     }
     preload() {
@@ -51,15 +53,14 @@ export default class barScene extends Phaser.Scene {
     
     showDialogue(){
         if(this.showDialogueOnce == false){
-            // console.log(this.dialogue)
-            // console.log(this.customerType)
             this.printDialogue();
             this.showDialogueOnce = true;
         }
-       
+
     }
     printDialogue(){
-        this.dialogueCloud = this.add.image(500, 500, 'dialogueCloude')
+        //Poner
+        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude')
         this.dialogueCloud.setScale(1.5)
         this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y - (this.dialogueCloud.height/6),
                                                 this.dialogueCloud.width/1.05, this.dialogueCloud.height/1.3)
