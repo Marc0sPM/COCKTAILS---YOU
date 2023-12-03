@@ -9,6 +9,9 @@ export default class Hielos extends Phaser.Scene {
     }
 
     create() {
+        // Background
+        let background = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "backgroundIce");
+        
         // Configurar jugador (Cubo de hielo)
         this.cube = new icecube(this, 300, 300);
 
@@ -20,6 +23,7 @@ export default class Hielos extends Phaser.Scene {
         // Físicas en la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.physics.world.enable([this.cube, this.target]);
+
 
         // Asegurar que el jugador no salga de los límites del mundo
         this.cube.setCollideWorldBounds(true);
