@@ -1,39 +1,76 @@
+import Player from "./player.js";
+import Customer from "./customer.js"
+import { dialogues } from "../Dialogues.js";
 
-
-export default class barScene extends Phaser.Scene{
-    constructor(customersQuantity){
+export default class barScene extends Phaser.Scene {
+    constructor(customersQuantity) {
         console.log("constructor")
-        // super(/*customersQuantity,*/ {key: "BarScene"});
-        super({key: "BarScene"});
-        // this.customerSpawn = [{x :300 , y: 600}]
-        // this.customerDestiny = [{x: 300, y: 250}]
-        // this.playerSpawn = [{x: 500, y:200} ]
-        // console.log("constructor termina")
+        // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
+        super({ key: 'barScene' });
+        this.customerSpawn = {x :400 , y: 600}
+        this.customerDestiny = {x: 300, y: 250}
+
+        //Cabiar cuando tenga el tile map hecho ;P
+        this.cloudPos = {x: 500, y: 500}
+
+        this.showDialogueOnce = false;
     }
-    preload(){
-        console.log("preload barScene")
+    preload() {
+        //temporal, pasar  luego a  boot
+        this.load.image('dialogueCloude', './assets/sprites/cloud.png')
     }
-    create(){
+    create() {
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
+
         //intancia el player
         this.player = new Player(this, 300, 300);
-        //se agrega player a escena
         
-        console.log("create barScene")
-    }
-    update(){
-        this.player.update();
-        //this.customer.update();
-    }
-    generateRandomCustomer(){
-        this.customerType = Phaser.Math.Between(0, 3);
+        //algo que espere cierto tiempo entre costumers o para texto de tutorial
+        this.generateRandomCustomer()
 
-        //Asignacion  de dialogos en base al customer
-        this.customerDialog = this.generateRandomDialog() + (4 * this.customerType);
-        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.customerDestiny.x, this.customerDestiny.y)
+        console.log(this.customerType)
+        console.log(this.dialogue)
     }
-    generateRandomDialog(){
-        return Phaser.Math.Between(1, 4);
+    update() {
+        this.player.update();
+        this.customer.update();
     }
+
+
+    generateRandomCustomer() {
+
+        const availableTypes = Object.keys(dialogues);
+        this.customerType = Phaser.Math.RND.pick(availableTypes);
+
+        const possibleDialogues = dialogues[this.customerType];
+        this.dialogue = Phaser.Math.RND.pick(possibleDialogues);
+        
+        
+        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.dialogue, this.customerDestiny.y)
+        
+    }
+    
+    showDialogue(){
+        if(this.showDialogueOnce == false){
+            this.printDialogue();
+            this.showDialogueOnce = true;
+        }
+
+    }
+    printDialogue(){
+        //Poner
+        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude')
+        this.dialogueCloud.setScale(1.5)
+        this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y - (this.dialogueCloud.height/6),
+                                                this.dialogueCloud.width/1.05, this.dialogueCloud.height/1.3)
+        var texto = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { fontFamily: 'Arial', fontSize: 32, color: '#000000' });
+
+        // Centrar el texto
+        texto.setOrigin(0.5, 0.5);
+    
+        // Ajustar el ancho del texto para que quepa en el rectángulo
+        texto.setWordWrapWidth(this.dialogueRect.width);
+    }
+    
 }

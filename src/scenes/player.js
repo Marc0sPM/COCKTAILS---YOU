@@ -1,5 +1,6 @@
 let lookingRight = true;
 
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, { key: 'player' });
@@ -7,9 +8,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.world.enable(this);
         this.setScale(2);
 
+
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(48, 48);
-
         this.cursors = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,

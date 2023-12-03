@@ -19,7 +19,8 @@ export default class Boot extends Phaser.Scene{
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
-
+        this.load.image("customers", "./assets/sprites/PersonajeMovPrueba.png");
+        
         //carga sprites breakout
         this.load.image('backgroundBreakout', '\\assets\\sprites\\breakout\\background.png');
         this.load.image('paddle', '\\assets\\sprites\\breakout\\paddle.png');

@@ -1,17 +1,42 @@
-// Definir la clase
-export default class Customer extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, type, destinoX, destinoY) {
-        super(scene, x, y, type, destinoX, destinoY, {key:'customer'}); 
 
-      
-        scene.add.existing(this);
+
+
+// Definir la clase
+export default class Costumer extends Phaser.Physics.Arcade.Sprite{
+    constructor(scene, x, y, type,dialogue, destinoY) {
+        super(scene, x, y, {key:'customer'}); 
+        this.type = type;
+        this.dialogue = dialogue
+        this.destinoY = destinoY
+
+        this.scene.add.existing(this);
+        this.scene.physics.world.enable(this);
+
+        //ver si queremos crearlos siempre en el mismo sitio-> no hace falta pasarle la posicion y se crea aqui
+        // this.x = x; esto es por si queremos instancialos en distintos lugares
+        // this.y = y;
+        
+        this.type = type;
+
+        this.setScale(2);
+        
+        
     }
     
     update(){
-        if(y < destinoY) this.setVelocityY(1)
-        else this.setVelocityY(0)
+
+        if(this.y > this.destinoY) {
+            this.setVelocityY(-200)
+            //console.log("me muevo")
+        }
+        else{
+            this.setVelocityY(0)
+            this.scene.showDialogue()
+            //console.log("no me muevo")
+        }    
+        
     }    
 }
 
 // Crear una instancia de la clase
-var miInstancia = new MiObjeto(scene, x, y, color, numero, informacion, destinoX, destinoY);
+// var miInstancia = new MiObjeto(scene, x, y, color, numero, informacion, destinoX, destinoY);
