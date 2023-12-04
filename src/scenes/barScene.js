@@ -17,7 +17,7 @@ export default class barScene extends Phaser.Scene {
     }
     preload() {
         //temporal, pasar  luego a  boot
-        this.load.image('dialogueCloude', './assets/sprites/cloud.png')
+     
     }
     create() {
         //Se agregan fisicas a la escena

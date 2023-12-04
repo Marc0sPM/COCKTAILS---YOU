@@ -7,12 +7,7 @@ export default class Boot extends Phaser.Scene{
     preload(){
         console.log("Preload de Bootloader")
 
-        // this.load.on("complete", ()=>{
-        //     // Iniciamos la escena para probar sprites
-        //     this.scene.start("MainMenu");
-        // })
-
-        //Cargamos sprites
+        /*----- / SPRITES / -----*/
         this.load.image("cursor", "./assets/cursor.png");
         this.load.image("playerPrueba", "./assets/sprites/PersonajeMovPrueba.png");
         this.load.image("background", "./assets/sprites/FondoTemporal.jpg");
@@ -20,26 +15,27 @@ export default class Boot extends Phaser.Scene{
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image("customers", "./assets/sprites/PersonajeMovPrueba.png");
+        this.load.image('dialogueCloude', './assets/sprites/cloud.png')
         
-        //carga sprites breakout
+        /*----- / BREAKOUT / -----*/
         this.load.image('backgroundBreakout', '\\assets\\sprites\\breakout\\background.png');
         this.load.image('paddle', '\\assets\\sprites\\breakout\\paddle.png');
         this.load.image('ball', '\\assets\\sprites\\breakout\\ball.png');
         this.load.image('blocks', '\\assets\\sprites\\breakout\\blocks.png');
         this.load.image('gameOver', '\\assets\\sprites\\breakout\\gameOver.png');
    
-        // Cargamos sprites TigerBall
+        /*----- / TIGERBALL / -----*/
         this.load.image("icecube", "./assets/sprites/TigerBall/Icecube.png");
         this.load.image("cubitera", "./assets/sprites/TigerBall/Cubito.jpg");
 
-        // Carga del mapa
+        /*----- / MAPA / -----*/
         this.load.image("floor", "./assets/sprites/floorTiles.png");
         this.load.image("barObjects", "./assets/sprites/tilesetBar.png");
 
         this.load.tilemapTiledJSON("barTiled", "./assets/barTiled.json");
         
 
-        /*----- / ANIMACIONES / -----*/
+        /*----- / PLAYER / -----*/
         //Player - idle 
         this.load.spritesheet('player_idleSprite', "./assets/sprites/Player/player_idle.png",
         {frameWidth: 48, frameHeight: 48})   
@@ -48,9 +44,11 @@ export default class Boot extends Phaser.Scene{
         {frameWidth: 48, frameHeight: 48})   
 
 
-        /*----- / FRASES / -----*/
+       
     }
     create(){
+
+        /*----- / ANIMACIONES / -----*/
         this.anims.create({
             key: 'player_idle',
             frames: this.anims.generateFrameNames('player_idleSprite', { start: 0, end: 3}),
