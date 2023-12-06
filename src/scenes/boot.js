@@ -21,7 +21,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('backgroundBreakout', '\\assets\\sprites\\breakout\\background.png');
         this.load.image('paddle', '\\assets\\sprites\\breakout\\paddle.png');
         this.load.image('ball', '\\assets\\sprites\\breakout\\ball.png');
-        this.load.image('blocks', '\\assets\\sprites\\breakout\\blocks.png');
+        this.load.image('block', '\\assets\\sprites\\breakout\\block.png');
         this.load.image('gameOver', '\\assets\\sprites\\breakout\\gameOver.png');
    
         /*----- / TIGERBALL / -----*/

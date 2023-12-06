@@ -11,5 +11,6 @@ const config = {
             debug: false,
         }
     }
+    
 }
 var game = new Phaser.game(config)
