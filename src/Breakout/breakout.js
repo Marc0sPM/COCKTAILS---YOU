@@ -14,7 +14,7 @@ export default class Breakout extends Phaser.Scene {
    }
 
    create() {
-       this.physics.world.setBoundsCollision(true, true, true, true);
+       this.physics.world.setBoundsCollision(true, true, true, false);
        this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
        this.gameoverImage.visible = false;
@@ -55,31 +55,36 @@ export default class Breakout extends Phaser.Scene {
        }
        let x;
        let y;
+       let xf;
+       let yf;
        let col;
        // Crear bloques
        for (let row = 0; row < 4; row++) {
-           for (col = 0; col < 8; col++) {
-               x = (col * this.blockConfig.width+56) + this.blockConfig.xOffset;
-               y = (row * this.blockConfig.height-80) + this.blockConfig.yOffset;
-               const block = this.physics.add.image(x, y, 'block').setImmovable();
-               this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
-           }
-
-           // Asignar fruta aleatoria
-           let rnd = Phaser.Math.Between(0, 7);
+        let rnd = Phaser.Math.Between(0, 7);
            col = rnd;
-           x = (col * this.blockConfig.width+56) + this.blockConfig.xOffset;
-           y = (row * this.blockConfig.height-80) + this.blockConfig.yOffset;
+           xf = (col * this.blockConfig.width+56) + this.blockConfig.xOffset;
+           yf = (row * this.blockConfig.height-80) + this.blockConfig.yOffset;
            switch (fruta) {
                case 'azucar':
-                   const azucar = this.physics.add.image(x, y, 'blockazucar').setImmovable();
+                   const azucar = this.physics.add.image(xf, yf, 'blockazucar').setImmovable();
                    this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar,fruta));
                    break;
                case 'hierbabuena':
-                   const hierbabuena = this.physics.add.image(x, y, 'blockhierbabuena').setImmovable();
+                   const hierbabuena = this.physics.add.image(xf, yf, 'blockhierbabuena').setImmovable();
                    this.physics.add.collider(this.ball, hierbabuena, () => this.handleBlockCollision(hierbabuena,fruta));
                    break;
            }
+           for (col = 0; col < 8; col++) {
+               x = (col * this.blockConfig.width+56) + this.blockConfig.xOffset;
+               y = (row * this.blockConfig.height-80) + this.blockConfig.yOffset;
+               if(x != xf || y != yf){
+                const block = this.physics.add.image(x, y, 'block').setImmovable();
+                this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
+               }
+           }
+
+           // Asignar fruta aleatoria
+           
        }
    }
 
