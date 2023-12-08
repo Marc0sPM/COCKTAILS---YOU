@@ -7,17 +7,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.setScale(2);
+        
 
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
-        this.body.setSize(48, 48);
+        this.body.setSize(20, 40)
+        this.body.setOffset(5, 10)
         this.cursors = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
-
+        
+       
         // Velocidad del jugador
         this.speed = 200;
     }
@@ -39,6 +42,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (lookingRight) {
                 lookingRight = false;
                 this.setFlipX(true);
+                this.body.setOffset(20, 10)
                 this.x -= 48; // Ajusta según el tamaño del sprite
             }
         } else if (this.cursors.right.isDown) {
@@ -47,6 +51,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (!lookingRight) {
                 lookingRight = true;
                 this.setFlipX(false);
+                this.body.setOffset(5, 10)
                 this.x += 48; // Ajusta según el tamaño del sprite
             }
         } else {

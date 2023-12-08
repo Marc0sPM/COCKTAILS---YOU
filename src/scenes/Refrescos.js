@@ -32,9 +32,10 @@ export default class Refrescos extends Phaser.Scene{
             case 'orange': this.refresco = this.physics.add.image(400, 400, 'orange'); 
             break;
         }
-        this.refresco.setScale(0.1)
         
-
+        this.refresco.setScale(0.1)
+        this.refresco.setSize(400, 800 )
+        this.refresco.setOffset(225, 0)
        //fisica 
        this.physics.add.collider(this.Player, this.refresco, this.handleColision);
        this.spaceKey;
@@ -51,7 +52,7 @@ export default class Refrescos extends Phaser.Scene{
 
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
-            // Aquí puedes hacer algo cuando se alcanza el número deseado, por ejemplo, pasar al siguiente nivel.
+            //cambiar de escena y eso
             console.log('¡Has alcanzado el número necesario de refrescos!');
         }
     }
