@@ -38,6 +38,13 @@ export default class Boot extends Phaser.Scene{
 
         this.load.tilemapTiledJSON("barTiled", "./assets/barTiled.json");
         
+        /*----- / REFRESCOS / -----*/
+        this.load.image("coke", "./assets/sprites/Refrescos/Coke.png");
+        this.load.image("blue", "./assets/sprites/Refrescos/Blue.png");
+        this.load.image("lemon", "./assets/sprites/Refrescos/Lemon.png");
+        this.load.image("orange", "./assets/sprites/Refrescos/Orange.png");
+        this.load.image("estante", "./assets/sprites/Refrescos/Estante.png");
+        this.load.image("contador", "./assets/sprites/Refrescos/contador.png");
 
         /*----- / PLAYER / -----*/
         //Player - idle 
