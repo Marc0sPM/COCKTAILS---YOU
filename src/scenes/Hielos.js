@@ -10,23 +10,19 @@ export default class Hielos extends Phaser.Scene {
 
     create() {
         // Background
-        let background = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "backgroundIce");
-        
-        // Configurar jugador (Cubo de hielo)
-        this.cube = new icecube(this, 300, 300);
+        let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
 
-        // Configurar la cubitera (Canasta)
+        // Configurar la canasta
         this.target = this.add.sprite(800, 200, 'cubitera');
         this.target.setScale(0.25);
         this.target.setRotation(Phaser.Math.DegToRad(300));
 
-        // Físicas en la escena
-        this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
-        this.physics.world.enable([this.cube, this.target]);
+        this.physics.world.enable([this.target]);
+        this.target.body.setAllowGravity(false);
+        this.target.body.setImmovable(true);
 
-
-        // Asegurar que el jugador no salga de los límites del mundo
-        this.cube.setCollideWorldBounds(true);
+        // Crear el cubo de hielo
+        this.createCube();
 
         // Configurar eventos del ratón
         this.input.on('pointerdown', this.onPointerDown, this);
@@ -37,7 +33,7 @@ export default class Hielos extends Phaser.Scene {
 
         // Texto para mostrar cuando se completa la colisión
         this.completionText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Completado',
-                                           { fontSize: '32px', fill: '#fff' });
+            { fontSize: '32px', fill: '#fff' });
         this.completionText.setOrigin(0.5); // Establecer el origen en el centro
         this.completionText.setVisible(false); // Inicialmente ocultamos el texto
 
@@ -50,9 +46,23 @@ export default class Hielos extends Phaser.Scene {
     update() {
         if (this.isDragging && !this.isCubeLaunched) {
             // Mover el cubo a la posición del ratón durante el arrastre
-            // Habrá que añadir un área máxima donde se pueda arrastrar
             this.cube.x = this.input.x;
             this.cube.y = this.input.y;
+        }
+
+        // Verificar si el cubo está fuera de los límites del mundo
+        if (this.isCubeLaunched && 
+            (this.cube.y > this.sys.game.config.height) ||
+            (this.cube.y < 0) ||
+            (this.cube.x > this.sys.game.config.width) ||
+            (this.cube.x < 0)) {
+
+            // Hacer una pausa de 1 segundo antes de destruir y volver a crear el cubo
+            this.time.delayedCall(1000, () => {
+                this.destroyCube();
+                this.createCube();
+                this.isCubeLaunched = false;
+            }, null, this);
         }
     }
 
@@ -77,16 +87,29 @@ export default class Hielos extends Phaser.Scene {
 
             // Agregar gravedad para simular el tiro parabólico
             this.physics.world.gravity.y = 800;
+        }
+    }
 
-            // Configurar la canasta para que no tenga gravedad pq sino se caía :(
-            this.target.body.setAllowGravity(false);
+    createCube() {
+        this.cube = new icecube(this, 50, Phaser.Math.Between(100, this.sys.game.config.height - 100));
+        this.physics.world.enable([this.cube]); // Habilitar físicas para el cubo
+        this.cube.setCollideWorldBounds(true); // SI SE PONE A FALSE SALE DEL MUNDO Y VUELVE A REAPARECER RARISIMO
+                                               // SI ESTA A FALSE NO HAY COLISIONES CON LA CANASTA
+        this.cube.body.setAllowGravity(true);
+        this.cube.setVelocity(0, 0); // Establecer la velocidad inicial a cero
+    }
+
+    destroyCube() {
+        // Destruir el cubo actual
+        if (this.cube) {
+            this.cube.destroy();
         }
     }
 
     checkCollision(spriteA, spriteB) {
         var boundsA = spriteA.getBounds();
         var boundsB = spriteB.getBounds();
-        // Si se hay colisión entre el sprite A y el B devuelve true
+        // Si hay colisión entre el sprite A y el B, devuelve true
         return Phaser.Geom.Rectangle.Intersection(boundsA, boundsB);
     }
 
@@ -95,12 +118,13 @@ export default class Hielos extends Phaser.Scene {
         if (!this.completionText.visible && this.isCubeLaunched) {
             // Verificar si hay colisión entre el hielo y la canasta
             if (this.checkCollision(this.cube, this.target)) {
-                
                 this.completionText.setVisible(true);
 
                 // Ocultar el texto después de un tiempo
                 this.time.delayedCall(2000, () => {
                     this.completionText.setVisible(false);
+                    // Reiniciar la escena para volver a intentarlo
+                    this.scene.restart();
                 }, null, this);
 
                 // Enviar al GameManager minijuego completado
