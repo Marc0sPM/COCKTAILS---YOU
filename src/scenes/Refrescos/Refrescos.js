@@ -1,5 +1,4 @@
-import Player from "../player.js";
-
+import PlayerRefrescos from "./PlayerRefrescos.js";
 export default class Refrescos extends Phaser.Scene {
     constructor() {
         super({ key: 'refrescos' })
@@ -10,8 +9,8 @@ export default class Refrescos extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.physics.world.setBoundsCollision(true, true, true, true);
         // Se instancia al jugador
-        this.Player = new Player(this, 100, 300);
-        this.Player.body.setGravityY(50000);
+        this.Player = new PlayerRefrescos(this, 100, 300);
+        this.Player.body.setGravityY(15000);
         this.Player.setCollideWorldBounds(true);
 
         // Contador de refrescos
@@ -24,9 +23,9 @@ export default class Refrescos extends Phaser.Scene {
         this.temporizador = 600 /*= temp*/
 
         // Definir posición aleatoria del refresco
-        this.refresco = 'coke'; // = refr
+        this.type = 'coke'; // = refr
         console.log(this.refresco);
-        this.refresco = this.spawnRefresco(); // Corregir esta línea
+        this.refresco = this.spawnRefresco();
 
         // Instanciar los estantes 
         this.estante1 = this.physics.add.image(130, 400, 'estante').setImmovable();
@@ -70,7 +69,7 @@ export default class Refrescos extends Phaser.Scene {
     handleColision(player, refresco) {
         // Elimina solo el refresco
         refresco.destroy();
-
+        console.log("destruye")
         // Incrementa el contador de refrescos
         this.cont++;
 
@@ -80,6 +79,7 @@ export default class Refrescos extends Phaser.Scene {
             console.log('¡Has alcanzado el número necesario de refrescos!');
         } else {
             this.refresco = this.spawnRefresco();
+            this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
         }
     }
     
@@ -95,7 +95,7 @@ export default class Refrescos extends Phaser.Scene {
     spawnRefresco() {
         let nuevoRefresco;
         let pos = this.randomPos()
-        switch (this.refresco) {
+        switch (this.type) {
             case 'coke':
                 nuevoRefresco = this.physics.add.image(pos[0], pos[1], 'coke');
                 break;
