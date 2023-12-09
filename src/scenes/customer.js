@@ -17,7 +17,7 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         // this.y = y;
         
         this.type = type;
-
+        this.showDialogueOnce = true;
         this.setScale(2);
         
         
@@ -31,8 +31,11 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         }
         else{
             this.setVelocityY(0)
-            this.scene.showDialogue()
-            //console.log("no me muevo")
+            if(this.showDialogueOnce){
+                this.scene.showDialogue()
+                this.scene.createInteractionRect();
+                this.showDialogueOnce = false;
+            }
         }    
         
     }    

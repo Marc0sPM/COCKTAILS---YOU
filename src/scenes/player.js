@@ -20,16 +20,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
-            jump: Phaser.Input.Keyboard.KeyCodes.SPACE
+            interact: Phaser.Input.Keyboard.KeyCodes.E
+            
         });
         
        
         // Velocidad del jugador
         this.speed = 200;
     }
-
     update() {
-
+        this.move();
+        if(this.scene.scene.key === 'barScene') this.customerInteraction();
+        
+    }
+    move(){
         if (this.cursors.up.isDown) {
             this.setVelocityY(-this.speed);
             this.anims.play('player_walk', true);
@@ -61,9 +65,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.setVelocityX(0);
         }
-
         if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
             this.anims.play('player_idle', true);
         }
+    }
+
+    customerInteraction(){
+       
+        if(this.cursors.interact.isDown){
+            var rect = this.scene.interactionRect;
+            if((this.x > (rect.x - rect.width/2) && this.x < (rect.x + rect.width/2)) && (this.y > (rect.y - rect.height/2) && this.y < (rect.y + rect.height/2))){
+                this.scene.showDialogue();
+            }
+        }
+        
     }
 }

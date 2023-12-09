@@ -13,7 +13,8 @@ export default class barScene extends Phaser.Scene {
         //Cabiar cuando tenga el tile map hecho ;P
         this.cloudPos = {x: 500, y: 500}
 
-        this.showDialogueOnce = false;
+        this.dialogueCreated = false;
+        this.dialogueShown = false;
     }
     preload() {
         //temporal, pasar  luego a  boot
@@ -35,9 +36,12 @@ export default class barScene extends Phaser.Scene {
     update() {
         this.player.update();
         this.customer.update();
+        if(this.dialogueShown){
+            this.dialogueCloud.on("pointerdown", () => {
+                this.hideDialogue()
+            });
+            }
     }
-
-
     generateRandomCustomer() {
 
         const availableTypes = Object.keys(dialogues);
@@ -52,25 +56,45 @@ export default class barScene extends Phaser.Scene {
     }
     
     showDialogue(){
-        if(this.showDialogueOnce == false){
+        if(!this.dialogueCreated){
             this.printDialogue();
-            this.showDialogueOnce = true;
+            this.dialogueCreated = true;
         }
-
+        else{
+            if(!this.dialogueShown){
+                this.dialogueCloud.setInteractive();
+                this.dialogueCloud.setVisible(true)
+                this.dialogueRect.setVisible(true)
+                this.dialogueText.visible = true;
+            }
+        }
+        this.dialogueShown = true;
     }
     printDialogue(){
         //Poner
-        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude')
+        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude').setInteractive();
         this.dialogueCloud.setScale(1.5)
         this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y - (this.dialogueCloud.height/6),
                                                 this.dialogueCloud.width/1.05, this.dialogueCloud.height/1.3)
-        var texto = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { fontFamily: 'Arial', fontSize: 32, color: '#000000' });
+        this.dialogueText = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { fontFamily: 'Arial', fontSize: 32, color: '#000022' });
 
         // Centrar el texto
-        texto.setOrigin(0.5, 0.5);
+        this.dialogueText.setOrigin(0.5, 0.5);
     
         // Ajustar el ancho del texto para que quepa en el rectángulo
-        texto.setWordWrapWidth(this.dialogueRect.width);
+        this.dialogueText.setWordWrapWidth(this.dialogueRect.width);
+        
+    }
+
+    hideDialogue(){
+        this.dialogueCloud.disableInteractive();
+        this.dialogueCloud.setVisible(false)
+        this.dialogueRect.setVisible(false)
+        this.dialogueText.visible = false;
+        this.dialogueShown = false;
+    }
+    createInteractionRect(){
+        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60)
     }
     
 }
