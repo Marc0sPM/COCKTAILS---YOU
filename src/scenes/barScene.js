@@ -25,7 +25,7 @@ export default class barScene extends Phaser.Scene {
 
         //intancia el player
         this.player = new Player(this, 300, 300);
-        
+        this.player.setCollideWorldBounds(true)
         //algo que espere cierto tiempo entre costumers o para texto de tutorial
         this.generateRandomCustomer()
 

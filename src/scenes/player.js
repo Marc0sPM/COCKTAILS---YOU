@@ -1,4 +1,4 @@
-let lookingRight = true;
+
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -7,22 +7,29 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.setScale(2);
+        this.playerOffsetRight = {x:5, y: 16}
+        this.playerOffsetLeft = {x:23, y:16}
+        this.lookingRight = true;
 
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
-        this.body.setSize(48, 48);
+        this.body.setSize(20, 35)
+        this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
         this.cursors = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            jump: Phaser.Input.Keyboard.KeyCodes.SPACE
         });
-
+        
+       
         // Velocidad del jugador
         this.speed = 200;
     }
 
     update() {
+
         if (this.cursors.up.isDown) {
             this.setVelocityY(-this.speed);
             this.anims.play('player_walk', true);
@@ -36,17 +43,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);
             this.anims.play('player_walk', true);
-            if (lookingRight) {
-                lookingRight = false;
+            if (this.lookingRight) {
+                this.lookingRight = false;
                 this.setFlipX(true);
+                this.body.setOffset(this.playerOffsetLeft.x, this.playerOffsetLeft.y)
                 this.x -= 48; // Ajusta según el tamaño del sprite
             }
         } else if (this.cursors.right.isDown) {
             this.anims.play('player_walk', true);
             this.setVelocityX(this.speed);
-            if (!lookingRight) {
-                lookingRight = true;
+            if (!this.lookingRight) {
+                this.lookingRight = true;
                 this.setFlipX(false);
+                this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
                 this.x += 48; // Ajusta según el tamaño del sprite
             }
         } else {
