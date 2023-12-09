@@ -5,7 +5,7 @@ import MainMenu from "./scenes/MainMenu.js";
 import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
-import Refrescos from "./scenes/Refrescos.js";
+import Refrescos from "./scenes/Refrescos/Refrescos.js";
 
   const config = {
     width: 800,
