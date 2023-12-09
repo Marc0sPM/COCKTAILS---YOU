@@ -27,15 +27,15 @@ export default class barScene extends Phaser.Scene {
         //intancia el player
         this.player = new Player(this, 300, 300);
         this.player.setCollideWorldBounds(true)
-        //algo que espere cierto tiempo entre costumers o para texto de tutorial
+        
         this.generateRandomCustomer()
 
-        console.log(this.customerType)
-        console.log(this.dialogue)
+       
     }
     update() {
         this.player.update();
-        this.customer.update();
+        this.customer.update()
+        
         if(this.dialogueShown){
             this.dialogueCloud.on("pointerdown", () => {
                 this.hideDialogue()
@@ -49,10 +49,14 @@ export default class barScene extends Phaser.Scene {
 
         const possibleDialogues = dialogues[this.customerType];
         this.dialogue = Phaser.Math.RND.pick(possibleDialogues);
-        
-        
-        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.dialogue, this.customerDestiny.y)
-        
+
+        //Para que no aparezcan skins iguales tan de seguido
+        var lastSkin = -1;
+        var customerSkin = Phaser.Math.Between(0,2)
+        while(customerSkin == lastSkin) {customerSkin = Phaser.Math.Between(0,2)}
+
+        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.dialogue, this.customerDestiny.y, customerSkin)
+        this.customerCreated = true;
     }
     
     showDialogue(){
@@ -94,7 +98,8 @@ export default class barScene extends Phaser.Scene {
         this.dialogueShown = false;
     }
     createInteractionRect(){
-        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60)
+        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60) //para mostrar poner 0xffffff al final de los parametros
     }
+    
     
 }

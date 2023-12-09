@@ -3,11 +3,12 @@
 
 // Definir la clase
 export default class Costumer extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y, type,dialogue, destinoY) {
+    constructor(scene, x, y, type,dialogue, destinoY, skin) {
         super(scene, x, y, {key:'customer'}); 
         this.type = type;
         this.dialogue = dialogue
         this.destinoY = destinoY
+        this.skin = skin
 
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
@@ -18,23 +19,27 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         
         this.type = type;
         this.showDialogueOnce = true;
-        this.setScale(2);
+        // this.setScale(2);
         
         
     }
     
     update(){
-
+        //comporbar que el juego esta completado para que se vaya el customer
         if(this.y > this.destinoY) {
             this.setVelocityY(-200)
-            //console.log("me muevo")
+            console.log('customer_walkBackWards_' + this.skin)
+            this.anims.play('customer_walkBackWards_' + this.skin, true);
         }
         else{
             this.setVelocityY(0)
+            this.anims.play('customer_idle_' + this.skin, true);
+            
             if(this.showDialogueOnce){
                 this.scene.showDialogue()
                 this.scene.createInteractionRect();
                 this.showDialogueOnce = false;
+                
             }
         }    
         
