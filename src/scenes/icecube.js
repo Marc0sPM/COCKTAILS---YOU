@@ -5,7 +5,7 @@ export default class icecube extends Phaser.Physics.Arcade.Sprite {
         scene.physics.world.enable(this);
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
-        this.body.setSize(320, 320);
+        this.body.setSize(275, 275);
         this.setScale(0.25);
     }
     

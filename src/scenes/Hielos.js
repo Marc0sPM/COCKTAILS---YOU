@@ -12,23 +12,25 @@ export default class Hielos extends Phaser.Scene {
         // Background
         let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
 
+        
+
+        // Crear obstáculos
+        this.createObstacle(765, 500, 'obstacle1', 10, 100, 0);
+        this.createObstacle(635, 500, 'obstacle2', 10, 100, 0);
+        this.createObstacle(700, 550, 'obstacle3', 60, 10, 0);
+
+        // Crear el cubo de hielo
+        this.createCube();
+        
         // Configurar la canasta
-        this.target = this.add.sprite(700, 200, 'cubitera');
-        this.target.setScale(0.25);
-        this.target.setRotation(Phaser.Math.DegToRad(300));
+        this.target = this.add.sprite(700, 500, 'cubitera');
+        this.target.setScale(0.40);
+        //this.target.setRotation(Phaser.Math.DegToRad(300));
 
         this.physics.world.enable([this.target]);
         this.target.body.setAllowGravity(false);
         this.target.body.setImmovable(true);
-        this.target.body.setSize(100, 100);
-
-        // Crear obstáculos
-        this.createObstacle(675, 250, 'obstacle1', 75, 10, 300);
-        this.createObstacle(725, 150, 'obstacle2', 75, 10, 300);
-        this.createObstacle(750, 200, 'obstacle3', 60, 10, 300);
-
-        // Crear el cubo de hielo
-        this.createCube();
+        this.target.body.setSize(100, 5);
 
         // Configurar eventos del ratón
         this.input.on('pointerdown', this.onPointerDown, this);
@@ -47,6 +49,10 @@ export default class Hielos extends Phaser.Scene {
 
         // Marcador para comprobar si el cubo ya ha sido lanzado
         this.isCubeLaunched = false;
+
+        this.input.keyboard.on('keydown-SPACE', function (event) {
+            this.scene.restart();
+        }, this);
 
         console.log('create Hielos');
     }
@@ -96,6 +102,8 @@ export default class Hielos extends Phaser.Scene {
         this.cube.setCollideWorldBounds(true);
         this.cube.body.setAllowGravity(true);
         this.cube.setVelocity(0, 0);
+        this.cube.body.setBounce(0.5, 0.5);
+        this.cube.body.setFriction(1, 1);
     }
 
     destroyCube() {
