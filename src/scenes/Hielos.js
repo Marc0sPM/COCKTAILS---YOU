@@ -13,13 +13,19 @@ export default class Hielos extends Phaser.Scene {
         let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
 
         // Configurar la canasta
-        this.target = this.add.sprite(800, 200, 'cubitera');
+        this.target = this.add.sprite(700, 200, 'cubitera');
         this.target.setScale(0.25);
         this.target.setRotation(Phaser.Math.DegToRad(300));
 
         this.physics.world.enable([this.target]);
         this.target.body.setAllowGravity(false);
         this.target.body.setImmovable(true);
+        this.target.body.setSize(100, 100);
+
+        // Crear obstáculos
+        this.createObstacle(675, 250, 'obstacle1', 75, 10, 300);
+        this.createObstacle(725, 150, 'obstacle2', 75, 10, 300);
+        this.createObstacle(750, 200, 'obstacle3', 60, 10, 300);
 
         // Crear el cubo de hielo
         this.createCube();
@@ -28,14 +34,16 @@ export default class Hielos extends Phaser.Scene {
         this.input.on('pointerdown', this.onPointerDown, this);
         this.input.on('pointerup', this.onPointerUp, this);
 
-        // Configurar colisión entre el hielo y la cubitera
+        // Configurar colisiones con obstáculos
+        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3];
         this.physics.add.collider(this.cube, this.target, this.onCollision, null, this);
+        this.physics.add.collider(this.cube, this.obstacles);
 
         // Texto para mostrar cuando se completa la colisión
         this.completionText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Completado',
             { fontSize: '32px', fill: '#fff' });
-        this.completionText.setOrigin(0.5); // Establecer el origen en el centro
-        this.completionText.setVisible(false); // Inicialmente ocultamos el texto
+        this.completionText.setOrigin(0.5);
+        this.completionText.setVisible(false);
 
         // Marcador para comprobar si el cubo ya ha sido lanzado
         this.isCubeLaunched = false;
@@ -45,19 +53,15 @@ export default class Hielos extends Phaser.Scene {
 
     update() {
         if (this.isDragging && !this.isCubeLaunched) {
-            // Mover el cubo a la posición del ratón durante el arrastre
             this.cube.x = this.input.x;
             this.cube.y = this.input.y;
         }
 
-        // Verificar si el cubo está fuera de los límites del mundo
         if (this.isCubeLaunched && 
             (this.cube.y > this.sys.game.config.height) ||
             (this.cube.y < 0) ||
             (this.cube.x > this.sys.game.config.width) ||
             (this.cube.x < 0)) {
-
-            // Hacer una pausa de 1 segundo antes de destruir y volver a crear el cubo
             this.time.delayedCall(1000, () => {
                 this.destroyCube();
                 this.createCube();
@@ -67,16 +71,13 @@ export default class Hielos extends Phaser.Scene {
     }
 
     onPointerDown(pointer) {
-        // Verificar si el ratón está dentro de los límites del sprite del cubo
         if (this.cube.getBounds().contains(pointer.x, pointer.y)) {
-            // Iniciar el arrastre
             this.isDragging = true;
         }
     }
 
     onPointerUp(pointer) {
         if (this.isDragging && !this.isCubeLaunched) {
-            // Detener el arrastre e impulsar el cubo
             this.isDragging = false;
             this.isCubeLaunched = true;
 
@@ -85,50 +86,43 @@ export default class Hielos extends Phaser.Scene {
 
             this.cube.setVelocity(velocityX, velocityY);
 
-            // Agregar gravedad para simular el tiro parabólico
             this.physics.world.gravity.y = 800;
         }
     }
 
     createCube() {
         this.cube = new icecube(this, 50, Phaser.Math.Between(100, this.sys.game.config.height - 100));
-        this.physics.world.enable([this.cube]); // Habilitar físicas para el cubo
-        this.cube.setCollideWorldBounds(true); // SI SE PONE A FALSE SALE DEL MUNDO Y VUELVE A REAPARECER RARISIMO
-                                               // SI ESTA A FALSE NO HAY COLISIONES CON LA CANASTA
+        this.physics.world.enable([this.cube]);
+        this.cube.setCollideWorldBounds(true);
         this.cube.body.setAllowGravity(true);
-        this.cube.setVelocity(0, 0); // Establecer la velocidad inicial a cero
+        this.cube.setVelocity(0, 0);
     }
 
     destroyCube() {
-        // Destruir el cubo actual
         if (this.cube) {
             this.cube.destroy();
         }
     }
 
-    checkCollision(spriteA, spriteB) {
-        var boundsA = spriteA.getBounds();
-        var boundsB = spriteB.getBounds();
-        // Si hay colisión entre el sprite A y el B, devuelve true
-        return Phaser.Geom.Rectangle.Intersection(boundsA, boundsB);
+    createObstacle(x, y, key, width, height, rotation) {
+        const obstacle = this.add.sprite(x, y, key);
+        this.physics.world.enable([obstacle]);
+        obstacle.body.setAllowGravity(false);
+        obstacle.body.setImmovable(true);
+        obstacle.body.setSize(width, height);
+        obstacle.setRotation(Phaser.Math.DegToRad(rotation));
+    
+        this[key] = obstacle;
     }
+    
 
     onCollision() {
-        // Verificar si el texto ya está visible para evitar repetir la lógica
         if (!this.completionText.visible && this.isCubeLaunched) {
-            // Verificar si hay colisión entre el hielo y la canasta
-            if (this.checkCollision(this.cube, this.target)) {
-                this.completionText.setVisible(true);
-
-                // Ocultar el texto después de un tiempo
-                this.time.delayedCall(2000, () => {
-                    this.completionText.setVisible(false);
-                    // Reiniciar la escena para volver a intentarlo
-                    this.scene.restart();
-                }, null, this);
-
-                // Enviar al GameManager minijuego completado
-            }
+            this.completionText.setVisible(true);
+            this.time.delayedCall(2000, () => {
+                this.completionText.setVisible(false);
+                this.scene.restart();
+            }, null, this);
         }
     }
 }
