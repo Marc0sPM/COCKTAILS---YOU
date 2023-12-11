@@ -47,6 +47,12 @@ export default class Hielos extends Phaser.Scene {
         this.completionText.setOrigin(0.5);
         this.completionText.setVisible(false);
 
+         // Texto de Reinicio
+         this.restartText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 8, 'Space para reintentar',
+         { fontSize: '32px', fill: '#fff' });
+         this.restartText.setOrigin(0.5);
+
+
         // Marcador para comprobar si el cubo ya ha sido lanzado
         this.isCubeLaunched = false;
 

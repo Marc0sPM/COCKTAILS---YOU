@@ -31,6 +31,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image("icecube", "./assets/sprites/TigerBall/Icecube.png");
         this.load.image("cubitera", "./assets/sprites/TigerBall/Cubito.png");
         this.load.image("backgroundIce", "./assets/sprites/TigerBall/Fondo.jpg");
+        this.load.image("cubiteraTransparente", "./assets/sprites/TigerBall/CubitoTransparente.png");
 
         // Carga del mapa
         this.load.image("floor", "./assets/sprites/floorTiles.png");
