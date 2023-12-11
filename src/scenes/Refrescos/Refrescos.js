@@ -1,7 +1,9 @@
 import PlayerRefrescos from "./PlayerRefrescos.js";
 export default class Refrescos extends Phaser.Scene {
-    constructor() {
+    constructor(config) {
         super({ key: 'refrescos' })
+        
+        this.config = config || {}; 
     }
 
     create() {
@@ -10,21 +12,29 @@ export default class Refrescos extends Phaser.Scene {
         this.physics.world.setBoundsCollision(true, true, true, true);
         // Se instancia al jugador
         this.Player = new PlayerRefrescos(this, 100, 300);
-        this.Player.body.setGravityY(15000);
         this.Player.setCollideWorldBounds(true);
+        //this.Player.setGravityY(400)
+        // Número de refrescos para pasar al siguiente nivel
+        this.num = 4/* = desiredNum*/
 
         // Contador de refrescos
         this.cont = 0;
+        this.contadorText = this.add.text(16, 16, 'Refrescos: ' + this.cont + ' de ' + this.num, {
+            fontFamily: 'Comic Sans MS',
+            fontSize: '32px',
+            fill: '#fff'
+            
+        });
+        this.prevNum;
+        
 
-        // Número de refrescos para pasar al siguiente nivel
-        this.num /* = desiredNum*/
+        
 
         // Temporizador
         this.temporizador = 600 /*= temp*/
 
         // Definir posición aleatoria del refresco
-        this.type = 'coke'; // = refr
-        console.log(this.refresco);
+        this.type = 'blue'; // = refr
         this.refresco = this.spawnRefresco();
 
         // Instanciar los estantes 
@@ -72,6 +82,7 @@ export default class Refrescos extends Phaser.Scene {
         console.log("destruye")
         // Incrementa el contador de refrescos
         this.cont++;
+        this.contadorText.setText('Refrescos: ' + this.cont + ' de ' + this.num);
 
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
@@ -84,7 +95,12 @@ export default class Refrescos extends Phaser.Scene {
     }
     
     randomPos(){
-        let rnd = Phaser.Math.Between(0, 3);
+        let rnd
+        do{
+            rnd = Phaser.Math.RND.between(0, 3);
+        }
+        while(this.prevNum === rnd)
+        this.prevNum = rnd;
         switch(rnd){
             case 0: return [115, 400]
             case 1: return [310, 200]

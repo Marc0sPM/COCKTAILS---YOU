@@ -17,7 +17,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            jump: Phaser.Input.Keyboard.KeyCodes.SPACE
         });
         
        
@@ -26,15 +27,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+
         if (this.cursors.up.isDown) {
             this.setVelocityY(-this.speed);
             this.anims.play('player_walk', true);
         } else if (this.cursors.down.isDown) {
             this.setVelocityY(this.speed);
             this.anims.play('player_walk', true);
-        } else {
-            this.setVelocityY(0);
-        }
+        } 
 
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);
