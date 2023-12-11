@@ -30,7 +30,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     update() {
         this.move();
-        if(this.scene.scene.key === 'barScene') this.customerInteraction();
+
+        if(this.scene.scene.key === 'barScene' && this.cursors.interact.isDown) {
+            this.scene.checkInteractions(this.x, this.y);
+            // this.customerInteraction();
+            // this.itemInteraction();
+        }
         
     }
     move(){
@@ -68,16 +73,5 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
             this.anims.play('player_idle', true);
         }
-    }
-
-    customerInteraction(){
-       
-        if(this.cursors.interact.isDown){
-            var rect = this.scene.interactionRect;
-            if((this.x > (rect.x - rect.width/2) && this.x < (rect.x + rect.width/2)) && (this.y > (rect.y - rect.height/2) && this.y < (rect.y + rect.height/2))){
-                this.scene.showDialogue();
-            }
-        }
-        
     }
 }

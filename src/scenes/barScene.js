@@ -1,6 +1,9 @@
 import Player from "./player.js";
 import Customer from "./customer.js"
+import InteractiveItem from "./interactiveItem.js";
+import { cocktails } from "../Cocktails.js";
 import { dialogues } from "../Dialogues.js";
+
 
 export default class barScene extends Phaser.Scene {
     constructor(customersQuantity) {
@@ -15,6 +18,8 @@ export default class barScene extends Phaser.Scene {
 
         this.dialogueCreated = false;
         this.dialogueShown = false;
+
+        this.itemList = []
     }
     preload() {
         //temporal, pasar  luego a  boot
@@ -26,6 +31,13 @@ export default class barScene extends Phaser.Scene {
 
         //intancia el player
         this.player = new Player(this, 300, 300);
+        
+        //this.item1 = new InteractiveItem(this, 100, 200, 100, 200,'item1' )
+        var posAux  = 60
+        Object.values(cocktails).forEach(cocktail => {
+            this.itemList.push(new InteractiveItem(this, posAux, 100, posAux, 100, cocktail).create())
+            posAux += 100
+        });
         this.player.setCollideWorldBounds(true)
         
         this.generateRandomCustomer()
@@ -100,6 +112,21 @@ export default class barScene extends Phaser.Scene {
     createInteractionRect(){
         this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60) //para mostrar poner 0xffffff al final de los parametros
     }
-    
-    
+
+    //Comprobacion de overlap entre un objeto(x,y) y un rect
+    onTriggerEnter(x,y, rect){
+        if((x > (rect.x - rect.width/2) && x < (rect.x + rect.width/2)) && (y > (rect.y - rect.height/2) && y < (rect.y + rect.height/2))){
+            console.log('esta encima');
+            return true;
+        }else return false;
+    }
+    checkInteractions(x, y){
+        //Checkear con customer
+        if(this.onTriggerEnter(x, y, this.interactionRect)) this.showDialogue();
+        //ForEach de lista de items 
+        this.itemList.forEach(item => {
+            if(this.onTriggerEnter(x, y, item.rect)) console.log('llamar a la funcion que corresponde dentro de ' + item.key)
+        })
+
+    }
 }
