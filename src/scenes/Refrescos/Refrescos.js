@@ -1,9 +1,7 @@
 import PlayerRefrescos from "./PlayerRefrescos.js";
 export default class Refrescos extends Phaser.Scene {
-    constructor(config) {
+    constructor() {
         super({ key: 'refrescos' })
-        
-        this.config = config || {}; 
     }
 
     create() {
@@ -13,7 +11,7 @@ export default class Refrescos extends Phaser.Scene {
         // Se instancia al jugador
         this.Player = new PlayerRefrescos(this, 100, 300);
         this.Player.setCollideWorldBounds(true);
-        //this.Player.setGravityY(400)
+
         // Número de refrescos para pasar al siguiente nivel
         this.num = 4/* = desiredNum*/
 
@@ -28,13 +26,20 @@ export default class Refrescos extends Phaser.Scene {
         this.prevNum;
         
 
-        
-
         // Temporizador
-        this.temporizador = 600 /*= temp*/
+        this.temporizador = 30 /*= temp*/
+        
+        this.temporizadorText = this.add.text(800 - 200, 16, 'Tiempo: ' + this.temporizador, { 
+            fontFamily: 'Comic Sans MS',
+            fontSize: '32px',
+             fill: '#fff'
+        });
+          
+
+
 
         // Definir posición aleatoria del refresco
-        this.type = 'blue'; // = refr
+        this.type = 'Coke'; // = refr
         this.refresco = this.spawnRefresco();
 
         // Instanciar los estantes 
@@ -64,17 +69,27 @@ export default class Refrescos extends Phaser.Scene {
 
         // Física
         this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
-        this.physics.add.collider(this.Player, this.estante1)
-        this.physics.add.collider(this.Player, this.estante2)
-        this.physics.add.collider(this.Player, this.estante3)
-        this.physics.add.collider(this.Player, this.estante4)
+        this.physics.add.collider(this.Player, this.estante1);
+        this.physics.add.collider(this.Player, this.estante2);
+        this.physics.add.collider(this.Player, this.estante3);
+        this.physics.add.collider(this.Player, this.estante4);
 
     }
 
     update() {
         this.Player.update();
-       
+    
+        if (isNaN(this.temporizador) || this.temporizador <= 0) {
+            this.temporizador = 0;
+            }
+        else this.temporizador -= (this.time.delta / 1000);
+    
+      
+        console.log("Valor del temporizador: " + this.temporizador);
+      
+        this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
     }
+      
 
     handleColision(player, refresco) {
         // Elimina solo el refresco
