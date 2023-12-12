@@ -48,9 +48,13 @@ export default class Hielos extends Phaser.Scene {
         this.completionText.setVisible(false);
 
          // Texto de Reinicio
-         this.restartText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 8, 'Space para reintentar',
-         { fontSize: '32px', fill: '#fff' });
-         this.restartText.setOrigin(0.5);
+         //this.restartText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 8, 'Space para reintentar',
+         //{ fontSize: '32px', fill: '#000', fontWeight: 'bold' });
+         //this.restartText.setOrigin(0.5);
+
+         // Cartel
+        let cartel = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 8, "spaceParaReiniciar");
+        cartel.setScale(0.75);
 
 
         // Marcador para comprobar si el cubo ya ha sido lanzado
@@ -94,7 +98,7 @@ export default class Hielos extends Phaser.Scene {
             this.isDragging = false;
     
             if (pointer.x > this.sys.game.config.width / 2) {
-                // Si el puntero está en la parte derecha de la pantalla crear uno nuevo
+                // Si el puntero está en la parte derecha de la pantalla reiniciamos la escena
                 this.scene.restart();
             }
     

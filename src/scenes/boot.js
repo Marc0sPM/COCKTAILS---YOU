@@ -29,8 +29,9 @@ export default class Boot extends Phaser.Scene{
         /*----- / TIGERBALL / -----*/
         this.load.image("icecube", "./assets/sprites/TigerBall/Icecube.png");
         this.load.image("cubitera", "./assets/sprites/TigerBall/Cubito.png");
-        this.load.image("backgroundIce", "./assets/sprites/TigerBall/Fondo.jpg");
+        this.load.image("backgroundIce", "./assets/sprites/TigerBall/Fondo2.jpg");
         this.load.image("cubiteraTransparente", "./assets/sprites/TigerBall/CubitoTransparente.png");
+        this.load.image("spaceParaReiniciar", "./assets/sprites/TigerBall/Cartel.png");
 
         /*----- /AIM/ -----*/
         this.load.image('tequila', '\\assets\\sprites\\aim\\tequila.png');
