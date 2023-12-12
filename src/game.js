@@ -5,13 +5,14 @@ import MainMenu from "./scenes/MainMenu.js";
 import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
+import aim from "/Aim/aim.js";
 
   const config = {
     width: 800,
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene],
+    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene, aim],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 

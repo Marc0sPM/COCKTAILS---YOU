@@ -1,5 +1,7 @@
-export default class aim extends Phaser.Scene {
-
+export default class Aim extends Phaser.Scene {
+    constructor(){
+        super({ key: 'Aim' });
+    }
 create(){
     var bottlesGroup;
 
