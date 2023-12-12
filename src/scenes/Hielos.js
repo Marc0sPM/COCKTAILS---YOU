@@ -83,24 +83,32 @@ export default class Hielos extends Phaser.Scene {
     }
 
     onPointerDown(pointer) {
-        if (this.cube.getBounds().contains(pointer.x, pointer.y)) {
+        // Verificar si el ratón está dentro de los límites del sprite del cubo y si el puntero está en la parte izquierda de la pantalla
+        if (this.cube.getBounds().contains(pointer.x, pointer.y) && pointer.x < this.sys.game.config.width / 2) {
             this.isDragging = true;
         }
     }
-
+    
     onPointerUp(pointer) {
         if (this.isDragging && !this.isCubeLaunched) {
             this.isDragging = false;
+    
+            if (pointer.x > this.sys.game.config.width / 2) {
+                // Si el puntero está en la parte derecha de la pantalla crear uno nuevo
+                this.scene.restart();
+            }
+    
             this.isCubeLaunched = true;
-
+    
             const velocityX = (pointer.x - this.cube.x) * ForceX;
             const velocityY = (pointer.y - this.cube.y) * ForceY;
-
+    
             this.cube.setVelocity(velocityX, velocityY);
-
+    
             this.physics.world.gravity.y = 800;
         }
     }
+    
 
     createCube() {
         this.cube = new icecube(this, 50, Phaser.Math.Between(100, this.sys.game.config.height - 100));
