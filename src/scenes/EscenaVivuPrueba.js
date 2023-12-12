@@ -49,6 +49,29 @@ export default class EscenaVivuPrueba extends Phaser.Scene{
         this.physics.add.collider(this.player, wallLayer);
         this.physics.add.collider(this.player, woodLayer);
         this.physics.add.collider(this.player, variousLayer);
+
+        // Botón Hielos
+        //-------------------------------------------------//
+        let buttonHielos = this.add.image(this.sys.game.config.width/4 + this.sys.game.config.width/2, 
+        this.sys.game.config.height/2 + this.sys.game.config.height/3, "playButton");
+        buttonHielos.setScale(0.25);
+        buttonHielos.setInteractive();
+        buttonHielos.on("pointerdown", () => {
+            this.scene.start('Hielos');
+        });
+        //-------------------------------------------------//
+
+
+        // Botón Breakout
+        //-------------------------------------------------//
+        let buttonBreakout = this.add.image(this.sys.game.config.width/4, 
+        this.sys.game.config.height/2 + this.sys.game.config.height/3, "playButton");
+        buttonBreakout.setScale(0.25);
+        buttonBreakout.setInteractive();
+        buttonBreakout.on("pointerdown", () => {
+            this.scene.start('Breakout');
+        });
+        //-------------------------------------------------//
     }
     update(){
         this.player.update();
