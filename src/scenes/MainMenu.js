@@ -53,9 +53,9 @@ class MainMenu extends Phaser.Scene{
         });
         //-------------------------------------------------//
          //-------------------------------------------------//
-        // Botón Breakout
+        // Botón aim
         let aim = this.add.image(this.sys.game.config.width/4, 
-        this.sys.game.config.height/2 + this.sys.game.config.height/3, "playButton");
+        this.sys.game.config.height/4 + this.sys.game.config.height/6, "playButton");
         aim.setScale(0.25);
         aim.setInteractive();
         // Escucha el evento "pointerdown" en el botón
