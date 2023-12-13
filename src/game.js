@@ -6,6 +6,7 @@ import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
+//import aim from "/Aim/aim.js";
 
   const config = {
     width: 800,

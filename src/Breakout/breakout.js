@@ -1,3 +1,5 @@
+import pelota from "./pelota.js"
+import Barra from "./barra.js";
 export default class Breakout extends Phaser.Scene {
    constructor() {
        super({ key: 'Breakout' });
@@ -9,9 +11,9 @@ export default class Breakout extends Phaser.Scene {
            xOffset: 60,
            yOffset: 100,
        };
-       this.spaceKey;
-       this.isBallReleased = false;
+       
    }
+   
 
    create() {
        this.physics.world.setBoundsCollision(true, true, true, false);
@@ -21,43 +23,57 @@ export default class Breakout extends Phaser.Scene {
 
        this.win = this.add.image(400, 300, 'win').setScale(0.8);
        this.win.visible = false;
+       
+
+       
 
        // barra
-       this.paddle = this.physics.add.image(400, 560, 'paddle').setImmovable();
-       this.paddle.body.allowGravity = false;
+       this.paddle = new Barra(this,400,560).setImmovable();
        this.paddle.setCollideWorldBounds(true);
-
        // pelota
-       this.ball = this.physics.add.image(this.paddle.x, this.paddle.y - 25, 'ball');
+       this.ball = new pelota(this, this.paddle.x, this.paddle.y -25)
        this.ball.setCollideWorldBounds(true);
 
        // movimiento con cursores
        this.cursors = this.input.keyboard.createCursorKeys();
 
        // tecla de espacio
-       this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       //this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
        // colisiones
        this.physics.add.collider(this.ball, this.paddle);
-       this.ball.setBounce(1);
+       
 
        // Crear bloques
        this.createBlocks();
 
        // Contadores de frutas
-       this.azucarCount = 4;
-       this.hierbabuenaCount = 4;
+       this.azucarCount = 0;
+       this.hierbabuenaCount = 0;
 
        // Frutas disponibles
        let fruta;
        if (fruta == null) {
-           fruta = 'azucar';
+           fruta = 'hierbabuena';
        }
        let x;
        let y;
        let xf;
        let yf;
        let col;
+       //frutita contador
+       if(fruta === 'azucar'){
+        this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.azucarCount} /4`, {
+            fontSize: '20px',
+            fill: '#fff'
+        }).setDepth(1);
+       }
+       else{
+        this.hierbabuenaCountText = this.add.text(20,550, `Hierbabuena: ${this.hierbabuenaCount} /4`, {
+            fontSize: '20px',
+            fill: '#fff'
+        }).setDepth(1);
+       }
        // Crear bloques
        for (let row = 0; row < 4; row++) {
         let rnd = Phaser.Math.Between(0, 7);
@@ -68,6 +84,7 @@ export default class Breakout extends Phaser.Scene {
                case 'azucar':
                    const azucar = this.physics.add.image(xf, yf, 'blockazucar').setImmovable();
                    this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar,fruta));
+                   
                    break;
                case 'hierbabuena':
                    const hierbabuena = this.physics.add.image(xf, yf, 'blockhierbabuena').setImmovable();
@@ -82,15 +99,13 @@ export default class Breakout extends Phaser.Scene {
                 this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
                }
            }
-
-           // Asignar fruta aleatoria
-           
-       }
+        }
    }
 
    handleBlockCollision(block,fruta) {
     block.destroy();
     this.decrementarContadorFruta(fruta);
+    this.updateFrutaCounter(fruta)
     console.log(this.azucarCount)
   }
    
@@ -98,10 +113,10 @@ export default class Breakout extends Phaser.Scene {
    decrementarContadorFruta(fruta) {
        switch (fruta) {
            case 'azucar':
-               this.azucarCount--;
+               this.azucarCount++;
                break;
            case 'hierbabuena':
-               this.hierbabuenaCount--;
+               this.hierbabuenaCount++;
                break;
        }
    }
@@ -118,40 +133,36 @@ export default class Breakout extends Phaser.Scene {
            yOffset: 100,
        };
    }
-   fruitCollision(azucar) {
-    azucar.destroy();
-    this.decrementarContadorFruta(azucar);
 
+
+updateFrutaCounter(fruta) {
+    switch (fruta) {
+        case 'azucar':
+            this.azucarCountText.setText(`Azúcar: ${this.azucarCount}/4`);
+            break;
+        case 'hierbabuena':
+            this.hierbabuenaCountText.setText(`Hierbabuena: ${this.hierbabuenaCount}/4`);
+    }
 }
-
    update() {
-       if (!this.isBallReleased && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
-           this.isBallReleased = true;
-           let velocity = 350 * Phaser.Math.Between(1.3, 2);
-           if (Phaser.Math.Between(0, 10) > 5) {
-               velocity = -velocity;
-           }
-           let speed = 125;
-           this.ball.setVelocity(velocity, speed);
-       }
-
-       if (this.isBallReleased) {
-           if (this.cursors.left.isDown) {
-               this.paddle.setVelocityX(-500);
-           } else if (this.cursors.right.isDown) {
-               this.paddle.setVelocityX(500);
-           } else {
-               this.paddle.setVelocityX(0);
-           }
-       }
-
+    if (this.ball.isBallReleased) {
+        if (this.cursors.left.isDown) {
+            console.log("izq");
+            this.paddle.setVelocityX(-500);
+        } else if (this.cursors.right.isDown) {
+            console.log("der")
+            this.paddle.setVelocityX(500);
+        } else {
+            this.paddle.setVelocityX(0);
+        }
+    } 
        if (this.ball.y > 700) {
            this.gameoverImage.visible = true;
            this.scene.pause();
            //setTimeout(this.scene.start('MainMenu'), 3000);
        }
 
-       if (this.azucarCount === 0 || this.hierbabuenaCount === 0) {
+       if (this.azucarCount === 4 || this.hierbabuenaCount === 4) {
          this.win.visible = true;
          this.scene.pause();
          // setTimeout(() => this.scene.start('MainMenu'), 3000);
