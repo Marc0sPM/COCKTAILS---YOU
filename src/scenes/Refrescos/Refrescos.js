@@ -48,8 +48,8 @@ export default class Refrescos extends Phaser.Scene {
         // Definir posición aleatoria del refresco
         this.type = 'blue'; // = refr
         this.refresco = this.spawnRefresco();
-        this.offSet = 15;
-
+        this.refresOffSet = 15;
+        
         // Física
         this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
         this.physics.add.collider(this.Player, this.estante1);
@@ -97,13 +97,11 @@ export default class Refrescos extends Phaser.Scene {
         }
         while(this.prevNum === rnd)
         this.prevNum = rnd;
-        rnd = 4
         switch(rnd){
-            case 0: return [this.estante1.x - this.offSet, this.estante1.y]
-            case 1: return [this.estante2.x - this.offSet, this.estante2.y]
-            case 2: return [this.estante3.x - this.offSet, this.estante3.y]
-            case 3: return [this.estante4.x - this.offSet, this.estante4.y]
-            case 4: return []
+            case 0: return [this.estante1.x, this.estante1.y]
+            case 1: return [this.estante2.x, this.estante2.y]
+            case 2: return [this.estante3.x, this.estante3.y]
+            case 3: return [this.estante4.x, this.estante4.y]
         }
     }
     spawnRefresco() {
