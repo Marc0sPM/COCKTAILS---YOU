@@ -9,15 +9,13 @@ export default class Hielos extends Phaser.Scene {
     }
 
     create() {
-        // Background
-        let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
-
-        
-
         // Crear obstáculos
         this.createObstacle(765, 500, 'obstacle1', 10, 100, 0);
         this.createObstacle(635, 500, 'obstacle2', 10, 100, 0);
         this.createObstacle(700, 550, 'obstacle3', 60, 10, 0);
+        
+        // Background
+        let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
 
         // Crear el cubo de hielo
         this.createCube();
