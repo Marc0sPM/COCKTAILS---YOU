@@ -28,7 +28,6 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         //comporbar que el juego esta completado para que se vaya el customer
         if(this.y > this.destinoY) {
             this.setVelocityY(-200)
-            console.log('customer_walkBackWards_' + this.skin)
             this.anims.play('customer_walkBackWards_' + this.skin, true);
         }
         else{
@@ -44,6 +43,9 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         }    
         
     }    
+    arrived(){
+        return this.y <= this.destinoY
+    }
 }
 
 // Crear una instancia de la clase

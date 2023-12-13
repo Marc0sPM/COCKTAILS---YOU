@@ -31,18 +31,10 @@ export default class barScene extends Phaser.Scene {
 
         //intancia el player
         this.player = new Player(this, 300, 300);
-        
-        //this.item1 = new InteractiveItem(this, 100, 200, 100, 200,'item1' )
-        var posAux  = 60
-        Object.values(cocktails).forEach(cocktail => {
-            this.itemList.push(new InteractiveItem(this, posAux, 100, posAux, 100, cocktail).create())
-            posAux += 100
-        });
-        this.player.setCollideWorldBounds(true)
-        
-        this.generateRandomCustomer()
 
-       
+        this.player.setCollideWorldBounds(true)
+        this.generateItems()
+        this.generateRandomCustomer()
     }
     update() {
         this.player.update();
@@ -53,6 +45,14 @@ export default class barScene extends Phaser.Scene {
                 this.hideDialogue()
             });
             }
+    }
+    generateItems(){
+        var posAux  = 60
+        Object.values(cocktails).forEach(cocktail => {
+            
+            this.itemList.push(new InteractiveItem(this, posAux, 100, posAux, 100, cocktail))
+            posAux += 100
+        });
     }
     generateRandomCustomer() {
 
@@ -115,16 +115,21 @@ export default class barScene extends Phaser.Scene {
 
     //Comprobacion de overlap entre un objeto(x,y) y un rect
     onTriggerEnter(x,y, rect){
-        if((x > (rect.x - rect.width/2) && x < (rect.x + rect.width/2)) && (y > (rect.y - rect.height/2) && y < (rect.y + rect.height/2))){
-            console.log('esta encima');
-            return true;
-        }else return false;
+        
+            if((x > (rect.x - rect.width/2) && x < (rect.x + rect.width/2)) && (y > (rect.y - rect.height/2) && y < (rect.y + rect.height/2))){
+                console.log('esta encima');
+                return true;
+            }else return false;
+        
     }
     checkInteractions(x, y){
         //Checkear con customer
-        if(this.onTriggerEnter(x, y, this.interactionRect)) this.showDialogue();
+        if(this.customer.arrived()){
+            if(this.onTriggerEnter(x, y, this.interactionRect)) this.showDialogue();
+        }
         //ForEach de lista de items 
         this.itemList.forEach(item => {
+
             if(this.onTriggerEnter(x, y, item.rect)) console.log('llamar a la funcion que corresponde dentro de ' + item.key)
         })
 

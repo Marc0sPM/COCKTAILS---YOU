@@ -1,20 +1,21 @@
-export default class InteractiveItem extends Phaser.Physics.Arcade.Sprite{
+export default class InteractiveItem extends Phaser.GameObjects.GameObject{
     constructor(scene, x, y, rectPosX, rectPosY, key){
         super(scene, x, y, key) //Asegurarse que el nombre del archivo sea igual que el de la key
-
+        this.key = key;
         this.scene.add.existing(this);
-        this.rectPos = {x: rectPosX, y: rectPosY, w:50, h:50} // color para visualizarlo de momento
+        this.rectPos = {x: rectPosX, y: rectPosY} // color para visualizarlo de momento
+
+        //this.rectContainer = this.scene.add.container(x, y);
+        
+        this.create()
     }
     create(){
         //this.add.image(this.x, this.y, this.key)
-        this.rect = this.add.rectangle(this.rectPos.x,this. rectPos.y, 50, 50, 0xDC4728)
+        this.rect = this.scene.add.rectangle(this.rectPos.x,this.rectPos.y, 50, 50, 0xDC4728)
+
+        //this.rectContainer.add(this.rect);
+
+      
     }
     
-    // onTriggerWithPlayer(x, y){
-        
-    //     if((x > (rect.x - rect.width/2) && x < (rect.x + rect.width/2)) && (y > (rect.y - rect.height/2) && y < (rect.y + rect.height/2))){
-    //         console.log('esta encima');
-    //         return true;
-    //     }else return false;
-    // }
 }
