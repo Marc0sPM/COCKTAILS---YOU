@@ -25,7 +25,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.jumpSpeed = -425;
     }
 
-    update() {
+    preUpdate(t, dt) {
+        super.preUpdate(t,dt);
         if(this.cursors.jump.isDown && this.body.onFloor()) this.setVelocityY(this.jumpSpeed)
        
 
