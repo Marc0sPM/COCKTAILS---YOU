@@ -129,7 +129,7 @@ export default class barScene extends Phaser.Scene {
         //ForEach de lista de items 
         this.itemList.forEach(item => {
             if(item.canInteract){
-                if(this.onTriggerEnter(x, y, item.rect)) console.log('llamar a la funcion que corresponde dentro de ' + item.key)
+                if(this.onTriggerEnter(x, y, item.rect)) console.log('Cambiar a la escena que le corresponde a ' + item.key)
             }
             
         })
