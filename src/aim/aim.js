@@ -2,7 +2,7 @@ export default class Aim extends Phaser.Scene {
     constructor(){
         super({ key: 'Aim' });
     }
-create(){
+ create(){
     var bottlesGroup;
 
     bottlesGroup = this.physics.add.group();
@@ -36,7 +36,7 @@ create(){
             }
         }
     });
-}
+ }
  update() {
     // Mover las botellas de manera aleatoria
     bottlesGroup.children.forEach(function (bottle) {
@@ -44,11 +44,11 @@ create(){
             bottle.setVelocity(Phaser.Math.RND.integerInRange(-100, 100), Phaser.Math.RND.integerInRange(-100, 100));
         }
     });
-}
+  }
  createBottle(bottleType) {
     var bottle = bottlesGroup.create(Phaser.Math.RND.integerInRange(50, 550), Phaser.Math.RND.integerInRange(50, 450), bottleType);
     bottle.setInteractive();
-}
+ }
  updateCounterText(bottleType) {
     // Si la botella no es de tipo zzz, salir de la función
     if (bottleType !== 'zzz') {

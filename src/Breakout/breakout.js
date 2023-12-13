@@ -12,15 +12,19 @@ export default class Breakout extends Phaser.Scene {
        this.spaceKey;
        this.isBallReleased = false;
    }
+   
 
    create() {
-       this.physics.world.setBoundsCollision(true, true, true, false);
+       this.physics.world.setBoundsCollision(true, true, true, true);
        this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
        this.gameoverImage.visible = false;
 
        this.win = this.add.image(400, 300, 'win').setScale(0.8);
        this.win.visible = false;
+       
+
+       
 
        // barra
        this.paddle = this.physics.add.image(400, 560, 'paddle').setImmovable();
@@ -45,19 +49,32 @@ export default class Breakout extends Phaser.Scene {
        this.createBlocks();
 
        // Contadores de frutas
-       this.azucarCount = 4;
-       this.hierbabuenaCount = 4;
+       this.azucarCount = 0;
+       this.hierbabuenaCount = 0;
 
        // Frutas disponibles
        let fruta;
        if (fruta == null) {
-           fruta = 'azucar';
+           fruta = 'hierbabuena';
        }
        let x;
        let y;
        let xf;
        let yf;
        let col;
+       //frutita contador
+       if(fruta === 'azucar'){
+        this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.azucarCount} /4`, {
+            fontSize: '20px',
+            fill: '#fff'
+        }).setDepth(1);
+       }
+       else{
+        this.hierbabuenaCountText = this.add.text(20,550, `Hierbabuena: ${this.hierbabuenaCount} /4`, {
+            fontSize: '20px',
+            fill: '#fff'
+        }).setDepth(1);
+       }
        // Crear bloques
        for (let row = 0; row < 4; row++) {
         let rnd = Phaser.Math.Between(0, 7);
@@ -68,6 +85,7 @@ export default class Breakout extends Phaser.Scene {
                case 'azucar':
                    const azucar = this.physics.add.image(xf, yf, 'blockazucar').setImmovable();
                    this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar,fruta));
+                   
                    break;
                case 'hierbabuena':
                    const hierbabuena = this.physics.add.image(xf, yf, 'blockhierbabuena').setImmovable();
@@ -82,15 +100,13 @@ export default class Breakout extends Phaser.Scene {
                 this.physics.add.collider(this.ball, block, () => this.handleBlockCollision(block));
                }
            }
-
-           // Asignar fruta aleatoria
-           
-       }
+        }
    }
 
    handleBlockCollision(block,fruta) {
     block.destroy();
     this.decrementarContadorFruta(fruta);
+    this.updateFrutaCounter(fruta)
     console.log(this.azucarCount)
   }
    
@@ -98,10 +114,10 @@ export default class Breakout extends Phaser.Scene {
    decrementarContadorFruta(fruta) {
        switch (fruta) {
            case 'azucar':
-               this.azucarCount--;
+               this.azucarCount++;
                break;
            case 'hierbabuena':
-               this.hierbabuenaCount--;
+               this.hierbabuenaCount++;
                break;
        }
    }
@@ -118,12 +134,17 @@ export default class Breakout extends Phaser.Scene {
            yOffset: 100,
        };
    }
-   fruitCollision(azucar) {
-    azucar.destroy();
-    this.decrementarContadorFruta(azucar);
 
+
+updateFrutaCounter(fruta) {
+    switch (fruta) {
+        case 'azucar':
+            this.azucarCountText.setText(`Azúcar: ${this.azucarCount}/4`);
+            break;
+        case 'hierbabuena':
+            this.hierbabuenaCountText.setText(`Hierbabuena: ${this.hierbabuenaCount}/4`);
+    }
 }
-
    update() {
        if (!this.isBallReleased && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
            this.isBallReleased = true;
@@ -151,7 +172,7 @@ export default class Breakout extends Phaser.Scene {
            //setTimeout(this.scene.start('MainMenu'), 3000);
        }
 
-       if (this.azucarCount === 0 || this.hierbabuenaCount === 0) {
+       if (this.azucarCount === 4 || this.hierbabuenaCount === 4) {
          this.win.visible = true;
          this.scene.pause();
          // setTimeout(() => this.scene.start('MainMenu'), 3000);
