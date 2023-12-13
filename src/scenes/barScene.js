@@ -47,11 +47,10 @@ export default class barScene extends Phaser.Scene {
             }
     }
     generateItems(){
-        var posAux  = 60
-        Object.values(cocktails).forEach(cocktail => {
-            
-            this.itemList.push(new InteractiveItem(this, posAux, 100, posAux, 100, cocktail))
-            posAux += 100
+        //modificar mas tarde, queda crear un archivo de entrada para cada cocktail, que llevara a ciertos minijuegos ...
+        Object.entries(cocktails).forEach(([id, cocktailInfo]) => {
+            const { key, x, y } = cocktailInfo;
+            this.itemList.push(new InteractiveItem(this, x, y, x, y, true, key));
         });
     }
     generateRandomCustomer() {
@@ -129,8 +128,10 @@ export default class barScene extends Phaser.Scene {
         }
         //ForEach de lista de items 
         this.itemList.forEach(item => {
-
-            if(this.onTriggerEnter(x, y, item.rect)) console.log('llamar a la funcion que corresponde dentro de ' + item.key)
+            if(item.canInteract){
+                if(this.onTriggerEnter(x, y, item.rect)) console.log('llamar a la funcion que corresponde dentro de ' + item.key)
+            }
+            
         })
 
     }
