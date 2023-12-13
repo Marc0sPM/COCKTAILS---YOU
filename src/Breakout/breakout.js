@@ -1,3 +1,5 @@
+import pelota from "./pelota.js"
+import Barra from "./barra.js";
 export default class Breakout extends Phaser.Scene {
    constructor() {
        super({ key: 'Breakout' });
@@ -9,13 +11,12 @@ export default class Breakout extends Phaser.Scene {
            xOffset: 60,
            yOffset: 100,
        };
-       this.spaceKey;
-       this.isBallReleased = false;
+       
    }
    
 
    create() {
-       this.physics.world.setBoundsCollision(true, true, true, true);
+       this.physics.world.setBoundsCollision(true, true, true, false);
        this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
        this.gameoverImage.visible = false;
@@ -27,23 +28,21 @@ export default class Breakout extends Phaser.Scene {
        
 
        // barra
-       this.paddle = this.physics.add.image(400, 560, 'paddle').setImmovable();
-       this.paddle.body.allowGravity = false;
+       this.paddle = new Barra(this,400,560).setImmovable();
        this.paddle.setCollideWorldBounds(true);
-
        // pelota
-       this.ball = this.physics.add.image(this.paddle.x, this.paddle.y - 25, 'ball');
+       this.ball = new pelota(this, this.paddle.x, this.paddle.y -25)
        this.ball.setCollideWorldBounds(true);
 
        // movimiento con cursores
        this.cursors = this.input.keyboard.createCursorKeys();
 
        // tecla de espacio
-       this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       //this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
        // colisiones
        this.physics.add.collider(this.ball, this.paddle);
-       this.ball.setBounce(1);
+       
 
        // Crear bloques
        this.createBlocks();
@@ -146,26 +145,17 @@ updateFrutaCounter(fruta) {
     }
 }
    update() {
-       if (!this.isBallReleased && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
-           this.isBallReleased = true;
-           let velocity = 350 * Phaser.Math.Between(1.3, 2);
-           if (Phaser.Math.Between(0, 10) > 5) {
-               velocity = -velocity;
-           }
-           let speed = 125;
-           this.ball.setVelocity(velocity, speed);
-       }
-
-       if (this.isBallReleased) {
-           if (this.cursors.left.isDown) {
-               this.paddle.setVelocityX(-500);
-           } else if (this.cursors.right.isDown) {
-               this.paddle.setVelocityX(500);
-           } else {
-               this.paddle.setVelocityX(0);
-           }
-       }
-
+    if (this.ball.isBallReleased) {
+        if (this.cursors.left.isDown) {
+            console.log("izq");
+            this.paddle.setVelocityX(-500);
+        } else if (this.cursors.right.isDown) {
+            console.log("der")
+            this.paddle.setVelocityX(500);
+        } else {
+            this.paddle.setVelocityX(0);
+        }
+    } 
        if (this.ball.y > 700) {
            this.gameoverImage.visible = true;
            this.scene.pause();
