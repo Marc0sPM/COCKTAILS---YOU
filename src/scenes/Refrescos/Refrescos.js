@@ -46,7 +46,7 @@ export default class Refrescos extends Phaser.Scene {
 
 
         // Definir posición aleatoria del refresco
-        this.type = 'blue'; // = refr
+        this.type = 'coke'; // = refr
         this.refresco = this.spawnRefresco();
         this.refresOffSet = 15;
         
@@ -63,7 +63,7 @@ export default class Refrescos extends Phaser.Scene {
         this.Player.update();
 
         this.temporizador -= (delta / 1000);
-    
+        if(this.temporizador <= 0) this.lose();
       
         //console.log("Valor del temporizador: " + this.temporizador); //debug
       
@@ -83,7 +83,8 @@ export default class Refrescos extends Phaser.Scene {
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
             // Cambiar de escena y eso
-            console.log('¡Has alcanzado el número necesario de refrescos!');
+            this.win();
+            console.log('Has alcanzado el número necesario de refrescos!');
         } else {
             this.refresco = this.spawnRefresco();
             this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
@@ -132,5 +133,13 @@ export default class Refrescos extends Phaser.Scene {
         }
 
         return nuevoRefresco;
+    }
+    // Metodo win, solo pone que has ganado
+    win(){
+
+    }
+    // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer
+    lose(){
+
     }
 }
