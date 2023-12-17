@@ -7,13 +7,15 @@ import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
 //import aim from "/Aim/aim.js";
+import Refrescos from "./scenes/Refrescos/Refrescos.js";
+
 
   const config = {
     width: 800,
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene, Hielos],
+    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene, Refrescos,Hielos],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
