@@ -39,6 +39,19 @@ class MainMenu extends Phaser.Scene{
         });
         //-------------------------------------------------//
 
+        //-------------------------------------------------//
+        // Botón Breakout
+        // Botón refrescos
+        let buttonRefrescos = this.add.image(this.sys.game.config.width/4 + this.sys.game.config.width/4, 
+        this.sys.game.config.height/5 + this.sys.game.config.height/10, "playButton");
+        buttonRefrescos.setScale(0.25);
+        buttonRefrescos.setInteractive();
+        // Escucha el evento "pointerdown" en el botón
+        buttonRefrescos.on("pointerdown", () => {
+            // Carga la escena que desees al hacer clic en el botón
+            this.scene.start('refrescos');
+        });
+        //-------------------------------------------------//
 
         //-------------------------------------------------//
         // Botón barScene
