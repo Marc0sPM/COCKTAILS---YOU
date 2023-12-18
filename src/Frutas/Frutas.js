@@ -1,4 +1,5 @@
 import PlayerRefrescos from '../Refrescos/PlayerRefrescos.js'
+import Fruta from './Fruta.js';
 export default class Frutas extends Phaser.Scene{
     constructor(){
         super({key: 'frutas'});
@@ -16,17 +17,23 @@ export default class Frutas extends Phaser.Scene{
         // const tree1 = this.add.image(100,100,'tree1');  
         // tree1.setScale(3);
 
+        // Imagen de win
+        this.win = this.add.image(400, 300, 'win').setScale(0.8);
+        this.win.visible = false;
+
+        // Imagen de lose
+        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
+        this.gameoverImage.visible = false;
+
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, 100, 300);
+        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, this.sys.game.canvas.height);
         this.Player.setCollideWorldBounds(true);
 
         // Se instancia la fruta
-        this.fruta = this.spawnFruit();
+        this.pos = this.randomPos();
+        this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta());
 
-        this.fruta.body.gravity.y = 150;
-        this.fruta.setScale(0.4);
-        this.fruta.body.setSize(75, 75);
-        this.fruta.body.setOffset(0, 0);
+        
 
         // Contador
         this.num = 4; // desiredNum
@@ -54,27 +61,28 @@ export default class Frutas extends Phaser.Scene{
         });
 
         // Fisicas
-        this.physics.add.collider(this.Player, this.fruta, this.handleColision.bind(this))
+        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
         
     }
 
     update(t, dt){
         this.temporizador -= (dt / 1000);
         if(this.temporizador <= 0) {
-            //this.lose();
+            this.hasDied();
             this.temporizador = 0;
         }
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
 
-        if(this.fruta.y > 700) {
+        if(this.fruta.y > this.sys.game.canvas.height) {
             this.fruta.destroy();
-            this.fruta = this.spawnFruit();
+            this.pos = this.randomPos();
+            this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
             this.physics.add.collider(this.Player, this.fruta, this.handleColision.bind(this))
         }
     }
 
     randomPos(){
-        let rnd = Phaser.Math.RND.between(50, 750);;
+        let rnd = Phaser.Math.RND.between(50, this.sys.game.canvas.width - 50);;
         return [rnd, 10];
     }
 
@@ -88,36 +96,50 @@ export default class Frutas extends Phaser.Scene{
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
             // Cambiar de escena y eso
-           // this.win();
+            this.hasWon()
         } else {
-            this.fruta = this.spawnFruit();
-            this.physics.add.collider(this.Player, this.fruta, this.handleColision.bind(this))
+            this.pos = this.randomPos();
+            this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
+            this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
         }
 
     }
 
-    spawnFruit(){
+    randomFruta(){
         let fruit;
-        let pos = this.randomPos();
         let rnd = Phaser.Math.RND.between(0, 2);
 
         switch(rnd){
             case 0:
-                 fruit = this.physics.add.image(pos[0], pos[1],'blackberry_fruit')
+                 fruit = 'blackberry_fruit'
                  break;
             case 1:  
-                fruit = this.physics.add.image(pos[0], pos[1],'lime_fruit');
+                fruit = 'lime_fruit'
                 break;
             case 2:
-                fruit = this.physics.add.image(pos[0], pos[1],'lemon_fruit');
+                fruit = 'lemon_fruit'
                 break;
-        }
-        if (fruit) {
-            fruit.body.gravity.y = 150;
-            fruit.setScale(0.4);
-            fruit.body.setSize(75, 75);
-            fruit.body.setOffset(0, 0);
         }
         return fruit;
     }
+
+    hasWon(){
+        this.win.visible = true;
+        this.time.delayedCall(2000, () => {
+            this.exitScene();
+        })
+    }
+    exitScene(){
+        //this.calculateFinalScore();
+        this.scene.resume('barScene')
+        this.scene.stop()
+    }
+
+    hasDied(){
+        this.gameoverImage.visible = true
+        this.time.delayedCall(2000, () => {
+        this.exitScene();
+        })
+    }
+
 }
