@@ -1,8 +1,13 @@
 import Player from "./player.js";
 import Customer from "./customer.js"
 import InteractiveItem from "./interactiveItem.js";
-import { cocktails } from "../Cocktails.js";
+import { intItems } from "../Cocktails.js";
 import { dialogues } from "../Dialogues.js";
+import { cocktails } from "../Cocktails.js";
+import { fruits } from "../Cocktails.js";
+import { alcoholicDrinks } from "../Cocktails.js";
+import { refreshments } from "../Cocktails.js";
+import { others } from "../Cocktails.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -21,10 +26,6 @@ export default class barScene extends Phaser.Scene {
 
         this.itemList = []
     }
-    preload() {
-        //temporal, pasar  luego a  boot
-     
-    }
     create() {
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
@@ -33,8 +34,13 @@ export default class barScene extends Phaser.Scene {
         this.player = new Player(this, 300, 300);
 
         this.player.setCollideWorldBounds(true)
-        this.generateItems()
         this.generateRandomCustomer()
+        this.generateCocktail();
+        console.log(this.cocktail);
+        
+        
+        this.generateItems()
+        console.log(this.itemList)
     }
     update() {
         this.player.update();
@@ -46,11 +52,37 @@ export default class barScene extends Phaser.Scene {
             });
             }
     }
+    generateCocktail(){
+        const possibleCocktails = Object.keys(cocktails);
+        switch(this.customerType){
+            case "morado":
+                this.cocktail = cocktails[possibleCocktails[0]];
+                break;
+            case "verde":
+                this.cocktail = cocktails[possibleCocktails[1]];
+                break;
+            case "azul":
+                this.cocktail =cocktails[possibleCocktails[2]];
+                break
+            case "amarillo":
+                this.cocktail = cocktails[possibleCocktails[3]];
+                break
+        }
+    }
     generateItems(){
         //modificar mas tarde, queda crear un archivo de entrada para cada cocktail, que llevara a ciertos minijuegos ...
-        Object.entries(cocktails).forEach(([id, cocktailInfo]) => {
-            const { key, x, y } = cocktailInfo;
-            this.itemList.push(new InteractiveItem(this, x, y, x, y, true, key));
+        Object.entries(intItems).forEach(([id, itemInfo]) => {
+            const { key, x, y } = itemInfo;
+            let activate = true;
+            console.log(key)
+            if(key == "breakout_item") {
+                if(this.cocktail.others == -1) activate = false;
+            }
+            else if( key == "ices_item"){
+                if(this.cocktail.ice == 0) activate = false;
+            }
+            this.itemList.push(new InteractiveItem(this, x, y, x, y, activate, key));
+            
         });
     }
     generateRandomCustomer() {

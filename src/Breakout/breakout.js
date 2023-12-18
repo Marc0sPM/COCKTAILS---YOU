@@ -1,7 +1,8 @@
 import pelota from "./pelota.js"
 import Barra from "./barra.js";
+import gameManager from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
-   constructor() {
+   constructor(fruta) {
        super({ key: 'Breakout' });
        this.blockConfig = {
            width: 80,
@@ -11,7 +12,7 @@ export default class Breakout extends Phaser.Scene {
            xOffset: 60,
            yOffset: 100,
        };
-       
+       this.fruta = fruta
    }
    
 
@@ -52,17 +53,14 @@ export default class Breakout extends Phaser.Scene {
        this.hierbabuenaCount = 0;
 
        // Frutas disponibles
-       let fruta;
-       if (fruta == null) {
-           fruta = 'hierbabuena';
-       }
+      
        let x;
        let y;
        let xf;
        let yf;
        let col;
        //frutita contador
-       if(fruta === 'azucar'){
+       if(this.fruta === 'azucar'){
         this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.azucarCount} /4`, {
             fontSize: '20px',
             fill: '#fff'
@@ -158,6 +156,7 @@ updateFrutaCounter(fruta) {
     } 
        if (this.ball.y > 700) {
            this.gameoverImage.visible = true;
+
            this.scene.pause();
            //setTimeout(this.scene.start('MainMenu'), 3000);
        }

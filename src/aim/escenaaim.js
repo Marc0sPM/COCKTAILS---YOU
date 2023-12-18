@@ -1,9 +1,9 @@
-import aim from './aim.js';
+import Aim from "/aim"
 const config = {
     type: Phaser.AUTO,
     width:800,
-    height: 500,
-    scene:[aim],
+    height: 600,
+    scene:[Aim],
     scene: {
         preload: preload,
         create: create,

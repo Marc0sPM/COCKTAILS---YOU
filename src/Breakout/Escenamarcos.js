@@ -2,7 +2,7 @@ import Breakout from './breakout.js';
 const config = {
     type: Phaser.AUTO,
     width:800,
-    height: 500,
+    height: 600,
     scene:[Breakout],
     physics:{
         default: 'arcade',
