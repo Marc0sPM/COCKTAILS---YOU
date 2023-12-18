@@ -15,8 +15,8 @@ export default class Pelota extends Phaser.Physics.Arcade.Sprite{
             if (Phaser.Math.Between(0, 10) > 5) {
                 this.velocity = -this.velocity;
             }
-            let speed = 125;
-            this.setVelocityY(this.velocity, speed);
+            let speed = 300;
+            this.setVelocity(this.velocity, speed);
         }
  
         
