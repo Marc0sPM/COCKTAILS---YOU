@@ -8,7 +8,6 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import GameManager from "./GameManager.js";
 import Breakout from "../Breakout/breakout.js";
 import { setOther } from "./GameManager.js";
 

@@ -6,7 +6,6 @@ import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
-import GameManager from "./scenes/GameManager.js";
 import Aim from "./aim/aim.js"
 import Refrescos from "./scenes/Refrescos/Refrescos.js";
 
@@ -51,5 +50,5 @@ import Refrescos from "./scenes/Refrescos/Refrescos.js";
 
 
   new Phaser.Game(config);
-  var gameManager = new GameManager();
+
   
