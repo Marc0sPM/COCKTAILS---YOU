@@ -43,7 +43,7 @@ export default class Boot extends Phaser.Scene{
 
         /*----- /AIM/ -----*/
         this.load.image('tequila', '\\assets\\sprites\\aim\\tequila.png');
-        this.load.image('ron', '\\assets\\sprites\\aim\\ron.png');
+        this.load.image('white_ron', '\\assets\\sprites\\aim\\ron.png');
         this.load.image('vodka', '\\assets\\sprites\\aim\\vodka.png');
         this.load.image('gin', '\\assets\\sprites\\aim\\gin.png');
 
@@ -126,7 +126,7 @@ export default class Boot extends Phaser.Scene{
             repeat: 1
         });
 
-        this.scene.start("MainMenu");
+        this.scene.start("Aim");
     }
 }
 

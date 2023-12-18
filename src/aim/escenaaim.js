@@ -1,15 +1,41 @@
-import Aim from "/aim.js"
+import Aim from "./aim.js"
+import Boot from "../scenes/boot.js"
 
 const config = {
-    type: Phaser.AUTO,
-    width:800,
+    width: 800,
     height: 600,
-    scene:[],
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
+    parent: "container",
+    type: Phaser.CANVAS,
+    scene: [Boot,Aim],
+    scale: {
+      autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
+
+      // Configuramos phaser para que se adapte al tamaño de pantalla donde ejecutadmos
+      // con un mínimo y un máximo de tamaño
+      mode: Phaser.Scale.FIT,
+      min: {
+              width: 240,
+              height: 120
+          },
+      max: {
+              width: 800,
+              height: 600
+          },
+      zoom: 1
+    },
+    physics: { 
+      default: 'arcade', 
+      arcade: { 
+          gravity: { y: 0 }, 
+          debug: true
+      },
+      checkCollision: {
+        up: true,
+        down: true,
+        left: true, 
+        right: true
+      }  
     }
-    
+   
 }
-var game = new Phaser.game(config)
+var game = new Phaser.Game(config)
