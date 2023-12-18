@@ -32,9 +32,11 @@ export default class Refrescos extends Phaser.Scene {
         
 
         // Temporizador
+        this.tempSprite = this.add.sprite(850, -29, 'contador');
+        this.tempSprite.setScale(0.7);
         this.temporizador = 30 /*= temp*/
         
-        this.temporizadorText = this.add.text(800 - 200, 16, 'Tiempo: ' + this.temporizador, { 
+        this.temporizadorText = this.add.text(620, 20, 'Tiempo: ' + this.temporizador, { 
             fontFamily: 'Comic Sans MS',
             fontSize: '32px',
              fill: '#fff'
@@ -73,7 +75,6 @@ export default class Refrescos extends Phaser.Scene {
         //console.log("Valor del temporizador: " + this.temporizador); //debug
       
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
-        
     }
       
 
@@ -139,13 +140,12 @@ export default class Refrescos extends Phaser.Scene {
 
         return nuevoRefresco;
     }
-    
+
     // Metodo win, solo pone que has ganado
     win(){
         // Cambiar escena a la que se necesite
         info = this.infoLvl;
-        this.scene.resume('barScene');
-        this.scene.stop()
+        this.scene.start('MainMenu');
     }
 
     // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer
@@ -153,7 +153,7 @@ export default class Refrescos extends Phaser.Scene {
         // this.loseSprite = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'lose');
         // this.loseSprite.setInteractive(); // Sprite interactivo
         // this.loseSprite.on('pointerdown', this.restartScene.bind(this));
-
+        this.restartScene();
     }
 
     restartScene(){
