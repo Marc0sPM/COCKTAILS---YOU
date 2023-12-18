@@ -63,6 +63,9 @@ export default class Boot extends Phaser.Scene{
         //Player - walk
         this.load.spritesheet('player_walkSprite', "./assets/sprites/Player/player_walk.png",
         {frameWidth: 48, frameHeight: 48})   
+        //Player - jump
+        this.load.spritesheet('player_jumpSprite', "./assets/sprites/Player/sprites-jump_up.png",
+        {frameWidth: 48, frameHeight: 48})
 
         /*----- / CUSTOMERS / -----*/
         this.load.spritesheet('customers', "./assets/sprites/customers.png",
@@ -82,6 +85,12 @@ export default class Boot extends Phaser.Scene{
         this.anims.create({
             key: 'player_walk',
             frames: this.anims.generateFrameNames('player_walkSprite', { start: 0, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key:'player_jump',
+            frames: this.anims.generateFrameNames('player_jumpSprite', {start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
         });

@@ -27,12 +27,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t,dt);
-        if(this.cursors.jump.isDown && this.body.onFloor()) this.setVelocityY(this.jumpSpeed)
-       
+        if(this.cursors.jump.isDown && this.body.onFloor()) {
+            this.anims.play('player_jump', true);
+            this.setVelocityY(this.jumpSpeed);
+        }
 
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);
-            this.anims.play('player_walk', true);
+
+            if(this.body.velocity.y == 0){
+                this.anims.play('player_walk', true);
+            }
+
             if (lookingRight) {
                 lookingRight = false;
                 this.setFlipX(true);
@@ -40,7 +46,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.x -= 48; // Ajusta según el tamaño del sprite
             }
         } else if (this.cursors.right.isDown) {
-            this.anims.play('player_walk', true);
+
+            if(this.body.velocity.y == 0){
+                this.anims.play('player_walk', true);
+            }
+
             this.setVelocityX(this.speed);
             if (!lookingRight) {
                 lookingRight = true;
