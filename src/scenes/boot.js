@@ -54,6 +54,9 @@ export default class Boot extends Phaser.Scene{
         this.load.image('lime_fruit', '\\assets\\sprites\\Frutas\\lima.png');
         this.load.image('lemon_fruit', '\\assets\\sprites\\Frutas\\limon.png');
         this.load.image('cesta', '\\assets\\sprites\\Frutas\\cesta.png');
+        this.load.image('tree1', '\\assets\\sprites\\Frutas\\tree03.png');
+        this.load.image('tree2', '\\assets\\sprites\\Frutas\\tree05.png');
+        this.load.image('tree3', '\\assets\\sprites\\Frutas\\tree06.png');
 
         /*----- / MAPA / -----*/
         this.load.image("floor", "./assets/sprites/floorTiles.png");
