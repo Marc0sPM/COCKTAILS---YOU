@@ -126,7 +126,7 @@ export default class Boot extends Phaser.Scene{
             repeat: 1
         });
 
-        this.scene.start("Aim");
+        this.scene.start("MainMenu");
     }
 }
 

@@ -1,12 +1,11 @@
 import Aim from "./aim.js"
-import Boot from "../scenes/boot.js"
 
 const config = {
     width: 800,
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot,Aim],
+    scene: [Aim],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
