@@ -145,36 +145,8 @@ export default class Refrescos extends Phaser.Scene {
     win(){
         // Cambiar escena a la que se necesite
         info = this.infoLvl;
-        this.scene.start('MainMenu');
-    }
-
-    // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer
-    lose(){
-        // this.loseSprite = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'lose');
-        // this.loseSprite.setInteractive(); // Sprite interactivo
-        // this.loseSprite.on('pointerdown', this.restartScene.bind(this));
-        this.restartScene();
-    }
-
-    restartScene(){
-        this.Player.destroy();
-        this.num = 4/* = desiredNum*/
-        this.temporizador = 30 /*= temp*/
-        this.cont = 0;
-
-        // UI
-        this.contadorText.setText('Refrescos: ' + this.cont + ' / ' + this.num);
-        
-        // Player
-        this.Player = new PlayerRefrescos(this, 100, 300);
-        this.Player.setCollideWorldBounds(true);
-        this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
-
-        // Fisicas de nuevo
-        this.cargarFisicas();
-
-        // Info para devolverla y que se sepa si ha fallado
-        this.infoLvl -= 0.2;
+        this.scene.resume('barScene');
+        this.scene.stop();
     }
 
     cargarFisicas(){
