@@ -79,7 +79,10 @@ export default class Aim extends Phaser.Scene {
     this.targetCounter.setText(`${this.targetBottle}: ${this.CounterValue}`);
         if (this.CounterValue >= 4) {
          this.win.visible = true;
-         this.scene.pause();
+         this.bottleList.length = 0
+         this.time.delayedCall(2000, () => {
+            this.exitScene();
+        })
         }
     }
     update(time,delta) {
@@ -87,9 +90,19 @@ export default class Aim extends Phaser.Scene {
         this.temporizador -= (delta / 1000);
         if(this.temporizador <= 0){
             this.gameoverImage.visible = true;
-            this.scene.pause();
+            this.bottleList.length = 0
+            this.time.delayedCall(2000, () => {
+                this.exitScene();
+                
+            })
+            
         }
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
+        
+    }
+    exitScene(){
+        this.scene.resume('barScene')
+        this.scene.stop()
         
     }
 }

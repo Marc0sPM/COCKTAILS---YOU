@@ -7,7 +7,7 @@ import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
 import GameManager from "./scenes/GameManager.js";
-//import Aim from "./Aim/aim.js";
+import Aim from "./aim/aim.js"
 import Refrescos from "./scenes/Refrescos/Refrescos.js";
 
 
@@ -16,7 +16,7 @@ import Refrescos from "./scenes/Refrescos/Refrescos.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, barScene, A, MainScene, EscenaVivuPrueba, Breakout, , Refrescos,Hielos],
+    scene: [Boot, MainMenu, barScene, A, MainScene, EscenaVivuPrueba, Breakout,Aim , Refrescos,Hielos],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 

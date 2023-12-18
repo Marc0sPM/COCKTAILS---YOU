@@ -156,9 +156,8 @@ hasWon(){
 }
 hasDied(){
     if (this.ball.y > 700) {
-        
-        this.time.delayedCall(2000, () => {
         this.gameoverImage.visible = true
+        this.time.delayedCall(2000, () => {
         this.exitScene();
         //setTimeout(this.scene.start('MainMenu'), 3000);}
     })}
