@@ -150,7 +150,8 @@ export default class Hielos extends Phaser.Scene {
             this.completionText.setVisible(true);
             this.time.delayedCall(2000, () => {
                 this.completionText.setVisible(false);
-                this.scene.restart();
+                this.scene.resume('barScene')
+                this.scene.stop();
             }, null, this);
         }
     }

@@ -156,10 +156,12 @@ hasWon(){
 }
 hasDied(){
     if (this.ball.y > 700) {
+        
+        this.time.delayedCall(2000, () => {
         this.gameoverImage.visible = true
         this.exitScene();
-        //setTimeout(this.scene.start('MainMenu'), 3000);
-    }
+        //setTimeout(this.scene.start('MainMenu'), 3000);}
+    })}
 }
 exitScene(){
     this.scene.resume('barScene')

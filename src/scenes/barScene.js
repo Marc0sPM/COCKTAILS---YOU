@@ -167,17 +167,18 @@ export default class barScene extends Phaser.Scene {
                     this.scene.pause()
                     switch (item.key){
                         case "breakout_item": 
-                        setOther(others[this.cocktail.others]);
-                        item.unsetInteractive();
-                        this.scene.launch('Breakout')
-                        break
+                            setOther(others[this.cocktail.others]);
+                            item.unsetInteractive();s
+                            this.scene.launch('Breakout')
+                            break
                         case "ices_item":
-                        this.scene.launch("Hielos")    
-                        break
+                            item.unsetInteractive();
+                            this.scene.launch("Hielos")    
+                            break
                         case "platforms_item":
                             item.unsetInteractive();
-                        this.scene.launch('refrescos')    
-                        break
+                            this.scene.launch('refrescos')    
+                            break
                         case "tree_item":break
                         case "shoot_item":break
                     }
