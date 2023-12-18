@@ -16,7 +16,7 @@ import Refrescos from "./scenes/Refrescos/Refrescos.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, A, MainScene, EscenaVivuPrueba, Breakout, barScene, Refrescos,Hielos],
+    scene: [Boot, MainMenu, barScene, A, MainScene, EscenaVivuPrueba, Breakout, , Refrescos,Hielos],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
@@ -51,4 +51,5 @@ import Refrescos from "./scenes/Refrescos/Refrescos.js";
 
 
   new Phaser.Game(config);
-  this.gameManager = new GameManager();
+  var gameManager = new GameManager();
+  

@@ -1,8 +1,10 @@
 import pelota from "./pelota.js"
 import Barra from "./barra.js";
-//import GameManager from "../scenes/GameManager.js";
+import { others } from "../Cocktails.js";
+import GameManager from "../scenes/GameManager.js";
+import { other } from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
-   constructor(fruta) {
+   constructor() {
        super({ key: 'Breakout' });
        this.blockConfig = {
            width: 80,
@@ -12,11 +14,9 @@ export default class Breakout extends Phaser.Scene {
            xOffset: 60,
            yOffset: 100,
        };
-       this.fruta = fruta
    }
-   
-
    create() {
+    this.fruta = other
        this.physics.world.setBoundsCollision(true, true, true, false);
        this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
@@ -49,6 +49,7 @@ export default class Breakout extends Phaser.Scene {
        this.createBlocks();
 
        // Contadores de frutas
+       this.cont = 0
        this.azucarCount = 0;
        this.hierbabuenaCount = 0;
 
@@ -60,14 +61,14 @@ export default class Breakout extends Phaser.Scene {
        let yf;
        let col;
        //frutita contador
-       if(this.fruta === 'azucar'){
-        this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.azucarCount} /4`, {
+       if(this.fruta == 'azucar'){
+        this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.cont} /4`, {
             fontSize: '20px',
             fill: '#fff'
         }).setDepth(1);
        }
        else{
-        this.hierbabuenaCountText = this.add.text(20,550, `Hierbabuena: ${this.hierbabuenaCount} /4`, {
+        this.hierbabuenaCountText = this.add.text(20,550, `Hierbabuena: ${this.cont} /4`, {
             fontSize: '20px',
             fill: '#fff'
         }).setDepth(1);
@@ -78,15 +79,15 @@ export default class Breakout extends Phaser.Scene {
            col = rnd;
            xf = (col * this.blockConfig.width+56) + this.blockConfig.xOffset;
            yf = (row * this.blockConfig.height-80) + this.blockConfig.yOffset;
-           switch (fruta) {
-               case 'azucar':
-                   const azucar = this.physics.add.image(xf, yf, 'blockazucar').setImmovable();
-                   this.physics.add.collider(this.ball, azucar, () => this.handleBlockCollision(azucar,fruta));
+           switch (this.fruta) {
+               case "azucar":
+                   let azucar = this.physics.add.image(xf, yf, 'blockazucar').setImmovable();
+                   this.physics.add.collider(this.ball, azucar, () => this.handleFruitCollision(azucar));
                    
                    break;
-               case 'hierbabuena':
-                   const hierbabuena = this.physics.add.image(xf, yf, 'blockhierbabuena').setImmovable();
-                   this.physics.add.collider(this.ball, hierbabuena, () => this.handleBlockCollision(hierbabuena,fruta));
+               case "hierbabuena":
+                   let hierbabuena = this.physics.add.image(xf, yf, 'blockhierbabuena').setImmovable();
+                   this.physics.add.collider(this.ball, hierbabuena, () => this.handleFruitCollision(hierbabuena));
                    break;
            }
            for (col = 0; col < 8; col++) {
@@ -99,24 +100,26 @@ export default class Breakout extends Phaser.Scene {
            }
         }
    }
-
-   handleBlockCollision(block,fruta) {
+   handleFruitCollision(block){
+    block.destroy()
+    this.cont++
+    this.updateFrutaCounter()
+   }
+   handleBlockCollision(block) {
     block.destroy();
-    this.decrementarContadorFruta(fruta);
-    this.updateFrutaCounter(fruta)
-    console.log(this.azucarCount)
   }
    
 
-   decrementarContadorFruta(fruta) {
-       switch (fruta) {
-           case 'azucar':
-               this.azucarCount++;
-               break;
-           case 'hierbabuena':
-               this.hierbabuenaCount++;
-               break;
-       }
+   decrementarContadorFruta() {
+    this.cont++;
+    //    switch (this.fruta) {
+    //        case 'azucar':
+    //            this.azucarCount++;
+    //            break;
+    //        case 'hierbabuena':
+    //            this.hierbabuenaCount++;
+    //            break;
+    //    }
    }
 
 
@@ -133,16 +136,16 @@ export default class Breakout extends Phaser.Scene {
    }
 
 
-updateFrutaCounter(fruta) {
-    switch (fruta) {
-        case 'azucar':
-            this.azucarCountText.setText(`Azúcar: ${this.azucarCount}/4`);
+updateFrutaCounter() {
+    switch (this.fruta) {
+        case "azucar":
+            this.azucarCountText.setText(`Azúcar: ${this.cont}/4`);
             break;
-        case 'hierbabuena':
-            this.hierbabuenaCountText.setText(`Hierbabuena: ${this.hierbabuenaCount}/4`);
+        case "hierbabuena":
+            this.hierbabuenaCountText.setText(`Hierbabuena: ${this.cont}/4`);
     }
 }
-   update() {
+update() {
     if (this.ball.isBallReleased) {
         if (this.cursors.left.isDown) {
             console.log("izq");
@@ -154,17 +157,24 @@ updateFrutaCounter(fruta) {
             this.paddle.setVelocityX(0);
         }
     } 
-       if (this.ball.y > 700) {
-           this.gameoverImage.visible = true;
-
-           this.scene.pause();
-           //setTimeout(this.scene.start('MainMenu'), 3000);
-       }
-
-       if (this.azucarCount === 4 || this.hierbabuenaCount === 4) {
-         this.win.visible = true;
-         this.scene.pause();
-         // setTimeout(() => this.scene.start('MainMenu'), 3000);
-     }
-   }
+        this.hasDied();
+        this.hasWon();
+    }
+hasWon(){
+    if (this.cont == 4) {
+        this.win.visible = true;
+        this.exitScene
+    }
+}
+hasDied(){
+    if (this.ball.y > 700) {
+        this.gameoverImage.visible = true
+        this.exitScene();
+        //setTimeout(this.scene.start('MainMenu'), 3000);
+    }
+}
+exitScene(){
+    this.scene.resume('barScene')
+    this.scene.stop()
+}
 }

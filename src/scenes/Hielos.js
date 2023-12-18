@@ -6,6 +6,7 @@ let ForceX = 20,
 export default class Hielos extends Phaser.Scene {
     constructor() {
         super({ key: 'Hielos' });
+        
     }
 
     create() {
@@ -13,7 +14,8 @@ export default class Hielos extends Phaser.Scene {
         this.createObstacle(765, 500, 'obstacle1', 10, 100, 0);
         this.createObstacle(635, 500, 'obstacle2', 10, 100, 0);
         this.createObstacle(700, 550, 'obstacle3', 60, 10, 0);
-        
+        //Intentos
+        this.attempts = 0;
         // Background
         let background = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "backgroundIce");
 
@@ -80,6 +82,7 @@ export default class Hielos extends Phaser.Scene {
                 this.destroyCube();
                 this.createCube();
                 this.isCubeLaunched = false;
+                
             }, null, this);
         }
     }
@@ -108,6 +111,8 @@ export default class Hielos extends Phaser.Scene {
             this.cube.setVelocity(velocityX, velocityY);
     
             this.physics.world.gravity.y = 800;
+
+            this.attempt ++;
         }
     }
     

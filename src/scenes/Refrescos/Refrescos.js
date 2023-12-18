@@ -144,7 +144,8 @@ export default class Refrescos extends Phaser.Scene {
     win(){
         // Cambiar escena a la que se necesite
         info = this.infoLvl;
-        this.scene.start('MainMenu');
+        this.scene.resume('barScene');
+        this.scene.stop()
     }
 
     // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer

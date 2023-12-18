@@ -8,6 +8,9 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
+import GameManager from "./GameManager.js";
+import Breakout from "../Breakout/breakout.js";
+import { setOther } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -160,7 +163,25 @@ export default class barScene extends Phaser.Scene {
         //ForEach de lista de items 
         this.itemList.forEach(item => {
             if(item.canInteract){
-                if(this.onTriggerEnter(x, y, item.rect)) console.log('Cambiar a la escena que le corresponde a ' + item.key)
+                if(this.onTriggerEnter(x, y, item.rect)) {
+                    this.scene.pause()
+                    switch (item.key){
+                        case "breakout_item": 
+                        setOther(others[this.cocktail.others]);
+                        item.unsetInteractive();
+                        this.scene.launch('Breakout')
+                        break
+                        case "ices_item":
+                        this.scene.launch("Hielos")    
+                        break
+                        case "platforms_item":
+                            item.unsetInteractive();
+                        this.scene.launch('refrescos')    
+                        break
+                        case "tree_item":break
+                        case "shoot_item":break
+                    }
+                }
             }
             
         })

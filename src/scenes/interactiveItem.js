@@ -21,8 +21,12 @@ export default class InteractiveItem extends Phaser.GameObjects.Image{
         else {this.setTexture(this.key)
         color = color2}
 
-        
         this.rect = this.scene.add.rectangle(this.rectPos.x,this.rectPos.y, 50, 50, color)
     }
+    unsetInteractive(){
+        this.canInteract = false;
+        this.rect.setFillStyle(0x35D9F0)
+    }
+
     
 }
