@@ -7,7 +7,7 @@ import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
 import Aim from "./aim/aim.js"
-import Refrescos from "./scenes/Refrescos/Refrescos.js";
+import Refrescos from "./Refrescos/Refrescos.js";
 
 
   const config = {
