@@ -49,7 +49,7 @@ class MainMenu extends Phaser.Scene{
         // Escucha el evento "pointerdown" en el botón
         buttonRefrescos.on("pointerdown", () => {
             // Carga la escena que desees al hacer clic en el botón
-            this.scene.start('refrescos');
+            this.scene.start('frutas');
         });
         //-------------------------------------------------//
 
