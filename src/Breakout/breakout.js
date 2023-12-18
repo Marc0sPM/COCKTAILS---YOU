@@ -149,7 +149,20 @@ update() {
         } else {
             this.paddle.setVelocityX(0);
         }
-    } 
+    }
+    else{
+        if (this.cursors.left.isDown) {
+            this.paddle.setVelocityX(-500);
+            this.ball.setVelocityX(-500);
+        } else if (this.cursors.right.isDown) {
+            this.paddle.setVelocityX(500);
+            this.ball.setVelocityX(500);
+        } else {
+            this.paddle.setVelocityX(0);
+            this.ball.setVelocityX(0);
+
+        }
+    }
         this.hasDied();
         this.hasWon();
         
