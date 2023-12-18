@@ -14,9 +14,11 @@ export default class Frutas extends Phaser.Scene{
         //background.setScale(1);
 
         // Poner los arboles de la escena
-        // const tree1 = this.add.image(100,100,'tree1');  
-        // tree1.setScale(3);
-
+        const tree1 = this.add.image(600 ,this.sys.game.canvas.height - 355,'tree3');  
+        tree1.setScale(0.6);
+        const tree2 = this.add.image(250 ,this.sys.game.canvas.height - 355,'tree1');  
+        tree2.setScale(0.6);
+        
         // Imagen de win
         this.win = this.add.image(400, 300, 'win').setScale(0.8);
         this.win.visible = false;
