@@ -14,7 +14,7 @@ export default class Aim extends Phaser.Scene {
  create(){
      this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
      this.background.setInteractive();
-     this.background.setScale(1.20);
+     this.background.setScale(3);
    
      //temporizador
      this.temporizador = 15
@@ -24,6 +24,7 @@ export default class Aim extends Phaser.Scene {
      fontSize: '32px',
      fill: '#fff'
     });
+    this.temporizadorText.setDepth(3);
      //gameOver
      this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
      this.gameoverImage.visible = false;
@@ -37,6 +38,7 @@ export default class Aim extends Phaser.Scene {
 
      this.bottlesGroup = this.physics.add.group();
      this.targetCounter = this.add.text(50, 30, ` ${this.targetBottle}: ${this.CounterValue}`, {fontFamily: 'Comic Sans MS', fontSize: '32px', fill: '#fff' });
+     this.targetCounter.setDepth(3);
      this.add.image(20, 44, this.targetBottle).setScale(0.15);
 
      const bottleTypes = ['gin', 'ron', 'vodka', 'tequila'];
