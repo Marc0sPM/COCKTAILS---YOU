@@ -108,19 +108,6 @@ export default class Breakout extends Phaser.Scene {
    handleBlockCollision(block) {
     block.destroy();
   }
-   
-
-   decrementarContadorFruta() {
-    this.cont++;
-    //    switch (this.fruta) {
-    //        case 'azucar':
-    //            this.azucarCount++;
-    //            break;
-    //        case 'hierbabuena':
-    //            this.hierbabuenaCount++;
-    //            break;
-    //    }
-   }
 
 
    createBlocks() {
@@ -159,7 +146,8 @@ update() {
     } 
         this.hasDied();
         this.hasWon();
-    }
+}
+
 hasWon(){
     if (this.cont == 4) {
         this.win.visible = true;
