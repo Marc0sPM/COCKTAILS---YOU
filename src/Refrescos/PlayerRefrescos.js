@@ -2,7 +2,7 @@ let lookingRight = true;
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
+    constructor(scene, x, y, canJump) {
         super(scene, x, y, { key: 'player' });
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
@@ -23,14 +23,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Velocidad del jugador
         this.speed = 200;
         this.jumpSpeed = -425;
+        this.canJump = canJump;
     }
 
     preUpdate(t, dt) {
         super.preUpdate(t,dt);
-        if(this.cursors.jump.isDown && this.body.onFloor()) {
-            this.anims.play('player_jump', true);
-            this.setVelocityY(this.jumpSpeed);
+        if(this.canJump){
+            if(this.cursors.jump.isDown && this.body.onFloor()) {
+                this.anims.play('player_jump', true);
+                this.setVelocityY(this.jumpSpeed);
+            }
         }
+        
 
         if (this.cursors.left.isDown) {
             this.setVelocityX(-this.speed);

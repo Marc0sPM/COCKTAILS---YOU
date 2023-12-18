@@ -26,7 +26,7 @@ export default class Frutas extends Phaser.Scene{
         this.gameoverImage.visible = false;
 
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, this.sys.game.canvas.height);
+        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, this.sys.game.canvas.height, false);
         this.Player.setCollideWorldBounds(true);
 
         // Se instancia la fruta

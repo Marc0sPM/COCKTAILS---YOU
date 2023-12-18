@@ -14,7 +14,7 @@ export default class Refrescos extends Phaser.Scene {
         this.physics.world.setBoundsCollision(true, true, true, true);
       
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, 100, 300);
+        this.Player = new PlayerRefrescos(this, 100, 300, true);
         this.Player.setCollideWorldBounds(true);
 
         // Número de refrescos para pasar al siguiente nivel
