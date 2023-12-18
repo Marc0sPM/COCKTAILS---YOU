@@ -12,13 +12,13 @@ export default class Aim extends Phaser.Scene {
         this.CounterValue  = 0;
     }
  create(){
-     //cambiar a otro backgorund
-     //poner bien botellas
-     this.background = this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
+     //tequila
+     this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
      this.background.setInteractive();
+     this.background.setScale(1.20);
    
      //temporizador
-     this.temporizador = 30
+     this.temporizador = 15
         
      this.temporizadorText = this.add.text(800 - 200, 30, 'Tiempo: ' + this.temporizador, { 
      fontFamily: 'Comic Sans MS',
