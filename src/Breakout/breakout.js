@@ -31,10 +31,10 @@ export default class Breakout extends Phaser.Scene {
        // barra
        this.paddle = new Barra(this,400,560).setImmovable();
        this.paddle.setCollideWorldBounds(true);
+
        // pelota
        this.ball = new pelota(this, this.paddle.x, this.paddle.y -25)
        this.ball.setCollideWorldBounds(true);
-
        // movimiento con cursores
        this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -42,7 +42,7 @@ export default class Breakout extends Phaser.Scene {
        //this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
        // colisiones
-       this.physics.add.collider(this.ball, this.paddle);
+       this.physics.add.collider(this.ball, this.paddle,() => this.paddlecollision());
        
 
        // Crear bloques
@@ -108,6 +108,14 @@ export default class Breakout extends Phaser.Scene {
    handleBlockCollision(block) {
     block.destroy();
   }
+   paddlecollision(){
+    let relative = this.ball.x - this.paddle.x;
+    if(relative<0.1 && relative> -0.1){
+    this.ball.setVelocityX(Phaser.Math.Between(-10,10))
+   }else{
+    this.ball.setVelocityX(10 * relative);
+   }
+   }
 
 
    createBlocks() {
@@ -135,10 +143,8 @@ updateFrutaCounter() {
 update() {
     if (this.ball.isBallReleased) {
         if (this.cursors.left.isDown) {
-            console.log("izq");
             this.paddle.setVelocityX(-500);
         } else if (this.cursors.right.isDown) {
-            console.log("der")
             this.paddle.setVelocityX(500);
         } else {
             this.paddle.setVelocityX(0);
@@ -146,6 +152,11 @@ update() {
     } 
         this.hasDied();
         this.hasWon();
+        
+           
+        
+        
+
 }
 
 hasWon(){

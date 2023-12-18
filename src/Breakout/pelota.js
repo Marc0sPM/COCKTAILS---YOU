@@ -6,7 +6,7 @@ export default class Pelota extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
         this.spaceKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.isBallReleased = false;
-        this.velocity = 350 * Phaser.Math.Between(1.3, 2);
+        this.velocity = 400;
         this.setBounce(1);
     }
     preUpdate(){
@@ -16,7 +16,7 @@ export default class Pelota extends Phaser.Physics.Arcade.Sprite{
                 this.velocity = -this.velocity;
             }
             let speed = 125;
-            this.setVelocity(this.velocity, speed);
+            this.setVelocityY(this.velocity, speed);
         }
  
         

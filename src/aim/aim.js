@@ -12,7 +12,6 @@ export default class Aim extends Phaser.Scene {
         this.CounterValue  = 0;
     }
  create(){
-     //tequila
      this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
      this.background.setInteractive();
      this.background.setScale(1.20);
@@ -66,7 +65,7 @@ export default class Aim extends Phaser.Scene {
 }
  createBottle() {
     for(var i = 0; i < 4; i++){
-        this.createIndividualBottle(alcoholicDrinks[i])
+        this.createIndividualBottle(alcoholicDrinks[i+1])
     }
  }
  createIndividualBottle(bottletype){
