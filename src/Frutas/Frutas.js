@@ -36,6 +36,20 @@ export default class Frutas extends Phaser.Scene{
         // Se instancia al jugador
         this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 425, false);
         this.Player.setCollideWorldBounds(true);
+        //this.cesta = this.physics.add.image(this.Player.x, this.Player.y, 'cesta')
+
+         // Temporizador
+         this.tempSprite = this.add.sprite(850, -29, 'contador');
+         this.tempSprite.setScale(0.7);
+ 
+         // Temporizador
+         this.temporizador = 30 /*= temp*/
+         
+         this.temporizadorText = this.add.text(620, 20, 'Tiempo: ' + this.temporizador, { 
+             fontFamily: 'Comic Sans MS',
+             fontSize: '32px',
+              fill: '#fff'
+         });
 
         // Se instancia la fruta
         this.pos = this.randomPos();
@@ -53,20 +67,10 @@ export default class Frutas extends Phaser.Scene{
             
         });
 
+        this.frutaRequerida = 'lime_fruit'; // = requird;
         
 
-        // Temporizador
-        this.tempSprite = this.add.sprite(850, -29, 'contador');
-        this.tempSprite.setScale(0.7);
-
-        // Temporizador
-        this.temporizador = 30 /*= temp*/
-        
-        this.temporizadorText = this.add.text(620, 20, 'Tiempo: ' + this.temporizador, { 
-            fontFamily: 'Comic Sans MS',
-            fontSize: '32px',
-             fill: '#fff'
-        });
+       
 
         // Fisicas
         this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this));
@@ -95,8 +99,9 @@ export default class Frutas extends Phaser.Scene{
 
     handleColision(player, fruta){
         fruta.destroy();
-
-        this.cont++;
+        if(fruta.getType() == this.frutaRequerida)
+            this.cont++;
+        else this.temporizador -= 3
 
         this.contadorText.setText('Frutas: ' + this.cont + ' / ' + this.num);
 

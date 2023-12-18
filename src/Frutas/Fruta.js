@@ -9,11 +9,15 @@ export default class Fruta extends Phaser.Physics.Arcade.Sprite{
         this.setGravityY(150);
 
         // Manejamos escala y collider para que coincida con el sprite
-        this.setScale(0.4);
-        this.body.setSize(75, 75);
+        this.setScale(0.2);
+        this.body.setSize(150, 150);
         this.body.setOffset(0, 0);
         
         this.x = x;
         this.y = y;
+        this.type = type;
+    }
+    getType(){
+        return this.type
     }
 }
