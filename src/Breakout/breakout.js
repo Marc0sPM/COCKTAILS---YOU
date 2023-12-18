@@ -1,6 +1,6 @@
 import pelota from "./pelota.js"
 import Barra from "./barra.js";
-import gameManager from "../scenes/GameManager.js";
+//import GameManager from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
    constructor(fruta) {
        super({ key: 'Breakout' });

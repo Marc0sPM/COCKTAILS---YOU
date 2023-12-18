@@ -15,4 +15,5 @@ export default class Bottle extends Phaser.Physics.Arcade.Sprite{
     move(){
 
     }
+    
 }

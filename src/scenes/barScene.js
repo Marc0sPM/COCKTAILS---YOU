@@ -82,7 +82,6 @@ export default class barScene extends Phaser.Scene {
                 if(this.cocktail.ice == 0) activate = false;
             }
             this.itemList.push(new InteractiveItem(this, x, y, x, y, activate, key));
-            
         });
     }
     generateRandomCustomer() {

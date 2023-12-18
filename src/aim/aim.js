@@ -1,4 +1,4 @@
-import Bottle from "/bottle";
+import Bottle from "./bottle.js"
 import { alcoholicDrinks } from "../Cocktails";
 
 export default class Aim extends Phaser.Scene {
