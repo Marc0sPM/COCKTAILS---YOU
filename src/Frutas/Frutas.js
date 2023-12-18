@@ -9,15 +9,21 @@ export default class Frutas extends Phaser.Scene{
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.physics.world.setBoundsCollision(true, true, true, true);
       
-        // Background de la escena
-        //const background = this.add.image(400, 250, 'frutasBackground').setDepth(0);
-        //background.setScale(1);
+        // Background de la escena y suelo
+        const background = this.add.image(400, 250, 'frutasBackground').setDepth(0);
+        background.setScale(1);
+
+        this.suelo = this.physics.add.image(400,250, 'frutasSuelo').setImmovable();
+        this.suelo.setScale(1);
+        this.suelo.setSize(this.sys.game.canvas.width, 150);
+        this.suelo.setOffset(320, 670);
 
         // Poner los arboles de la escena
-        const tree1 = this.add.image(600 ,this.sys.game.canvas.height - 355,'tree3');  
-        tree1.setScale(0.6);
+        const tree1 = this.add.image(600 ,this.sys.game.canvas.height - 307,'tree3');  
+        tree1.setScale(0.5);
         const tree2 = this.add.image(250 ,this.sys.game.canvas.height - 355,'tree1');  
         tree2.setScale(0.6);
+        
         
         // Imagen de win
         this.win = this.add.image(400, 300, 'win').setScale(0.8);
@@ -28,7 +34,7 @@ export default class Frutas extends Phaser.Scene{
         this.gameoverImage.visible = false;
 
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, this.sys.game.canvas.height, false);
+        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 425, false);
         this.Player.setCollideWorldBounds(true);
 
         // Se instancia la fruta
@@ -63,8 +69,9 @@ export default class Frutas extends Phaser.Scene{
         });
 
         // Fisicas
-        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
-        
+        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this));
+        this.physics.add.collider(this.Player, this.suelo);
+        this.physics.add.collider(this.fruta, this.suelo, this.handleDelete.bind(this));
     }
 
     update(t, dt){
@@ -75,14 +82,12 @@ export default class Frutas extends Phaser.Scene{
         }
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
 
-        if(this.fruta.y > this.sys.game.canvas.height) {
-            this.fruta.destroy();
-            this.pos = this.randomPos();
-            this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
-            this.physics.add.collider(this.Player, this.fruta, this.handleColision.bind(this))
-        }
     }
 
+    handleDelete(fruta, suelo){  
+            fruta.destroy();
+            this.spawnFruta();
+}
     randomPos(){
         let rnd = Phaser.Math.RND.between(50, this.sys.game.canvas.width - 50);;
         return [rnd, 10];
@@ -100,9 +105,7 @@ export default class Frutas extends Phaser.Scene{
             // Cambiar de escena y eso
             this.hasWon()
         } else {
-            this.pos = this.randomPos();
-            this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
-            this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
+            this.spawnFruta();
         }
 
     }
@@ -123,6 +126,11 @@ export default class Frutas extends Phaser.Scene{
                 break;
         }
         return fruit;
+    }
+    spawnFruta(){
+        this.pos = this.randomPos();
+        this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
+        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
     }
 
     hasWon(){
