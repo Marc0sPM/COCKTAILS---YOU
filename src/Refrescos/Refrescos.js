@@ -30,10 +30,10 @@ export default class Refrescos extends Phaser.Scene {
         });
         this.prevNum;
         
-
-        // Temporizador
         this.tempSprite = this.add.sprite(850, -29, 'contador');
         this.tempSprite.setScale(0.7);
+
+        // Temporizador
         this.temporizador = 30 /*= temp*/
         
         this.temporizadorText = this.add.text(620, 20, 'Tiempo: ' + this.temporizador, { 
@@ -55,12 +55,7 @@ export default class Refrescos extends Phaser.Scene {
         this.refresOffSet = 15;
         
         // Física
-        // this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
-        // this.physics.add.collider(this.Player, this.estante1);
-        // this.physics.add.collider(this.Player, this.estante2);
-        // this.physics.add.collider(this.Player, this.estante3);
-        // this.physics.add.collider(this.Player, this.estante4);
-    this.cargarFisicas();
+        this.cargarFisicas();
 
         this.infoLvl = 1;
 
@@ -75,6 +70,7 @@ export default class Refrescos extends Phaser.Scene {
         //console.log("Valor del temporizador: " + this.temporizador); //debug
       
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
+        
     }
       
 
@@ -140,13 +136,42 @@ export default class Refrescos extends Phaser.Scene {
 
         return nuevoRefresco;
     }
-
+    
     // Metodo win, solo pone que has ganado
     win(){
         // Cambiar escena a la que se necesite
         info = this.infoLvl;
         this.scene.resume('barScene');
-        this.scene.stop();
+        this.scene.stop()
+    }
+
+    // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer
+    lose(){
+        // this.loseSprite = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'lose');
+        // this.loseSprite.setInteractive(); // Sprite interactivo
+        // this.loseSprite.on('pointerdown', this.restartScene.bind(this));
+
+    }
+
+    restartScene(){
+        this.Player.destroy();
+        this.num = 4/* = desiredNum*/
+        this.temporizador = 30 /*= temp*/
+        this.cont = 0;
+
+        // UI
+        this.contadorText.setText('Refrescos: ' + this.cont + ' / ' + this.num);
+        
+        // Player
+        this.Player = new PlayerRefrescos(this, 100, 300);
+        this.Player.setCollideWorldBounds(true);
+        this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
+
+        // Fisicas de nuevo
+        this.cargarFisicas();
+
+        // Info para devolverla y que se sepa si ha fallado
+        this.infoLvl -= 0.2;
     }
 
     cargarFisicas(){
