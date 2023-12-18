@@ -1,5 +1,5 @@
 import Bottle from "./bottle.js"
-import { alcoholicDrinks } from "../Cocktails";
+import { alcoholicDrinks } from "../Cocktails.js";
 
 export default class Aim extends Phaser.Scene {
     //  Meter parametro de entrada
@@ -9,69 +9,87 @@ export default class Aim extends Phaser.Scene {
         this.bottleList = []
         //Asignar desde constructor
         this.targetBottle = 'gin'
+        this.CounterValue  = 0;
     }
  create(){
-     this.bottlesGroup = this.physics.add.group();
-     
-
-    this.targetCounter = this.add.text(700, 30, 'zzz: 0', { fontSize: '16px', fill: '#fff' });
-    var zzzCounterValue  = 0;
-    const bottleTypes = ['gin', 'ron', 'vodka', 'tequila'];
-    bottleTypes.forEach((bottleType, index) => {
-        this.add.image(500 + index * 50, 30, bottleType);
-    });
-    // Habilitar la interactividad del ratón
-    this.input.on('pointerdown', function (pointer) {
-        var clickedBottle = this.bottlesGroup.getFirstAlive();
+     //cambiar a otro backgorund
+     //poner bien botellas
+     this.background = this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
+     this.background.setInteractive();
+   
+     //temporizador
+     this.temporizador = 30
         
-        if (clickedBottle && clickedBottle.getBounds().contains(pointer.x, pointer.y)) {
-            var bottleType = clickedBottle.texture.key;
-            if (bottleType === 'zzz') {
-                zzzCounterValue++;
-                updateCounterText();
-                clickedBottle.destroy();
-            }
+     this.temporizadorText = this.add.text(800 - 200, 30, 'Tiempo: ' + this.temporizador, { 
+     fontFamily: 'Comic Sans MS',
+     fontSize: '32px',
+     fill: '#fff'
+    });
+     //gameOver
+     this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
+     this.gameoverImage.visible = false;
+     this.gameoverImage.setDepth(2);
+     //win
+     this.win = this.add.image(400, 300, 'win').setScale(0.8);
+     this.win.setDepth(2);
+     this.win.visible = false;
+
+     this.physics.world.setBoundsCollision(true,true,true,true);
+
+     this.bottlesGroup = this.physics.add.group();
+     this.targetCounter = this.add.text(50, 30, ` ${this.targetBottle}: ${this.CounterValue}`, {fontFamily: 'Comic Sans MS', fontSize: '32px', fill: '#fff' });
+     this.add.image(20, 44, this.targetBottle).setScale(0.15);
+
+     const bottleTypes = ['gin', 'ron', 'vodka', 'tequila'];
+     // Habilitar la interactividad del ratón
+     this.input.on('gameobjectdown', (pointer,gameObject) => {
+        if (gameObject instanceof Bottle) {
+            this.handleClick(gameObject);
+        }
+        else{
+            this.temporizador -= 1;
         }
     });
+    this.createBottle();
  }
- update() {
-    // Mover las botellas de manera aleatoria
-    bottlesGroup.children.forEach(function (bottle) {
-        if (Phaser.Math.RND.chance(0.2)) {
-            bottle.setVelocity(Phaser.Math.RND.integerInRange(-100, 100), Phaser.Math.RND.integerInRange(-100, 100));
-        }
-    });
-  }
+ handleClick(bottle) {
+    if (bottle.type === this.targetBottle) {
+        this.CounterValue++;
+        console.log("añade");
+        this.updateCounterText();
+    }
+    else{
+        this.temporizador -= 3;
+    }
+    bottle.destroy();
+    console.log("destruye");
+}
  createBottle() {
     for(var i = 0; i < 4; i++){
         this.createIndividualBottle(alcoholicDrinks[i])
     }
-    // for (var i = 1; i <= 3; i++) {
-    //     this.createBottle('gin');
-    //     this.createBottle('ron');
-    //     this.createBottle('vodka');
-    //     this.createBottle('tequila');
-    // }
-    // var bottle = bottlesGroup.create(Phaser.Math.RND.integerInRange(50, 550), Phaser.Math.RND.integerInRange(50, 450), bottleType);
-    // bottle.setInteractive();
  }
  createIndividualBottle(bottletype){
     for(var i = 0; i < 4; i++){
         this.bottleList.push(new Bottle(this, Phaser.Math.RND.integerInRange(50, 550), Phaser.Math.RND.integerInRange(50, 450), bottletype))
     }
- }
- updateCounterText(bottleType) {
-    // Si la botella no es de tipo zzz, salir de la función
-    if (bottleType !== 'zzz') {
-        return;
-    }
+   }
 
-    // Actualizar el texto del contador con el nuevo valor
-    zzzCounter.setText(`zzz: ${zzzCounterValue}`);
-
-    // Verificar si se han roto suficientes botellas zzz para terminar el juego
-    if (zzzCounterValue >=3) {
-        console.log('¡Juego terminado!');
+ updateCounterText() {
+    this.targetCounter.setText(`${this.targetBottle}: ${this.CounterValue}`);
+        if (this.CounterValue >= 4) {
+         this.win.visible = true;
+         this.scene.pause();
+        }
     }
-}
+    update(time,delta) {
+
+        this.temporizador -= (delta / 1000);
+        if(this.temporizador <= 0){
+            this.gameoverImage.visible = true;
+            this.scene.pause();
+        }
+        this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
+        
+    }
 }
