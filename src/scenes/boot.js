@@ -28,14 +28,14 @@ export default class Boot extends Phaser.Scene{
         this.load.image('FrutasIluminadas', './assets/sprites/Objetos/FrutasIluminadas.png');
         
         /*----- / BREAKOUT / -----*/
-        this.load.image('backgroundBreakout', './assets/sprites/breakout/background.png');
-        this.load.image('paddle', './assets/sprites/breakout/paddle.png');
-        this.load.image('ball', './assets/sprites/breakout/ball.png');
-        this.load.image('block', './assets/sprites/breakout/block.png');
-        this.load.image('gameOver', './assets/sprites/breakout/gameOver.png');
-        this.load.image('blockhierbabuena', './assets/sprites/breakout/blocklima.png');
-        this.load.image('blockazucar', './assets/sprites/breakout/blockazucar.png');
-        this.load.image('win','./assets/sprites/breakout/win.png');
+        this.load.image('backgroundBreakout', './assets/sprites/Breakout/background.png');
+        this.load.image('paddle', './assets/sprites/Breakout/paddle.png');
+        this.load.image('ball', './assets/sprites/Breakout/ball.png');
+        this.load.image('block', './assets/sprites/Breakout/block.png');
+        this.load.image('gameOver', './assets/sprites/Breakout/gameOver.png');
+        this.load.image('blockhierbabuena', './assets/sprites/Breakout/blocklima.png');
+        this.load.image('blockazucar', './assets/sprites/Breakout/blockazucar.png');
+        this.load.image('win','./assets/sprites/Breakout/win.png');
         
         /*----- / REFRESCOS / -----*/
         this.load.image("coke", "./assets/sprites/Refrescos/Coke.png");
