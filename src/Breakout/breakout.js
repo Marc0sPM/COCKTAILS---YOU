@@ -1,8 +1,7 @@
 import pelota from "./pelota.js"
 import Barra from "./barra.js";
 import { others } from "../Cocktails.js";
-
-import {  addCustomerPoints, addMinigame, other } from "../scenes/GameManager.js";
+import { addCustomerPoints, addMinigame, other } from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
    constructor() {
        super({ key: 'Breakout' });
@@ -31,10 +30,10 @@ export default class Breakout extends Phaser.Scene {
        // barra
        this.paddle = new Barra(this,400,560).setImmovable();
        this.paddle.setCollideWorldBounds(true);
-
        // pelota
        this.ball = new pelota(this, this.paddle.x, this.paddle.y -25)
        this.ball.setCollideWorldBounds(true);
+
        // movimiento con cursores
        this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -42,7 +41,7 @@ export default class Breakout extends Phaser.Scene {
        //this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
        // colisiones
-       this.physics.add.collider(this.ball, this.paddle,() => this.paddlecollision());
+       this.physics.add.collider(this.ball, this.paddle);
        
 
        // Crear bloques
@@ -108,14 +107,6 @@ export default class Breakout extends Phaser.Scene {
    handleBlockCollision(block) {
     block.destroy();
   }
-   paddlecollision(){
-    let relative = this.ball.x - this.paddle.x;
-    if(relative<0.1 && relative> -0.1){
-    this.ball.setVelocityX(Phaser.Math.Between(-10,10))
-   }else{
-    this.ball.setVelocityX(10 * relative);
-   }
-   }
 
 
    createBlocks() {
@@ -143,26 +134,15 @@ updateFrutaCounter() {
 update() {
     if (this.ball.isBallReleased) {
         if (this.cursors.left.isDown) {
+            console.log("izq");
             this.paddle.setVelocityX(-500);
         } else if (this.cursors.right.isDown) {
+            console.log("der")
             this.paddle.setVelocityX(500);
         } else {
             this.paddle.setVelocityX(0);
         }
-    }
-    else{
-        if (this.cursors.left.isDown) {
-            this.paddle.setVelocityX(-500);
-            this.ball.setVelocityX(-500);
-        } else if (this.cursors.right.isDown) {
-            this.paddle.setVelocityX(500);
-            this.ball.setVelocityX(500);
-        } else {
-            this.paddle.setVelocityX(0);
-            this.ball.setVelocityX(0);
-
-        }
-    }
+    } 
         this.hasDied();
         this.hasWon();
 }
@@ -170,30 +150,32 @@ update() {
 hasWon(){
     if (this.cont == 4) {
         this.win.visible = true;
-        this.exitScene
-    }
+        this.time.delayedCall(2000, () => {
+        this.exitScene();
+    })}
 }
 hasDied(){
     if (this.ball.y > 700) {
         this.gameoverImage.visible = true
         this.time.delayedCall(2000, () => {
         this.exitScene();
-        //setTimeout(this.scene.start('MainMenu'), 3000);}
     })}
 }
 exitScene(){
-    this.calculateFinalScore();
+    this.calculateStars()
     this.scene.resume('barScene')
     this.scene.stop()
 }
-calculateFinalScore(){
-    var stars
-    if(this.cont < 2) stars = 0;
-    else if(this.cont == 2) stars = 1
-    else if(this.cont == 3) stars = 2
-    else if(this.cont == 4) stars = 3
+calculateStars(){
+    var stars;
+    if(this.cont < 2)stars = 0
+    else if(this.cont == 2)stars = 1
+    else if(this.cont == 3)stars = 2
+    else if(this.cont == 4)stars = 3
+
     if(stars != undefined){
         addCustomerPoints(stars)
+        console.log(stars)
         addMinigame()
     }
 

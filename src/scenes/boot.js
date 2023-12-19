@@ -62,8 +62,20 @@ export default class Boot extends Phaser.Scene{
         /*----- / MAPA / -----*/
         this.load.image("floor", "./assets/sprites/floorTiles.png");
         this.load.image("barObjects", "./assets/sprites/tilesetBar.png");
-
         this.load.tilemapTiledJSON("barTiled", "./assets/barTiled.json");
+
+        //Interactive Items
+        this.load.image("tree_item", "./assets/sprites/Objetos/Frutas.png")
+        this.load.image("tree_item_interact", "./assets/sprites/Objetos/FrutasIluminadas.png")
+        this.load.image("platform_item", "./assets/sprites/Objetos/Bebidas.png")
+        this.load.image("platform_item_interact", "./assets/sprites/Objetos/BebidasIluminadas.png")
+        this.load.image("shooter_item", "./assets/sprites/Objetos/Cocteles.png")
+        this.load.image("shooter_item_interact", "./assets/sprites/Objetos/CoctelesIluminados.png")
+        this.load.image("ice_item", "./assets/sprites/Objetos/Cubitera.png")
+        this.load.image("ice_item_interact", "./assets/sprites/Objetos/CubiteraIluminada.png")
+        this.load.image("breakout_item", "./assets/sprites/Objetos/Especias.png")
+        this.load.image("breakout_item_interact", "./assets/sprites/Objetos/EspeciasIluminadas.png")
+
         
         
 
