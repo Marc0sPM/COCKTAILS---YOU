@@ -12,6 +12,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image("background", "./assets/sprites/FondoTemporal.jpg");
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
+        this.load.image("playButton_hover", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play03.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image('dialogueCloude', './assets/sprites/cloud.png')
         
