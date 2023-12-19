@@ -15,6 +15,17 @@ export default class Boot extends Phaser.Scene{
         this.load.image("playButton_hover", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play03.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image('dialogueCloude', './assets/sprites/cloud.png')
+        /*---*/
+        this.load.image('Bebidas', './assets/sprites/Objetos/Bebidas.png');
+        this.load.image('BebidasIluminadas', './assets/sprites/Objetos/BebidasIluminadas.png');
+        this.load.image('Alcohol', './assets/sprites/Objetos/Cocteles.png');
+        this.load.image('AlcoholIluminado', './assets/sprites/Objetos/CoctelesIluminados.png');
+        this.load.image('Cubitera', './assets/sprites/Objetos/Cubitera.png');
+        this.load.image('CubiteraIluminada', './assets/sprites/Objetos/CubiteraIluminada.png');
+        this.load.image('Especias', './assets/sprites/Objetos/Especias.png');
+        this.load.image('EspeciasIluminadas', './assets/sprites/Objetos/EspeciasIluminadas.png');
+        this.load.image('Frutas', './assets/sprites/Objetos/Frutas.png');
+        this.load.image('FrutasIluminadas', './assets/sprites/Objetos/FrutasIluminadas.png');
         
         /*----- / BREAKOUT / -----*/
         this.load.image('backgroundBreakout', '\\assets\\sprites\\breakout\\background.png');
