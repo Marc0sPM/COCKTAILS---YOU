@@ -15,7 +15,7 @@ export default class Aim extends Phaser.Scene {
     }
  create(){
     // Añadimos la música
-    this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.55 });
+    this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.30 });
     //audio
     this.shootSound = this.sound.add('shoot',{volume: 0.50});
     this.breakSound = this.sound.add('break');
@@ -24,9 +24,9 @@ export default class Aim extends Phaser.Scene {
     this.add.music.play();
 
     this.targetBottle = alcohol;
-     this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
+     this.background = this.add.image(400, 300, 'aimbackground').setDepth(0);
      this.background.setInteractive();
-     this.background.setScale(3);
+     this.background.setScale(0.8);
    
      //temporizador
      this.temporizador = 15
@@ -40,10 +40,10 @@ export default class Aim extends Phaser.Scene {
      //gameOver
      this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
      this.gameoverImage.visible = false;
-     this.gameoverImage.setDepth(2);
+     this.gameoverImage.setDepth(6);
      //win
      this.win = this.add.image(400, 300, 'win').setScale(0.8);
-     this.win.setDepth(2);
+     this.win.setDepth(6);
      this.win.visible = false;
 
      this.physics.world.setBoundsCollision(true,true,true,true);

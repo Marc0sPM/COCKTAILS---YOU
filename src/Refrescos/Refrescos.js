@@ -14,8 +14,8 @@ export default class Refrescos extends Phaser.Scene {
         this.drinkSound = this.sound.add('drink',{volume: 0.50});
 
         // BackGround
-        this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
-        this.background.setScale(3);
+        this.background = this.add.image(400, 300, 'background').setDepth(0);
+        this.background.setScale(0,8);
 
         this.type = refreshment
         // Se agregan físicas a la escena

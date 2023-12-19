@@ -18,7 +18,7 @@ export default class Breakout extends Phaser.Scene {
    create() {
 
     // Añadimos la música
-    this.add.music = this.sound.add('breakoutMusic', { loop: true, volume: 0.75 });
+    this.add.music = this.sound.add('breakoutMusic', { loop: true, volume: 0.35 });
     this.paddleHitSound = this.sound.add('boing',{volume: 0.50});
     this.borderHitSound = this.sound.add('reboundWall',{volume: 0.50});
     this.blockDestroySound = this.sound.add('destroy',{volume: 0.50});
@@ -27,7 +27,9 @@ export default class Breakout extends Phaser.Scene {
 
     this.fruta = other
        this.physics.world.setBoundsCollision(true, true, true, false);
-       this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
+       this.background = this.add.image(400, 300, 'backgroundBreakout').setDepth(0);
+       this.background.setScale(1);
+
        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
        this.gameoverImage.visible = false;
 
@@ -72,12 +74,14 @@ export default class Breakout extends Phaser.Scene {
        //frutita contador
        if(this.fruta == 'azucar'){
         this.azucarCountText = this.add.text(20,550, `Azúcar: ${this.cont} /4`, {
+            fontFamily: 'Comic Sans MS',
             fontSize: '20px',
             fill: '#fff'
         }).setDepth(1);
        }
        else{
         this.hierbabuenaCountText = this.add.text(20,550, `Hierbabuena: ${this.cont} /4`, {
+            fontFamily: 'Comic Sans MS',
             fontSize: '20px',
             fill: '#fff'
         }).setDepth(1);

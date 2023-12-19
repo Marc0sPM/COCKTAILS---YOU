@@ -54,7 +54,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image("spaceParaReiniciar", "./assets/sprites/TigerBall/Cartel.png");
 
         /*----- /AIM/ -----*/
-        this.load.image('aimbackground', '\\assets\\sprites\\aim\\aimbackground.png');
+        this.load.image('aimbackground', '\\assets\\sprites\\aim\\background.png');
         this.load.image('tequila', '\\assets\\sprites\\aim\\tequila.png');
         this.load.image('white_ron', '\\assets\\sprites\\aim\\ron.png');
         this.load.image('vodka', '\\assets\\sprites\\aim\\vodka.png');
