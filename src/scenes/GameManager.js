@@ -6,6 +6,7 @@ export function setOther(num){
 //Refresco del coctel  actual
 export var refreshment = ''
 export function setRefreshment(name){
+    console.log(name)
     refreshment = name
 }
 //Alcohol del coctel actual 
@@ -20,6 +21,8 @@ export var numCustomers = 0;
 export var currentCustomerPoints = 0;
 //Media de las estrellas totales de cada customer
 export var currentCustomersStars = 0;
+//Numero de minijuegos del customer
+var cantMinigames = 0
 //Lista de estrellas totales de cada customer
 export var individualTotalStars = [];
 
@@ -32,10 +35,13 @@ export function setNumCustomers(num){
 export function addCustomerPoints(points){
     currentCustomerPoints += points
 }
+export function addMinigame(){
+    cantMinigames++
+}
 
 //Hace la media entre la puntuacion de estrellas y los minijuegos que se han jugado
 // y lo añade a la lista de estrellas
-export function calculateCustomerStarts(cantMinigames){
+export function calculateCustomerStarts(){
     currentCustomersStars = currentCustomerPoints / cantMinigames
     addTotalIndivStars(currentCustomerPoints);
 }

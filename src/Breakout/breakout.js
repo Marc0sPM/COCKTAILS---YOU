@@ -2,8 +2,7 @@ import pelota from "./pelota.js"
 import Barra from "./barra.js";
 import { others } from "../Cocktails.js";
 
-import { other } from "../scenes/GameManager.js";
-import { addCustomerPoints } from "../scenes/GameManager.js";
+import {  addCustomerPoints, addMinigame, other } from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
    constructor() {
        super({ key: 'Breakout' });
@@ -166,11 +165,6 @@ update() {
     }
         this.hasDied();
         this.hasWon();
-        
-           
-        
-        
-
 }
 
 hasWon(){
@@ -200,6 +194,7 @@ calculateFinalScore(){
     else if(this.cont == 4) stars = 3
     if(stars != undefined){
         addCustomerPoints(stars)
+        addMinigame()
     }
 
 }

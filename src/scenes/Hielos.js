@@ -1,3 +1,4 @@
+import { addCustomerPoints, addMinigame } from "./GameManager.js";
 import icecube from "./icecube.js";
 
 let ForceX = 20,
@@ -149,10 +150,26 @@ export default class Hielos extends Phaser.Scene {
         if (!this.completionText.visible && this.isCubeLaunched) {
             this.completionText.setVisible(true);
             this.time.delayedCall(2000, () => {
-                this.completionText.setVisible(false);
+                this.exitScene();
+            }, null, this);
+        }
+    }
+    exitScene(){
+        this.completionText.setVisible(false);
+        this.calculateFinalScore()
                 this.scene.resume('barScene')
                 this.scene.stop();
-            }, null, this);
+    }
+    calculateFinalScore(){
+        var stars
+        if(this.attempts < 6) stars = 3
+        else if(this.attempts < 10) stars = 2
+        else if(this.attempts < 14) stars = 1
+        else stars = 0;
+        if(stars != undefined){
+            console.log(stars)
+            addCustomerPoints(stars)
+            addMinigame()
         }
     }
 }

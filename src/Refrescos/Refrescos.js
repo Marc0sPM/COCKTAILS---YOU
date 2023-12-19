@@ -1,14 +1,16 @@
 import PlayerRefrescos from "./PlayerRefrescos.js";
 import Estantes from "./Estantes.js";
-
+import { addCustomerPoints, addMinigame, refreshment } from "../scenes/GameManager.js";
 let info;
 
 export default class Refrescos extends Phaser.Scene {
     constructor() {
         super({ key: 'refrescos' })
+        this.runCounter = true
     }
 
     create() {
+        this.type = refreshment
         // Se agregan físicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.physics.world.setBoundsCollision(true, true, true, true);
@@ -50,7 +52,6 @@ export default class Refrescos extends Phaser.Scene {
 
 
         // Definir posición aleatoria del refresco
-        this.type = 'coke'; // = refr
         this.refresco = this.spawnRefresco();
         this.refresOffSet = 15;
         
@@ -59,13 +60,20 @@ export default class Refrescos extends Phaser.Scene {
 
         this.infoLvl = 1;
 
+        //Sprites win y gameOver
+        this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
+        this.gameoverImage.visible = false;
+
+        this.win = this.add.image(400, 300, 'win').setScale(0.8);
+        this.win.visible = false;
     }
     
     update(time,delta) {
         this.Player.update();
-
-        this.temporizador -= (delta / 1000);
-        if(this.temporizador <= 0) this.lose();
+        if(this.runCounter){
+            this.temporizador -= (delta / 1000)
+        }
+        if(this.temporizador <= 0) this.hasDied();
       
         //console.log("Valor del temporizador: " + this.temporizador); //debug
       
@@ -85,7 +93,7 @@ export default class Refrescos extends Phaser.Scene {
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
             // Cambiar de escena y eso
-            this.win();
+            this.hasWon();
             console.log('Has alcanzado el número necesario de refrescos!');
         } else {
             this.refresco = this.spawnRefresco();
@@ -110,49 +118,51 @@ export default class Refrescos extends Phaser.Scene {
     spawnRefresco() {
         let nuevoRefresco;
         let pos = this.randomPos()
-        switch (this.type) {
-            case 'coke':
-                nuevoRefresco = this.physics.add.image(pos[0], pos[1], 'coke');
-                break;
-            case 'blue':
-                nuevoRefresco = this.physics.add.image(pos[0], pos[1], 'blue');
-                break;
-            case 'lemon':
-                nuevoRefresco = this.physics.add.image(pos[0], pos[1],'lemon');
-                break;
-            case 'orange':
-                nuevoRefresco = this.physics.add.image(pos[0], pos[1], 'orange');
-                break;
-            default:
-                nuevoRefresco = this.physics.add.image(pos[0], pos[1], 'coke'); // Otra opción por defecto
-                break;
-        }
-
+        console.log(this.type)
+        nuevoRefresco = this.physics.add.image(pos[0], pos[1], this.type);
+        
         if (nuevoRefresco) {
             nuevoRefresco.setScale(0.07);
             nuevoRefresco.setSize(400, 800);
             nuevoRefresco.setOffset(225, 0);
         }
-
         return nuevoRefresco;
     }
     
-    // Metodo win, solo pone que has ganado
-    win(){
-        // Cambiar escena a la que se necesite
-        info = this.infoLvl;
-        this.scene.resume('barScene');
+    hasWon(){
+    
+            this.win.visible = true;
+            this.runCounter = false;
+            this.time.delayedCall(2000, () => {
+                this.exitScene();
+                //setTimeout(this.scene.start('MainMenu'), 3000);}
+                })
+        
+    }
+    hasDied(){
+            this.gameoverImage.visible = true
+            this.runCounter = false;
+            this.time.delayedCall(2000, () => {
+            this.exitScene();
+            //setTimeout(this.scene.start('MainMenu'), 3000);}
+            })
+    }
+    exitScene(){
+        this.calculateFinalScore();
+        this.scene.resume('barScene')
         this.scene.stop()
     }
-
-    // Metodo lose, pone un sprite en la escena de replay y se resta a una variable para hacer
-    lose(){
-        // this.loseSprite = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'lose');
-        // this.loseSprite.setInteractive(); // Sprite interactivo
-        // this.loseSprite.on('pointerdown', this.restartScene.bind(this));
-
+    calculateFinalScore(){
+        var stars
+        if(this.cont < 2) stars = 0;
+        else if(this.cont == 2) stars = 1
+        else if(this.cont == 3) stars = 2
+        else if(this.cont == 4) stars = 3
+        if(stars != undefined){
+            addCustomerPoints(stars)
+            addMinigame()
+        }
     }
-
     restartScene(){
         this.Player.destroy();
         this.num = 4/* = desiredNum*/

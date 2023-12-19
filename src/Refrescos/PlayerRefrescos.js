@@ -28,6 +28,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t,dt);
+            if(this.scene.runCounter){
+                this.move()
+            }else this.setVelocityX(0)
+    }
+
+    move(){
         if(this.canJump){
             if(this.cursors.jump.isDown && this.body.onFloor()) {
                 this.anims.play('player_jump', true);
