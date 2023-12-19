@@ -178,6 +178,7 @@ export default class barScene extends Phaser.Scene {
             if(item.canInteract){
                 if(this.onTriggerEnter(x, y, item.rect)) {
                     this.scene.pause()
+                    this.pipipibu.stop();
                     switch (item.key){
                         case "breakout_item": 
                             setOther(others[this.cocktail.others]);
