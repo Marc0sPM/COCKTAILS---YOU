@@ -14,20 +14,13 @@ class MainMenu extends Phaser.Scene{
 
         //-------------------------------------------------//
         // Crea un botón
-        let button = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "playButton");
-
-        // Habilita la interacción con el botón
-        button.setInteractive();
-        // Escucha el evento "pointerdown" en el botón
-        button.on("pointerdown", () => {
-            // Carga la escena que desees al hacer clic en el botón
-            this.scene.start('EscenaVivuPrueba');   // Volver a poner "A"
-        });
-
+        
         //----------------------/INICIALIZACION BOTON CON CLASE/--------------------------//
        
         this.buttonAux = new Button(this, this.sys.game.config.width/4 + this.sys.game.config.width/2, 
-        this.sys.game.config.height/2 + this.sys.game.config.height/3, 0.25,() => {this.scene.start('barScene')}, 'playButton')
+        this.sys.game.config.height/2 + this.sys.game.config.height/3, 0.25,() => this.changeBarScene(), 'playButton')
+
+        this.barButton = new Button(this,this.sys.game.config.width/2, this.sys.game.config.height/2, 1, () => this.changeToNewBarScene(), 'playButton')
 
         
         //-------------------------------------------------//
@@ -80,10 +73,15 @@ class MainMenu extends Phaser.Scene{
     }
     update(){
         this.buttonAux.update()
+        this.barButton.update()
     }
     changeBarScene(){
         this.buttonAux.disableInteractive()
         this.scene.start('barScene')
+    }
+    changeToNewBarScene(){
+        this.barButton.disableInteractive()
+        this.scene.start('EscenaVivuPrueba')
     }
     destroy(){
         this.buttonAux.destroy()
