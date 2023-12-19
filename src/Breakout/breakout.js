@@ -14,6 +14,8 @@ export default class Breakout extends Phaser.Scene {
            xOffset: 60,
            yOffset: 100,
        };
+
+       
    }
    create() {
 
@@ -46,8 +48,12 @@ export default class Breakout extends Phaser.Scene {
        // pelota
        this.ball = new pelota(this, this.paddle.x, this.paddle.y -25)
        this.ball.setCollideWorldBounds(true);
-       // movimiento con cursores
-       this.cursors = this.input.keyboard.createCursorKeys();
+       
+        // movimiento con cursores
+        this.cursors = this.input.keyboard.addKeys({
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D
+        });
 
        // tecla de espacio
        //this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
