@@ -16,6 +16,15 @@ export default class Breakout extends Phaser.Scene {
        };
    }
    create() {
+
+    // Añadimos la música
+    this.add.music = this.sound.add('breakoutMusic', { loop: true, volume: 0.75 });
+    this.paddleHitSound = this.sound.add('boing',{volume: 0.50});
+    this.borderHitSound = this.sound.add('reboundWall',{volume: 0.50});
+    this.blockDestroySound = this.sound.add('destroy',{volume: 0.50});
+    // Reproduce la música
+    this.add.music.play();
+
     this.fruta = other
        this.physics.world.setBoundsCollision(true, true, true, false);
        this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
@@ -101,14 +110,17 @@ export default class Breakout extends Phaser.Scene {
         }
    }
    handleFruitCollision(block){
-    block.destroy()
-    this.cont++
-    this.updateFrutaCounter()
+    block.destroy();
+    this.blockDestroySound.play();
+    this.cont++;
+    this.updateFrutaCounter();
    }
    handleBlockCollision(block) {
     block.destroy();
+    this.blockDestroySound.play();
   }
    paddlecollision(){
+    this.paddleHitSound.play();
     let relative = this.ball.x - this.paddle.x;
     if(relative<0.1 && relative> -0.1){
     this.ball.setVelocityX(Phaser.Math.Between(-10,10))
@@ -163,6 +175,10 @@ update() {
 
         }
     }
+    if (this.ball.body.blocked.left || this.ball.body.blocked.right) {
+        this.borderHitSound.play();
+    }
+
         this.hasDied();
         this.hasWon();
 }
@@ -182,6 +198,9 @@ hasDied(){
     })}
 }
 exitScene(){
+    // Paramos el audio
+    this.sound.stopAll();
+
     this.calculateFinalScore();
     this.scene.resume('barScene')
     this.scene.stop()
