@@ -15,10 +15,6 @@ export default class Bottle extends Phaser.Physics.Arcade.Sprite{
         this.image = this.scene.add.image(this.x, this.y, 'this.type');
         this.image.setDepth(1);
     }
-    preUpdate(t,dt){
-        super.preUpdate(t,dt)
-        if(!this.scene.runCounter) this.setVelocity(0,0)
-    }
     move(){
         this.setVelocity(Phaser.Math.RND.integerInRange(-100,100) +1, Phaser.Math.RND.integerInRange(-100,100) +1);
     }

@@ -25,6 +25,7 @@ export default class InteractiveItem extends Phaser.GameObjects.Image{
     }
     unsetInteractive(){
         this.canInteract = false;
+        this.setTexture(this.key)
         this.rect.setFillStyle(0x35D9F0)
     }
 

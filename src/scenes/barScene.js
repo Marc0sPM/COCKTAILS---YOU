@@ -17,7 +17,7 @@ export default class barScene extends Phaser.Scene {
         console.log("constructor")
         // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
         super({ key: 'barScene' });
-        this.customerSpawn = {x :400 , y: 600}
+        this.customerSpawn = {x :700 , y: 600}
         this.customerDestiny = {x: 300, y: 250}
 
         //Cabiar cuando tenga el tile map hecho ;P
@@ -83,7 +83,7 @@ export default class barScene extends Phaser.Scene {
             else if( key == "ices_item"){
                 if(this.cocktail.ice == 0) activate = false;
             }
-            this.itemList.push(new InteractiveItem(this, x, y, x, y, activate, key));
+            this.itemList.push(new InteractiveItem(this, x, y, x, y + 100, activate, key));
         });
     }
     generateRandomCustomer() {
