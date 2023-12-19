@@ -69,7 +69,7 @@ export default class Aim extends Phaser.Scene {
 }
  createBottle() {
     for(var i = 1; i <= 4; i++){
-        this.createIndividualBottle(alcoholicDrinks[i])
+        this.createIndividualBottle(alcoholicDrinks[i+1])
     }
  }
  createIndividualBottle(bottletype){

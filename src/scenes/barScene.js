@@ -25,7 +25,7 @@ export default class barScene extends Phaser.Scene {
 
         this.dialogueCreated = false;
         this.dialogueShown = false;
-
+        this.itemsCreated = false;
         this.itemList = []
     }
     create() {
@@ -38,8 +38,6 @@ export default class barScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true)
         this.generateRandomCustomer()
         this.generateCocktail();
-        console.log(this.cocktail);
-        
         
         this.generateItems()
         console.log(this.itemList)

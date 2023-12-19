@@ -27,7 +27,7 @@ class MainMenu extends Phaser.Scene{
         //----------------------/INICIALIZACION BOTON CON CLASE/--------------------------//
        
         this.buttonAux = new Button(this, this.sys.game.config.width/4 + this.sys.game.config.width/2, 
-        this.sys.game.config.height/2 + this.sys.game.config.height/3, 0.25,()=> this.changeBarScene(), 'playButton')
+        this.sys.game.config.height/2 + this.sys.game.config.height/3, 0.25,() => {this.scene.start('barScene')}, 'playButton')
 
         
         //-------------------------------------------------//
@@ -82,7 +82,12 @@ class MainMenu extends Phaser.Scene{
         this.buttonAux.update()
     }
     changeBarScene(){
+        this.buttonAux.disableInteractive()
         this.scene.start('barScene')
+    }
+    destroy(){
+        this.buttonAux.destroy()
+        super.destroy()
     }
 }
 

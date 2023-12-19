@@ -6,15 +6,19 @@ export default class Button extends Phaser.GameObjects.Image{
         this.setScale(scale)
         this.setInteractive();
         this.fun = fun
+        this.once = false;
     }
     create(){
         this.setTexture(this.name)
     }
     update(){
         //Funcion que realiza
-        this.on("pointerdown", () => {
-            this.fun()
-        })
+            this.removeAllListeners("pointerdown");
+            this.on("pointerdown", () => {
+               this.fun()
+            })
+
+        
 
         //Funcion hover
         this.on("pointerover", ()=>{
