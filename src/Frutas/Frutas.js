@@ -60,18 +60,19 @@ export default class Frutas extends Phaser.Scene{
         this.i = 0;
         this.canSpawn = true;
        
+        this.targetFruta = 'lime_fruit'; // = requird;
+        this.add.image(25, 40, this.targetFruta).setScale(0.4);
 
         // Contador
         this.num = 4; // desiredNum
         this.cont = 0;
-        this.contadorText = this.add.text(16, 16, 'Frutas: ' + this.cont + ' / ' + this.num, {
+        this.contadorText = this.add.text(25, 16,  ` ${'  '+this.cont}` + ' / ' + this.num, {
             fontFamily: 'Comic Sans MS',
             fontSize: '32px',
             fill: '#fff'
             
         });
 
-        this.frutaRequerida = 'lime_fruit'; // = requird;
         
 
        
@@ -113,7 +114,7 @@ export default class Frutas extends Phaser.Scene{
 }
 
     handleDelete(fruta, suelo){  
-        if(fruta.getType() == this.frutaRequerida){
+        if(fruta.getType() == this.targetFruta){
             this.temporizador -= 1;
         }
         fruta.destroy();
@@ -125,11 +126,11 @@ export default class Frutas extends Phaser.Scene{
 
     handleColision(player, fruta){
         fruta.destroy();
-        if(fruta.getType() == this.frutaRequerida)
+        if(fruta.getType() == this.targetFruta)
             this.cont++;
         else this.temporizador -= 3
 
-        this.contadorText.setText('Frutas: ' + this.cont + ' / ' + this.num);
+        this.contadorText.setText('   '+ this.cont + ' / ' + this.num);
 
         // Verifica si se alcanzó el número deseado para pasar al siguiente nivel
         if (this.cont >= this.num) {
