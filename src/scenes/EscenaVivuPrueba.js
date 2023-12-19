@@ -7,6 +7,7 @@ export default class EscenaVivuPrueba extends Phaser.Scene {
 
     preload() {
         console.log('preload EscenaVivuPrueba');
+        
         this.load.image('floor', 'floorTiles.png');
         this.load.image('barObjects', 'tilesetBar.png');
         this.load.tilemapTiledJSON('barTiled', 'barTiled.json');

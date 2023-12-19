@@ -92,6 +92,10 @@ export default class Boot extends Phaser.Scene{
         this.load.audio('breakoutMusic', ['./assets/OST/BreakoutTheme.mp3']);
         this.load.audio('aimMusic', ['./assets/OST/ValorantTheme.mp3']);
 
+        this.load.audio('boing', ['./assets/FX/boing.mp3']);
+        this.load.audio('destroy', ['./assets/FX/destroy.mp3']);
+        this.load.audio('reboundWall', ['./assets/FX/reboundWall.mp3']);
+
         /*----- / PLAYER / -----*/
         //Player - idle 
         this.load.spritesheet('player_idleSprite', "./assets/sprites/Player/player_idle.png",
