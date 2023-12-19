@@ -9,6 +9,7 @@ import Hielos from "./scenes/Hielos.js";
 import Aim from "./aim/aim.js"
 import Refrescos from "./Refrescos/Refrescos.js";
 import Frutas from "./Frutas/Frutas.js";
+import LevelScene from "./scenes/levelsScene.js";
 
 
   const config = {
@@ -16,7 +17,7 @@ import Frutas from "./Frutas/Frutas.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu, barScene, A, MainScene, EscenaVivuPrueba, Breakout,Aim , Refrescos,Hielos, Frutas],
+    scene: [Boot, MainMenu,LevelScene ,barScene, A, MainScene, EscenaVivuPrueba, Breakout,Aim , Refrescos,Hielos, Frutas],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
@@ -37,7 +38,7 @@ import Frutas from "./Frutas/Frutas.js";
       default: 'arcade', 
       arcade: { 
           gravity: { y: 0 }, 
-          debug: true
+          debug: false
       },
       checkCollision: {
         up: true,

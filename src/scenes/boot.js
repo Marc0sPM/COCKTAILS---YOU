@@ -114,6 +114,10 @@ export default class Boot extends Phaser.Scene{
         /*----- / CUSTOMERS / -----*/
         this.load.spritesheet('customers', "./assets/sprites/customers.png",
         {frameWidth: 48, frameHeight: 60})
+
+        /*----- / LEVELS / -----*/
+        this.load.image('levelsBackground',"./assets/sprites/cocteles2.jpg")
+        this.load.image('levelsButton',"./assets/sprites/cocteles1.png")
        
     }
     create(){
