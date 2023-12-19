@@ -22,6 +22,8 @@ export function setFruit(name){
 
 //Customers totales del nivel
 export var numCustomers = 0;
+//Customers atendidos
+var currentCustomers = 0
 //Estrellas totales de cada customer de forma inividual
 export var currentCustomerPoints = 0;
 //Media de las estrellas totales de cada customer
@@ -34,6 +36,12 @@ export var individualTotalStars = [];
 //Establece cantidad total de customers
 export function setNumCustomers(num){
     numCustomers = num
+}
+export function addCurrentCustomer(){
+    currentCustomers ++
+}
+export function checkExitLevel(){
+    return currentCustomer >= numCustomers
 }
 
 //Despues de calcular la puntuacion de cada minijuago, se agregar a la variable
