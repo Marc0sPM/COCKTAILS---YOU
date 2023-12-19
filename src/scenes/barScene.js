@@ -8,7 +8,6 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import Breakout from "../Breakout/breakout.js";
 import { setAlcohol, setFruit, setOther, setRefreshment } from "./GameManager.js";
 
 
@@ -40,6 +39,7 @@ export default class barScene extends Phaser.Scene {
         this.generateCocktail();
         
         this.generateItems()
+        this.createItemsPhysics()
         console.log(this.cocktail)
     }
     update() {
@@ -83,6 +83,11 @@ export default class barScene extends Phaser.Scene {
             }
             this.itemList.push(new InteractiveItem(this, x, y, x, y + 100, activate, key));
         });
+    }
+    createItemsPhysics(){
+        this.itemList.forEach((item)=>{
+            this.physics.add.collider(item, this.player)
+        })
     }
     generateRandomCustomer() {
 

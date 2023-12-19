@@ -14,7 +14,6 @@ export default class InteractiveItem extends Phaser.GameObjects.Image{
         let color1 = 0xDC4728
         let color2 = 0x35D9F0
         let color
-        
         //Segun si se puede interactuar o no tiene una img u otra
         if(this.canInteract)  {this.setTexture(this.interactImgKey)
         color = color1}
