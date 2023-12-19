@@ -10,6 +10,9 @@ export default class Refrescos extends Phaser.Scene {
     }
 
     create() {
+        // Audio
+        this.drinkSound = this.sound.add('drink',{volume: 0.50});
+
         this.type = refreshment
         // Se agregan físicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
@@ -85,6 +88,7 @@ export default class Refrescos extends Phaser.Scene {
     handleColision(player, refresco) {
         // Elimina solo el refresco
         refresco.destroy();
+        this.drinkSound.play();
         console.log("destruye")
         // Incrementa el contador de refrescos
         this.cont++;

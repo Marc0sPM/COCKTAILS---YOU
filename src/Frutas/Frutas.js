@@ -6,6 +6,9 @@ export default class Frutas extends Phaser.Scene{
         this.runCounter = true
     }
     create(){
+        // Audio
+        this.frutasSound = this.sound.add('frutas',{volume: 0.50});
+
         // Se agregan físicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.physics.world.setBoundsCollision(true, true, true, true);
@@ -89,6 +92,7 @@ export default class Frutas extends Phaser.Scene{
             this.temporizador -= (dt / 1000);
             if(this.canSpawn){
                 this.spawnFruta();
+                this.frutasSound.play();
                 this.tiempo = Math.ceil(this.temporizador);
                 this.canSpawn = false;
             }
@@ -163,7 +167,7 @@ export default class Frutas extends Phaser.Scene{
     }
     spawnFruta(){
         this.pos = this.randomPos();
-
+        
         this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
         this.cargarFisicas();
         this.arrayFrutas.push(this.fruta); 

@@ -12,10 +12,16 @@ export default class Fruta extends Phaser.Physics.Arcade.Sprite{
         this.setScale(0.3);
         this.body.setSize(150, 150);
         this.body.setOffset(0, 0);
+
         
         this.x = x;
         this.y = y;
         this.type = type;
+    }
+    create(){
+        this.frutasSound = this.sound.add('frutas',{volume: 0.50});
+
+        this.frutasSound.play();
     }
     getType(){
         return this.type
