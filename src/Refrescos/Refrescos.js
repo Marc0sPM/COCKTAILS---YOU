@@ -13,6 +13,10 @@ export default class Refrescos extends Phaser.Scene {
         // Audio
         this.drinkSound = this.sound.add('drink',{volume: 0.50});
 
+        // BackGround
+        this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
+        this.background.setScale(3);
+
         this.type = refreshment
         // Se agregan físicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
@@ -129,6 +133,7 @@ export default class Refrescos extends Phaser.Scene {
             nuevoRefresco.setScale(0.07);
             nuevoRefresco.setSize(400, 800);
             nuevoRefresco.setOffset(225, 0);
+            nuevoRefresco.setDepth(1);
         }
         return nuevoRefresco;
     }
