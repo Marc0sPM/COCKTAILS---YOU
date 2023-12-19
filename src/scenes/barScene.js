@@ -124,7 +124,7 @@ export default class barScene extends Phaser.Scene {
         this.dialogueCloud.setScale(1.5)
         this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y - (this.dialogueCloud.height/6),
                                                 this.dialogueCloud.width/1.05, this.dialogueCloud.height/1.3)
-        this.dialogueText = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { fontFamily: 'Arial', fontSize: 20, color: '#000022' });
+        this.dialogueText = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { fontFamily: 'Arial', fontSize: 32, color: '#000022' });
 
         // Centrar el texto
         this.dialogueText.setOrigin(0.5, 0.5);
@@ -178,9 +178,7 @@ export default class barScene extends Phaser.Scene {
                             item.unsetInteractive();
                             this.scene.launch('refrescos')    
                             break
-                        case "tree_item":
-                            
-                        
+                        case "tree_item":break
                         case "shoot_item":
                             item.unsetInteractive();
                             this.scene.launch('Aim')    
