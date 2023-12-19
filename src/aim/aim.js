@@ -18,7 +18,7 @@ export default class Aim extends Phaser.Scene {
     this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.55 });
     //audio
     this.shootSound = this.sound.add('shoot',{volume: 0.50});
-    this.breakSound = this.sound.add('drink');
+    this.breakSound = this.sound.add('break');
 
     // Reproduce la música
     this.add.music.play();
