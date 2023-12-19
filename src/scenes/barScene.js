@@ -27,7 +27,10 @@ export default class barScene extends Phaser.Scene {
         this.itemsCreated = false;
         this.itemList = []
     }
-    create() {
+    create() {  
+        // Audio customer
+        this.add.audio = this.sound.add('pipipibu', { volume: 0.75 });
+
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.createTileMap()
@@ -113,6 +116,7 @@ export default class barScene extends Phaser.Scene {
         }
         else{
             if(!this.dialogueShown){
+                this.add.audio.play();
                 this.dialogueCloud.setInteractive();
                 this.dialogueCloud.setVisible(true)
                 this.dialogueRect.setVisible(true)
