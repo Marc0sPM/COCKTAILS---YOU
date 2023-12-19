@@ -28,14 +28,14 @@ export default class Boot extends Phaser.Scene{
         this.load.image('FrutasIluminadas', './assets/sprites/Objetos/FrutasIluminadas.png');
         
         /*----- / BREAKOUT / -----*/
-        this.load.image('backgroundBreakout', '\\assets\\sprites\\breakout\\background.png');
-        this.load.image('paddle', '\\assets\\sprites\\breakout\\paddle.png');
-        this.load.image('ball', '\\assets\\sprites\\breakout\\ball.png');
-        this.load.image('block', '\\assets\\sprites\\breakout\\block.png');
-        this.load.image('gameOver', '\\assets\\sprites\\breakout\\gameOver.png');
-        this.load.image('blockhierbabuena', '\\assets\\sprites\\breakout\\blocklima.png');
-        this.load.image('blockazucar', '\\assets\\sprites\\breakout\\blockazucar.png');
-        this.load.image('win','\\assets\\sprites\\breakout\\win.png');
+        this.load.image('backgroundBreakout', './assets/sprites/breakout/background.png');
+        this.load.image('paddle', './assets/sprites/breakout/paddle.png');
+        this.load.image('ball', './assets/sprites/breakout/ball.png');
+        this.load.image('block', './assets/sprites/breakout/block.png');
+        this.load.image('gameOver', './assets/sprites/breakout/gameOver.png');
+        this.load.image('blockhierbabuena', './assets/sprites/breakout/blocklima.png');
+        this.load.image('blockazucar', './assets/sprites/breakout/blockazucar.png');
+        this.load.image('win','./assets/sprites/breakout/win.png');
         
         /*----- / REFRESCOS / -----*/
         this.load.image("coke", "./assets/sprites/Refrescos/Coke.png");
@@ -54,22 +54,22 @@ export default class Boot extends Phaser.Scene{
         this.load.image("spaceParaReiniciar", "./assets/sprites/TigerBall/Cartel.png");
 
         /*----- /AIM/ -----*/
-        this.load.image('aimbackground', '\\assets\\sprites\\aim\\background.png');
-        this.load.image('tequila', '\\assets\\sprites\\aim\\tequila.png');
-        this.load.image('white_ron', '\\assets\\sprites\\aim\\ron.png');
-        this.load.image('vodka', '\\assets\\sprites\\aim\\vodka.png');
-        this.load.image('gin', '\\assets\\sprites\\aim\\gin.png');
+        this.load.image('aimbackground', './assets/sprites/aim/background.png');
+        this.load.image('tequila', './assets/sprites/aim/tequila.png');
+        this.load.image('white_ron', './assets/sprites/aim/ron.png');
+        this.load.image('vodka', './assets/sprites/aim/vodka.png');
+        this.load.image('gin', './assets/sprites/aim/gin.png');
 
         /*----- /FRUTAS/ -----*/
-        this.load.image('frutasBackground', '\\assets\\sprites\\Frutas\\frutasBackground.png');
-        this.load.image('frutasSuelo', '\\assets\\sprites\\Frutas\\Suelo.png');
-        this.load.image('blackberry_fruit', '\\assets\\sprites\\Frutas\\mora.png');
-        this.load.image('lime_fruit', '\\assets\\sprites\\Frutas\\lima.png');
-        this.load.image('lemon_fruit', '\\assets\\sprites\\Frutas\\limon.png');
-        this.load.image('cesta', '\\assets\\sprites\\Frutas\\cesta.png');
-        this.load.image('tree1', '\\assets\\sprites\\Frutas\\tree03.png');
-        this.load.image('tree2', '\\assets\\sprites\\Frutas\\tree05.png');
-        this.load.image('tree3', '\\assets\\sprites\\Frutas\\tree06.png');
+        this.load.image('frutasBackground', './assets./sprites/Frutas/frutasBackground.png');
+        this.load.image('frutasSuelo', './assets/sprites/Frutas/Suelo.png');
+        this.load.image('blackberry_fruit', './assets/sprites/Frutas/mora.png');
+        this.load.image('lime_fruit', './assets/sprites/Frutas/lima.png');
+        this.load.image('lemon_fruit', './assets/sprites/Frutas/limon.png');
+        this.load.image('cesta', './assets/sprites/Frutas/cesta.png');
+        this.load.image('tree1', './assets/sprites/Frutas/tree03.png');
+        this.load.image('tree2', './assets/sprites/Frutas/tree05.png');
+        this.load.image('tree3', './assets/sprites/Frutas/tree06.png');
 
         /*----- / MAPA / -----*/
         this.load.image("floor", "./assets/sprites/floorTiles.png");
