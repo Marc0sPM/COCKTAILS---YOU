@@ -88,6 +88,9 @@ export default class Boot extends Phaser.Scene{
         this.load.image("breakout_item", "./assets/sprites/Objetos/Especias.png")
         this.load.image("breakout_item_interact", "./assets/sprites/Objetos/EspeciasIluminadas.png")
         
+        /*----- / AUDIO / -----*/
+        this.load.audio('breakoutMusic', ['./assets/OST/BreakoutTheme.mp3']);
+        this.load.audio('aimMusic', ['./assets/OST/ValorantTheme.mp3']);
 
         /*----- / PLAYER / -----*/
         //Player - idle 

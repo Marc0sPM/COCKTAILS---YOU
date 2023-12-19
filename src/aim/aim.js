@@ -13,6 +13,12 @@ export default class Aim extends Phaser.Scene {
         this.CounterValue  = 0;
     }
  create(){
+    // Añadimos la música
+    this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.75 });
+
+    // Reproduce la música
+    this.add.music.play();
+
     this.targetBottle = alcohol;
      this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
      this.background.setInteractive();
@@ -69,7 +75,7 @@ export default class Aim extends Phaser.Scene {
 }
  createBottle() {
     for(var i = 1; i <= 4; i++){
-        this.createIndividualBottle(alcoholicDrinks[i+1])
+        this.createIndividualBottle(alcoholicDrinks[i])
     }
  }
  createIndividualBottle(bottletype){
@@ -108,6 +114,9 @@ export default class Aim extends Phaser.Scene {
         
     }
     exitScene(){
+        // Paramos el audio
+        this.sound.stopAll();
+
         this.calculateFinalScore()
         this.scene.resume('barScene')
         this.scene.stop()
