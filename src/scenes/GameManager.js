@@ -14,6 +14,11 @@ export var alcohol = ''
 export function setAlcohol(name){
     alcohol = name
 }
+export var fruit = ''
+export function setFruit(name){
+    fruit = name;
+}
+
 
 //Customers totales del nivel
 export var numCustomers = 0;

@@ -9,7 +9,7 @@ import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
 import Breakout from "../Breakout/breakout.js";
-import { setAlcohol, setOther, setRefreshment } from "./GameManager.js";
+import { setAlcohol, setFruit, setOther, setRefreshment } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -31,7 +31,7 @@ export default class barScene extends Phaser.Scene {
     create() {
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
-
+        this.createTileMap()
         //intancia el player
         this.player = new Player(this, 300, 300);
 
@@ -40,7 +40,7 @@ export default class barScene extends Phaser.Scene {
         this.generateCocktail();
         
         this.generateItems()
-        console.log(this.itemList)
+        console.log(this.cocktail)
     }
     update() {
         this.player.update();
@@ -180,7 +180,11 @@ export default class barScene extends Phaser.Scene {
                             item.unsetInteractive();
                             this.scene.launch('refrescos')    
                             break
-                        case "tree_item":break
+                        case "tree_item":
+                            setFruit(fruits[this.cocktail.fruit])
+                            item.unsetInteractive()
+                            this.scene.launch('frutas')    
+                        break
                         case "shoot_item":
                             setAlcohol(alcoholicDrinks[this.cocktail.alcohol])
                             item.unsetInteractive();
@@ -191,6 +195,48 @@ export default class barScene extends Phaser.Scene {
             }
             
         })
+
+    }
+    createTileMap(){
+        this.map = this.make.tilemap({ key: "barTiled" });
+
+        this.floor = this.map.addTilesetImage("floorTiles", "floor");
+        this.barObjects = this.map.addTilesetImage("tilesetBar", "barObjects", 32, 32);
+
+        // Capas del mapa
+        this.groundLayer = this.map.createLayer("Suelo", this.floor, 0, 0);
+        this.objectsLayer = this.map.createLayer("Objetos", this.barObjects, 0, 0);
+        this.wallLayer = this.map.createLayer("Pared", this.barObjects, 0, 0);
+
+        // Agrega la capa de objetos al mapa
+        //map.addLayer(objectsLayer);
+
+        // Profundidad de las capas
+        if (this.groundLayer) this.groundLayer.setDepth(0);
+        if (this.wallLayer) this.wallLayer.setDepth(1);
+        if (this.objectsLayer) this.objectsLayer.setDepth(2);
+
+        // Colisiones del Player con la escena
+        // if (this.wallLayer) {
+        //     this.physics.world.enable(this.wallLayer);
+        //     this.physics.add.collider(this.player, this.wallLayer, () => {
+        //         console.log('Colisión con la capa de pared');
+        //     });
+        // }
+
+        // if (this.objectsLayer) {
+        //     this.physics.world.enable(this.objectsLayer);
+        //     this.physics.add.collider(this.player, this.objectsLayer, () => {
+        //         console.log('Colisión con la capa de objetos');
+        //     });
+        //     this.objectsLayer.setDepth(3); // Ajusta la profundidad de la capa de objetos
+        // }
+
+
+        // Ajusta la profundidad del jugador
+        if (this.player) {
+            this.player.setDepth(4); // Ajusta la profundidad del jugador según sea necesario
+        }
 
     }
 }

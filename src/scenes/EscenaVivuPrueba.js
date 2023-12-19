@@ -44,9 +44,9 @@ export default class EscenaVivuPrueba extends Phaser.Scene {
         if (objectsLayer) objectsLayer.setDepth(2);
 
         // Colisiones del Player con la escena
-        if (this.wallLayer) {
-            this.physics.world.enable(this.wallLayer);
-            this.physics.add.collider(this.player, this.wallLayer, () => {
+        if (wallLayer) {
+            this.physics.world.enable(wallLayer);
+            this.physics.add.collider(this.player, wallLayer, () => {
                 console.log('Colisión con la capa de pared');
             });
         }

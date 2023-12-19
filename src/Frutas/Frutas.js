@@ -1,4 +1,5 @@
 import PlayerRefrescos from '../Refrescos/PlayerRefrescos.js'
+import { fruit } from '../scenes/GameManager.js';
 import Fruta from './Fruta.js';
 export default class Frutas extends Phaser.Scene{
     constructor(){
@@ -60,7 +61,7 @@ export default class Frutas extends Phaser.Scene{
         this.i = 0;
         this.canSpawn = true;
        
-        this.targetFruta = 'lime_fruit'; // = requird;
+        this.targetFruta = fruit
         this.add.image(25, 40, this.targetFruta).setScale(0.4);
 
         // Contador
