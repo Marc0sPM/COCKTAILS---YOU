@@ -1,4 +1,4 @@
-let lookingRight = true;
+
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -18,7 +18,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             right: Phaser.Input.Keyboard.KeyCodes.D,
             jump: Phaser.Input.Keyboard.KeyCodes.SPACE
         });
-        
+
+        this.lookingRight = true;
        
         // Velocidad del jugador
         this.speed = 200;
@@ -49,8 +50,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('player_walk', true);
             }
 
-            if (lookingRight) {
-                lookingRight = false;
+            if (this.lookingRight) {
+                this.lookingRight = false;
                 this.setFlipX(true);
                 this.body.setOffset(20, 10)
                 this.x -= 48; // Ajusta según el tamaño del sprite
@@ -62,8 +63,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
 
             this.setVelocityX(this.speed);
-            if (!lookingRight) {
-                lookingRight = true;
+            if (!this.lookingRight) {
+                this.lookingRight = true;
                 this.setFlipX(false);
                 this.body.setOffset(5, 10)
                 this.x += 48; // Ajusta según el tamaño del sprite

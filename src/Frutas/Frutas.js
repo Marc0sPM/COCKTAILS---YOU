@@ -35,9 +35,10 @@ export default class Frutas extends Phaser.Scene{
         this.gameoverImage.visible = false;
 
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 400, false);
+        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 425, false);
         this.Player.setCollideWorldBounds(true);
-        //this.cesta = this.physics.add.image(this.Player.x, this.Player.y, 'cesta')
+        this.cesta = this.physics.add.image(this.Player.x + 17, this.Player.y + 10 , 'cesta')
+        this.cesta.setScale(3.5);
 
          // Temporizador
          this.tempSprite = this.add.sprite(850, -29, 'contador');
@@ -79,19 +80,26 @@ export default class Frutas extends Phaser.Scene{
 
     update(t, dt){
         if(this.runCounter){
+            if(this.Player.lookingRight){
+                this.cesta.x = this.Player.x + 17;
+            }
+            else{
+                this.cesta.x = this.Player.x - 17;
+            }
             this.temporizador -= (dt / 1000);
+            if(this.canSpawn){
+                this.spawnFruta();
+                this.tiempo = Math.ceil(this.temporizador);
+                this.canSpawn = false;
+            }
+            if(this.temporizador <= 0) {
+                this.hasDied();
+                this.temporizador = 0;
+            }
+            this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
+            this.calcularTiempo(this.temporizador);
         }
-        if(this.canSpawn){
-            this.spawnFruta();
-            this.tiempo = Math.ceil(this.temporizador);
-            this.canSpawn = false;
-        }
-        if(this.temporizador <= 0) {
-            this.hasDied();
-            this.temporizador = 0;
-        }
-        this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
-        this.calcularTiempo(this.temporizador);
+        
     }
 
     calcularTiempo(tiempo){
@@ -130,6 +138,7 @@ export default class Frutas extends Phaser.Scene{
     cargarFisicas(){
         this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this));
         this.physics.add.collider(this.fruta, this.suelo, this.handleDelete.bind(this));
+        this.physics.add.overlap(this.cesta, this.fruta, this.handleColision.bind(this));
     }
     randomFruta(){
         let fruit;
