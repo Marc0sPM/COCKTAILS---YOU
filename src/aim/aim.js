@@ -1,5 +1,6 @@
 import Bottle from "./bottle.js"
 import { alcoholicDrinks } from "../Cocktails.js";
+import { addCustomerPoints, addMinigame, alcohol } from "../scenes/GameManager.js";
 
 export default class Aim extends Phaser.Scene {
     //  Meter parametro de entrada
@@ -8,23 +9,24 @@ export default class Aim extends Phaser.Scene {
         //Lista botellas
         this.bottleList = []
         //Asignar desde constructor
-        this.targetBottle = 'gin'
+        this.runCounter = true;
         this.CounterValue  = 0;
     }
  create(){
-     //cambiar a otro backgorund
-     //poner bien botellas
-     this.background = this.add.image(400, 250, 'backgroundBreakout').setDepth(0);
+    this.targetBottle = alcohol;
+     this.background = this.add.image(400, 250, 'aimbackground').setDepth(0);
      this.background.setInteractive();
+     this.background.setScale(3);
    
      //temporizador
-     this.temporizador = 30
+     this.temporizador = 15
         
      this.temporizadorText = this.add.text(800 - 200, 30, 'Tiempo: ' + this.temporizador, { 
      fontFamily: 'Comic Sans MS',
      fontSize: '32px',
      fill: '#fff'
     });
+    this.temporizadorText.setDepth(3);
      //gameOver
      this.gameoverImage = this.add.image(400, 300, 'gameOver').setScale(0.8);
      this.gameoverImage.visible = false;
@@ -38,6 +40,7 @@ export default class Aim extends Phaser.Scene {
 
      this.bottlesGroup = this.physics.add.group();
      this.targetCounter = this.add.text(50, 30, ` ${this.targetBottle}: ${this.CounterValue}`, {fontFamily: 'Comic Sans MS', fontSize: '32px', fill: '#fff' });
+     this.targetCounter.setDepth(3);
      this.add.image(20, 44, this.targetBottle).setScale(0.15);
 
      const bottleTypes = ['gin', 'ron', 'vodka', 'tequila'];
@@ -47,7 +50,7 @@ export default class Aim extends Phaser.Scene {
             this.handleClick(gameObject);
         }
         else{
-            this.temporizador -= 1;
+            this.temporizador--;
         }
     });
     this.createBottle();
@@ -59,13 +62,13 @@ export default class Aim extends Phaser.Scene {
         this.updateCounterText();
     }
     else{
-        this.temporizador -= 3;
+        this.temporizador -= 5;
     }
     bottle.destroy();
     console.log("destruye");
 }
  createBottle() {
-    for(var i = 0; i < 4; i++){
+    for(var i = 1; i <= 4; i++){
         this.createIndividualBottle(alcoholicDrinks[i])
     }
  }
@@ -76,21 +79,25 @@ export default class Aim extends Phaser.Scene {
    }
 
  updateCounterText() {
+    
     this.targetCounter.setText(`${this.targetBottle}: ${this.CounterValue}`);
         if (this.CounterValue >= 4) {
+            this.runCounter = false;
          this.win.visible = true;
-         
+         this.bottleList.length = 0
          this.time.delayedCall(2000, () => {
             this.exitScene();
         })
         }
     }
     update(time,delta) {
-
-        this.temporizador -= (delta / 1000);
+        if(this.runCounter){
+            this.temporizador -= (delta / 1000)
+        }
         if(this.temporizador <= 0){
+            this.runCounter = false;
             this.gameoverImage.visible = true;
-            
+            this.bottleList.length = 0
             this.time.delayedCall(2000, () => {
                 this.exitScene();
                 
@@ -101,8 +108,21 @@ export default class Aim extends Phaser.Scene {
         
     }
     exitScene(){
+        this.calculateFinalScore()
         this.scene.resume('barScene')
         this.scene.stop()
         
+    }
+    calculateFinalScore(){
+        var stars
+        if(this.CounterValue == 4) stars = 3;
+        else if(this.CounterValue == 3) stars = 2
+        else if(this.CounterValue == 2) stars = 1
+        else stars = 0
+
+        if(stars != undefined){
+            addCustomerPoints(stars)
+            addMinigame()
+        }
     }
 }
