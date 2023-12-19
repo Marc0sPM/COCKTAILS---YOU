@@ -3,6 +3,7 @@ import Fruta from './Fruta.js';
 export default class Frutas extends Phaser.Scene{
     constructor(){
         super({key: 'frutas'});
+        this.runCounter = true
     }
     create(){
         // Se agregan físicas a la escena
@@ -19,10 +20,10 @@ export default class Frutas extends Phaser.Scene{
         this.suelo.setOffset(320, 670);
 
         // Poner los arboles de la escena
-        const tree1 = this.add.image(600 ,this.sys.game.canvas.height - 307,'tree3');  
+        const tree1 = this.add.image(600 ,this.sys.game.canvas.height - 351,'tree3');  
         tree1.setScale(0.5);
-        const tree2 = this.add.image(250 ,this.sys.game.canvas.height - 355,'tree1');  
-        tree2.setScale(0.6);
+        const tree2 = this.add.image(250 ,this.sys.game.canvas.height - 375,'tree1');  
+        tree2.setScale(0.55);
         
         
         // Imagen de win
@@ -34,15 +35,13 @@ export default class Frutas extends Phaser.Scene{
         this.gameoverImage.visible = false;
 
         // Se instancia al jugador
-        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 425, false);
+        this.Player = new PlayerRefrescos(this, this.sys.game.canvas.width / 2, 400, false);
         this.Player.setCollideWorldBounds(true);
         //this.cesta = this.physics.add.image(this.Player.x, this.Player.y, 'cesta')
 
          // Temporizador
          this.tempSprite = this.add.sprite(850, -29, 'contador');
          this.tempSprite.setScale(0.7);
- 
-         // Temporizador
          this.temporizador = 30 /*= temp*/
          
          this.temporizadorText = this.add.text(620, 20, 'Tiempo: ' + this.temporizador, { 
@@ -51,11 +50,12 @@ export default class Frutas extends Phaser.Scene{
               fill: '#fff'
          });
 
-        // Se instancia la fruta
-        this.pos = this.randomPos();
-        this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta());
-
-        
+        // Creacion de array
+        this.prevNum;
+        this.arrayFrutas = [];
+        this.i = 0;
+        this.canSpawn = true;
+       
 
         // Contador
         this.num = 4; // desiredNum
@@ -73,24 +73,38 @@ export default class Frutas extends Phaser.Scene{
        
 
         // Fisicas
-        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this));
+        
         this.physics.add.collider(this.Player, this.suelo);
-        this.physics.add.collider(this.fruta, this.suelo, this.handleDelete.bind(this));
     }
 
     update(t, dt){
-        this.temporizador -= (dt / 1000);
+        if(this.runCounter){
+            this.temporizador -= (dt / 1000);
+        }
+        if(this.canSpawn){
+            this.spawnFruta();
+            this.tiempo = Math.ceil(this.temporizador);
+            this.canSpawn = false;
+        }
         if(this.temporizador <= 0) {
             this.hasDied();
             this.temporizador = 0;
         }
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
-
+        this.calcularTiempo(this.temporizador);
     }
 
+    calcularTiempo(tiempo){
+        if(Math.ceil(tiempo) != this.tiempo){
+            this.canSpawn = true;
+        }
+}
+
     handleDelete(fruta, suelo){  
-            fruta.destroy();
-            this.spawnFruta();
+        if(fruta.getType() == this.frutaRequerida){
+            this.temporizador -= 1;
+        }
+        fruta.destroy();
 }
     randomPos(){
         let rnd = Phaser.Math.RND.between(50, this.sys.game.canvas.width - 50);;
@@ -109,16 +123,22 @@ export default class Frutas extends Phaser.Scene{
         if (this.cont >= this.num) {
             // Cambiar de escena y eso
             this.hasWon()
-        } else {
-            this.spawnFruta();
         }
 
     }
 
+    cargarFisicas(){
+        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this));
+        this.physics.add.collider(this.fruta, this.suelo, this.handleDelete.bind(this));
+    }
     randomFruta(){
         let fruit;
-        let rnd = Phaser.Math.RND.between(0, 2);
-
+        let rnd;
+        do{
+            rnd = Phaser.Math.RND.between(0, 2);
+        }
+        while(this.prevNum === rnd)
+        this.prevNum = rnd;
         switch(rnd){
             case 0:
                  fruit = 'blackberry_fruit'
@@ -134,12 +154,16 @@ export default class Frutas extends Phaser.Scene{
     }
     spawnFruta(){
         this.pos = this.randomPos();
+
         this.fruta = new Fruta(this, this.pos[0], this.pos[1], this.randomFruta())
-        this.physics.add.overlap(this.Player, this.fruta, this.handleColision.bind(this))
+        this.cargarFisicas();
+        this.arrayFrutas.push(this.fruta); 
+        
     }
 
     hasWon(){
         this.win.visible = true;
+        this.runCounter = false;
         this.time.delayedCall(2000, () => {
             this.exitScene();
         })
@@ -152,6 +176,7 @@ export default class Frutas extends Phaser.Scene{
 
     hasDied(){
         this.gameoverImage.visible = true
+        this.runCounter = false;
         this.time.delayedCall(2000, () => {
         this.exitScene();
         })

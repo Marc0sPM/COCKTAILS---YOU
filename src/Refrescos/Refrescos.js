@@ -69,7 +69,7 @@ export default class Refrescos extends Phaser.Scene {
     }
     
     update(time,delta) {
-        this.Player.update();
+        
         if(this.runCounter){
             this.temporizador -= (delta / 1000)
         }
@@ -162,26 +162,6 @@ export default class Refrescos extends Phaser.Scene {
             addCustomerPoints(stars)
             addMinigame()
         }
-    }
-    restartScene(){
-        this.Player.destroy();
-        this.num = 4/* = desiredNum*/
-        this.temporizador = 30 /*= temp*/
-        this.cont = 0;
-
-        // UI
-        this.contadorText.setText('Refrescos: ' + this.cont + ' / ' + this.num);
-        
-        // Player
-        this.Player = new PlayerRefrescos(this, 100, 300);
-        this.Player.setCollideWorldBounds(true);
-        this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
-
-        // Fisicas de nuevo
-        this.cargarFisicas();
-
-        // Info para devolverla y que se sepa si ha fallado
-        this.infoLvl -= 0.2;
     }
 
     cargarFisicas(){

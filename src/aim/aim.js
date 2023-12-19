@@ -3,6 +3,7 @@ import { alcoholicDrinks } from "../Cocktails.js";
 import { addCustomerPoints, addMinigame, alcohol } from "../scenes/GameManager.js";
 
 export default class Aim extends Phaser.Scene {
+    
     //  Meter parametro de entrada
     constructor(){
         super({ key: 'Aim' });
@@ -14,7 +15,10 @@ export default class Aim extends Phaser.Scene {
     }
  create(){
     // Añadimos la música
-    this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.75 });
+    this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.55 });
+    //audio
+    this.shootSound = this.sound.add('shoot',{volume: 0.50});
+    this.breakSound = this.sound.add('drink');
 
     // Reproduce la música
     this.add.music.play();
@@ -62,6 +66,7 @@ export default class Aim extends Phaser.Scene {
     this.createBottle();
  }
  handleClick(bottle) {
+   
     if (bottle.type === this.targetBottle) {
         this.CounterValue++;
         console.log("añade");
@@ -70,6 +75,8 @@ export default class Aim extends Phaser.Scene {
     else{
         this.temporizador -= 5;
     }
+    this.shootSound.play();
+    this.breakSound.play();
     bottle.destroy();
     console.log("destruye");
 }
