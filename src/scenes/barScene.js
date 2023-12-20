@@ -9,6 +9,7 @@ import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
 import { setMM, checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment, unlockNextLevel, addCurrentCustomer } from "./GameManager.js";
+import PauseMenu from "./PauseMenu.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -29,7 +30,15 @@ export default class barScene extends Phaser.Scene {
         this.itemsCreated = false;
         this.itemList = []
     }
-    create() {  
+    create() {
+        //Pausa
+     this.scene.add('PauseMenu', PauseMenu, false);
+     this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.sound.pauseAll();
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+     });
         // Audio customer
         this.pipipibu = this.sound.add('pipipibu', { volume:1});
 
