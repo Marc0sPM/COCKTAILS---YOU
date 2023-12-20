@@ -106,7 +106,7 @@ export default class barScene extends Phaser.Scene {
             else if( key == "ices_item"){
                 if(this.cocktail.ice == 0) activate = false;
             }
-            this.itemList.push(new InteractiveItem(this, x, y, x, y , activate, key));
+            this.itemList.push(new InteractiveItem(this, x, y, x, y , activate, key).setDepth(6));
         });
     }
     createItemsPhysics(){
@@ -244,7 +244,17 @@ export default class barScene extends Phaser.Scene {
 
     }
     createTileMap(){
-        
+
+        this.createObstacle(400, 300, 'obstacle1', 800, 100, 0);  
+        this.createObstacle(105, 0, 'obstacle2', 160, 150, 0);  
+        this.createObstacle(360, 0, 'obstacle3', 160, 150, 0);
+        this.createObstacle(775, 0, 'obstacle4', 160, 115, 0);  
+
+
+        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3,  this.obstacle4];
+        this.physics.add.collider(this.player, this.obstacles);
+
+
         // Se agregan físicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
 
@@ -270,22 +280,16 @@ export default class barScene extends Phaser.Scene {
         // Profundidad de las capas
         groundLayer.setDepth(0);
         woodLayer.setDepth(1)
-        wallLayer.setDepth(3);
-        objectsLayer.setDepth(4);
+        wallLayer.setDepth(4);
+        objectsLayer.setDepth(5);
 
         // Colisiones del Player con la escena
         //this.physics.add.collider(this.player, wallLayer);
         //this.physics.add.collider(this.player, objectsLayer);
 
-        this.player.setDepth(2); // Ajusta la profundidad del jugador según sea necesario
+        this.player.setDepth(3); // Ajusta la profundidad del jugador según sea necesario
 
-        this.createObstacle(400, 300, 'obstacle1', 800, 100, 0);  
-        this.createObstacle(105, 0, 'obstacle2', 160, 150, 0);  
-        this.createObstacle(360, 0, 'obstacle3', 160, 150, 0);  
-        this.createObstacle(775, 0, 'obstacle4', 160, 115, 0);  
-
-        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3,  this.obstacle4];
-        this.physics.add.collider(this.player, this.obstacles);
+        
     
     }
 
