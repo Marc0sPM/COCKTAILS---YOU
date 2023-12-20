@@ -16,8 +16,8 @@ export default class barScene extends Phaser.Scene {
         console.log("constructor")
         // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
         super({ key: 'barScene' });
-        this.customerSpawn = {x :700 , y: 600}
-        this.customerDestiny = {x: 300, y: 250}
+        this.customerSpawn = {x :600 , y: 600}
+        this.customerDestiny = {x: 300, y: 325}
 
         //Cabiar cuando tenga el tile map hecho ;P
         this.cloudPos = {x: 500, y: 500}
@@ -156,7 +156,7 @@ export default class barScene extends Phaser.Scene {
         this.dialogueShown = false;
     }
     createInteractionRect(){
-        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60) //para mostrar poner 0xffffff al final de los parametros
+        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60, 0xffffff) //para mostrar poner 0xffffff al final de los parametros
     }
 
     //Comprobacion de overlap entre un objeto(x,y) y un rect
