@@ -24,6 +24,10 @@ export var currentminigame = "";
 export function setMinigame(name){
  currentminigame = name;
 }
+export var currenttext = "";
+export function setMM(name){
+ currenttext = name;
+}
 
 
 

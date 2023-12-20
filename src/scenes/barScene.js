@@ -184,25 +184,34 @@ export default class barScene extends Phaser.Scene {
                             setOther(others[this.cocktail.others]);
                             item.unsetInteractive();
                             setMinigame('Breakout');
+                            setMM('Mb');
                             this.scene.launch('Breakout')
                             break
                         case "ices_item":
                             item.unsetInteractive();
+                            setMinigame('Hielos');
+                            setMM('Mh');
                             this.scene.launch("Hielos")    
                             break
                         case "platforms_item":
                             setRefreshment(refreshments[this.cocktail.refreshment])
                             item.unsetInteractive();
+                            setMM('Mr');
+                            setMinigame('refrescos');
                             this.scene.launch('refrescos')    
                             break
                         case "tree_item":
                             setFruit(fruits[this.cocktail.fruit])
                             item.unsetInteractive()
+                            setMinigame('frutas');
+                            setMM('Mf');
                             this.scene.launch('frutas')    
                         break
                         case "shoot_item":
                             setAlcohol(alcoholicDrinks[this.cocktail.alcohol])
                             item.unsetInteractive();
+                            setMM('Ma');
+                            setMinigame('Aim');
                             this.scene.launch('Aim')    
                         break
                     }
