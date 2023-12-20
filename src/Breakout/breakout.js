@@ -212,7 +212,7 @@ update() {
 hasWon(){
     if (this.cont == 4) {
         this.win.visible = true;
-        this.exitScene
+        this.exitScene()
     }
 }
 hasDied(){
@@ -226,10 +226,10 @@ hasDied(){
 exitScene(){
     // Paramos el audio
     this.sound.stopAll();
-
+    addMinigame()
     this.calculateFinalScore();
-    this.scene.resume('barScene')
     this.scene.stop()
+    this.scene.resume('barScene')
 }
 calculateFinalScore(){
     var stars
@@ -239,7 +239,7 @@ calculateFinalScore(){
     else if(this.cont == 4) stars = 3
     if(stars != undefined){
         addCustomerPoints(stars)
-        addMinigame()
+      
     }
 
 }

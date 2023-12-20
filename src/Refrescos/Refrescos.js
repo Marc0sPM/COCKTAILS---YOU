@@ -19,6 +19,10 @@ export default class Refrescos extends Phaser.Scene {
         this.scene.pause();
         this.scene.launch('PauseMenu');
      });
+     this.input.keyboard.on('keydown-Q', function (event) {
+        this.exitScene()
+        
+    }, this);
         // Audio
         this.drinkSound = this.sound.add('drink',{volume: 0.50});
 
@@ -166,7 +170,9 @@ export default class Refrescos extends Phaser.Scene {
             })
     }
     exitScene(){
+        addMinigame()
         this.calculateFinalScore();
+        this.runCounter = true
         this.scene.resume('barScene')
         this.scene.stop()
     }
@@ -178,7 +184,6 @@ export default class Refrescos extends Phaser.Scene {
         else if(this.cont == 4) stars = 3
         if(stars != undefined){
             addCustomerPoints(stars)
-            addMinigame()
         }
     }
 

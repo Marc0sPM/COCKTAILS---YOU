@@ -70,7 +70,12 @@ export default class Hielos extends Phaser.Scene {
         this.isCubeLaunched = false;
 
         this.input.keyboard.on('keydown-SPACE', function (event) {
+            
             this.scene.restart();
+        }, this);
+        this.input.keyboard.on('keydown-Q', function (event) {
+            this.exitScene()
+            
         }, this);
 
         console.log('create Hielos');
@@ -164,9 +169,10 @@ export default class Hielos extends Phaser.Scene {
     }
     exitScene(){
         this.completionText.setVisible(false);
+        addMinigame()
         this.calculateFinalScore()
-                this.scene.resume('barScene')
-                this.scene.stop();
+        this.scene.resume('barScene')
+        this.scene.stop();
     }
     calculateFinalScore(){
         var stars
@@ -177,7 +183,7 @@ export default class Hielos extends Phaser.Scene {
         if(stars != undefined){
             console.log(stars)
             addCustomerPoints(stars)
-            addMinigame()
+            
         }
     }
 }

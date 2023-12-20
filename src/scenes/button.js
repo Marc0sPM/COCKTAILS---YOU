@@ -10,6 +10,7 @@ export default class Button extends Phaser.GameObjects.Image{
     }
     create(){
         this.setTexture(this.name)
+        
     }
     update(){
         //Funcion que realiza

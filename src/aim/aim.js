@@ -132,8 +132,12 @@ export default class Aim extends Phaser.Scene {
     exitScene(){
         // Paramos el audio
         this.sound.stopAll();
-
+        addMinigame()
         this.calculateFinalScore()
+        this.bottleList = []
+        //Asignar desde constructor
+        this.runCounter = true;
+        this.CounterValue  = 0;
         this.scene.resume('barScene')
         this.scene.stop()
         
@@ -147,7 +151,7 @@ export default class Aim extends Phaser.Scene {
 
         if(stars != undefined){
             addCustomerPoints(stars)
-            addMinigame()
+           
         }
     }
 }

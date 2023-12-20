@@ -38,7 +38,6 @@ export default class LevelScene extends Phaser.Scene{
        this.updateLv2()
        this.updateLv3()
        this.updateLv4()
-        
     }
     updateLv1(){
         if(this.accesibleLevels.includes(this.buttons[0])){
@@ -56,7 +55,7 @@ export default class LevelScene extends Phaser.Scene{
             this.hover(this.buttons[1])
             this.buttonLevel2.removeAllListeners("pointerdown");
             this.buttonLevel2.on('pointerdown', () => {
-                setNumCustomers(levels['level2'])
+                setNumCustomers(levels['level2'].customerCant)
                 this.scene.start('barScene')
             })
         }
@@ -64,9 +63,9 @@ export default class LevelScene extends Phaser.Scene{
     updateLv3(){
         if(this.accesibleLevels.includes(this.buttons[2])){
             this.hover(this.buttons[2])
-            this.buttonLevel1.removeAllListeners("pointerdown");
-            this.buttonLevel1.on('pointerdown', () => {
-                setNumCustomers(levels['level3'])
+            this.buttonLevel3.removeAllListeners("pointerdown");
+            this.buttonLevel3.on('pointerdown', () => {
+                setNumCustomers(levels['level3'].customerCant)
                 this.scene.start('barScene')
             })
         }
@@ -74,9 +73,9 @@ export default class LevelScene extends Phaser.Scene{
     updateLv4(){
         if(this.accesibleLevels.includes(this.buttons[3])){
             this.hover(this.buttons[3])
-            this.buttonLevel1.removeAllListeners("pointerdown");
-            this.buttonLevel1.on('pointerdown', () => {
-                setNumCustomers(levels['level4'])
+            this.buttonLevel4.removeAllListeners("pointerdown");
+            this.buttonLevel4.on('pointerdown', () => {
+                setNumCustomers(levels['level4'].customerCant)
                 this.scene.start('barScene')
             })
         }

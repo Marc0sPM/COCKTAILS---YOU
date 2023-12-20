@@ -8,12 +8,12 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { setMM, checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment, unlockNextLevel, addCurrentCustomer } from "./GameManager.js";
+import { setMM, checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment, unlockNextLevel, addCurrentCustomer, addMinigame, addMaxMinigames, checkCustomer, resetSceneStats, numCustomers, currentCustomers, setCustomerList, customerList, calculateCustomerStarts, resetCustomerList, setCanUnlockLevel } from "./GameManager.js";
 import PauseMenu from "./PauseMenu.js";
 
 
 export default class barScene extends Phaser.Scene {
-    constructor(customersQuantity) {
+    constructor() {
         console.log("constructor")
         // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
         super({ key: 'barScene' });
@@ -29,11 +29,38 @@ export default class barScene extends Phaser.Scene {
         this.dialogueShown = false;
         this.itemsCreated = false;
         this.itemList = []
+        this.allCreated = false;
+        this.allPlayed = false;
+        this.customers = []
+        this.desiredCocktail = undefined
+        this.fail = false;
     }
     create() {
         //Pausa
         this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
+        this.player.setCollideWorldBounds(true)
         this.createTileMap()
+        if(this.customers.length === 0){
+            var i = 0
+            while(i < numCustomers){
+                this.generateRandomCustomer()
+                i++
+            }
+            setCustomerList(this.customers)
+        }
+          
+        
+        
+        console.log(currentCustomers)
+        console.log(numCustomers)
+        console.log(this.customers)
+        console.log(customerList)
+        this.customer = this.customers[currentCustomers]
+        console.log(this.customer)
+
+        this.customerType = this.customer.type
+        this.dialogue = this.customer.dialogue
+        
         //Pausar
         if(!this.pauseScene)
         this.pauseScene = this.scene.add('PauseMenu', PauseMenu, false);
@@ -52,48 +79,61 @@ export default class barScene extends Phaser.Scene {
         this.radio.setDepth(5);
         this.radio.setInteractive();
         this.radio.setScale(0.2);
-
+        this.isplaying = false;
         this.radio.removeAllListeners('pointerdown')
-        this.radio.on('pointerdown', function (pointer) {
-
+        this.radio.on('pointerdown',  (pointer)=> {
+            
             if (pointer.leftButtonDown()) {
-                this.eladio.play();
+                if(!this.isplaying){
+                    this.eladio.play();
+                    this.isplaying = true
+                }else {
+                    this.eladio.stop();
+                    this.isplaying = false;
+                }}
                 // Se ha hecho clic izquierdo en la imagen
-                
-            }
         });
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         //intancia el player
 
-        this.player.setCollideWorldBounds(true)
+        
 
         this.guide = this.add.image(110, 700, 'pistasButton').setDepth(5).setScale(0.2).setInteractive()
         this.interactionGuide()
         this.cocktailSelector = this.add.image(740, 700, 'cocteleraButton').setDepth(5).setScale(0.7).setInteractive().setSize(200, 400)
         this.interactionCocktailSelector()
 
-       
-
-        this.generateRandomCustomer()
-        this.generateCocktail();
         
-        this.generateItems()
-        this.createItemsPhysics()
-        console.log(this.cocktail)
+        console.log(this.customerType)
+        
     }
     update() {
-        this.checkExit()
-        this.player.update();
-        this.customer.update()
+        if(this.desiredCocktail !== undefined){
+            if(!this.allCreated ){
+                if(this.desiredCocktail == this.customerType){
+                    this.generateCocktail();
+                    this.generateItems()
+                }else this.fail = true;
+                this.allCreated = true;
+            }
+            
+            this.checkExit()
+        }
+        
+        if(this.player){
+            if(this.player.cursors.esc.isDown){
+                setMinigame('barScene')
+                this.sound.pauseAll();
+                this.scene.pause();
+                this.scene.launch('PauseMenu');
+            }
+
+        }
+            
        
         //Pausar el juego
-        if(this.player.cursors.esc.isDown){
-            setMinigame('barScene')
-            this.sound.pauseAll();
-            this.scene.pause();
-            this.scene.launch('PauseMenu');
-        }
+       
         if(this.dialogueShown){
             
             this.dialogueCloud.on("pointerdown", () => {
@@ -101,12 +141,44 @@ export default class barScene extends Phaser.Scene {
             });
             }
     }
+    hover(button, type){
+        button.removeAllListeners('pointerdown')
+        button.on('pointerdown', ()=> 
+            this.desiredCocktail = type
+        )
+        button.on('pointerover', () => {
+            button.setScale(1.5 + 0.2)
+        })
+        button.on('pointerout', () => {
+            button.setScale(1.5)
+        })
+    }
+    
     interactionCocktailSelector(){
         this.cocktailSelector.removeAllListeners("pointerdown");
         this.cocktailSelector.on('pointerdown', ()=> {
-            var selector = this.add.image(400, 300, 'pistas').setScale(0.5).setInteractive().setDepth(7)
-            selector.on('pointerdown', () => {
-                guide.destroy()
+            var selectorBackground = this.add.image(400, 300, 'pistasButton').setScale(0.5).setInteractive().setDepth(7)
+            var text = this.add.text(155, 10, '¿QUE COCTEL QUIERES HACER?', {
+                fontFamily: 'Comic Sans MS', 
+                fontSize: 30, 
+                color: '#000022',
+                fontWeight: 'bold'
+                 }).setDepth(8);
+            var blueLagoon = this.add.image(290, 170, 'blue_lagoon').setInteractive().setDepth(8).setScale(1.5)
+            this.hover(blueLagoon, 'azul')
+            var margarita = this.add.image(510, 170, 'margarita').setInteractive().setDepth(8).setScale(1.5)
+            this.hover(margarita, 'amarillo')
+            var purpleSky = this.add.image(290, 380, 'purple_sky').setInteractive().setDepth(8).setScale(1.5)
+            this.hover(purpleSky, 'morado')
+            var mojito = this.add.image(510, 380, 'mojito').setInteractive().setDepth(8).setScale(1.5)
+            this.hover(mojito, 'verde')
+            selectorBackground.on('pointerdown', () => {
+                selectorBackground.destroy()
+                blueLagoon.destroy()
+                margarita.destroy()
+                purpleSky.destroy()
+                mojito.destroy()
+                text.destroy()
             })
         })
         this.cocktailSelector.on('pointerover', ()=> {
@@ -161,28 +233,24 @@ export default class barScene extends Phaser.Scene {
             else if( key == "ices_item"){
                 if(this.cocktail.ice == 0) activate = false;
             }
+            if(activate) addMaxMinigames()
             this.itemList.push(new InteractiveItem(this, x, y, rectX, rectY , activate, key).setDepth(6));
         });
     }
-    createItemsPhysics(){
-        this.itemList.forEach((item)=>{
-            this.physics.add.collider(item, this.player)
-        })
-    }
     generateRandomCustomer() {
-
         const availableTypes = Object.keys(dialogues);
-        this.customerType = Phaser.Math.RND.pick(availableTypes);
+        var customerType = Phaser.Math.RND.pick(availableTypes);
 
-        const possibleDialogues = dialogues[this.customerType];
-        this.dialogue = Phaser.Math.RND.pick(possibleDialogues);
+        const possibleDialogues = dialogues[customerType];
+        var dialogue = Phaser.Math.RND.pick(possibleDialogues);
 
         //Para que no aparezcan skins iguales tan de seguido
         var lastSkin = -1;
         var customerSkin = Phaser.Math.Between(0,2)
         while(customerSkin == lastSkin) {customerSkin = Phaser.Math.Between(0,2)}
-
-        this.customer = new Customer(this, this.customerSpawn.x, this.customerSpawn.y, this.customerType, this.dialogue, this.customerDestiny.y, customerSkin)
+        lastSkin = customerSkin
+        this.customers.push(new Customer(this, this.customerSpawn.x, this.customerSpawn.y, customerType, dialogue, this.customerDestiny.y, customerSkin))
+        
         this.customerCreated = true;
     }
     
@@ -233,7 +301,7 @@ export default class barScene extends Phaser.Scene {
         this.dialogueShown = false;
     }
     createInteractionRect(){
-        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y - 100, 60, 60, 0xffffff) //para mostrar poner 0xffffff al final de los parametros
+        this.interactionRect = this.add.rectangle(this.customer.x, this.customer.y- 100, 60, 60, 0xffffff) //para mostrar poner 0xffffff al final de los parametros
     }
 
     //Comprobacion de overlap entre un objeto(x,y) y un rect
@@ -361,20 +429,60 @@ export default class barScene extends Phaser.Scene {
     }
 
     checkExit(){
-        var allPlayed = true;
-        this.itemList.forEach(item => {
-            if(item.canInteract) allPlayed = false
-        })
-        if(allPlayed){
-            //Comporbar si todos los customers del nivel han terminado
-            if(checkExitLevel()) {
-                unlockNextLevel()
-                this.scene.start('Levels')}
-            else {
-                addCurrentCustomer()
-
-            }
-        }
+        console.log('entra je')
+        if(checkCustomer() || this.fail){
+        this.customerCompleted()}
+    }
+    customerCompleted(){
         
+            console.log('entra jeje')
+            addCurrentCustomer()
+            calculateCustomerStarts()
+            if(checkExitLevel()) {
+                console.log('entra jejeje')
+                this.exitScene()
+            }
+            else {
+                resetSceneStats()
+                this.restartScene()
+            }
+    }
+    exitScene(){
+        if(!this.fail) setCanUnlockLevel(true)
+        this.resetStats()
+        this.scene.stop()
+        this.scene.start('Stars')
+        setCanUnlockLevel(false)
+    }
+    restartScene() {
+        // Detener sonidos si están reproduciéndose
+        this.pipipibu.stop();
+        this.eladio.stop();
+
+        console.log('entra customer')
+        this.resetStats()
+        this.scene.restart()
+    }
+    resetStats(){
+        this.customers = []
+        resetCustomerList()
+        this.fail = false;
+        this.itemList = []
+        this.obstacles = []
+        this.dialogueCreated = false;
+        this.dialogueShown = false;
+        this.itemsCreated = false;
+        this.allCreated = false;
+        this.allPlayed = false;
+        this.desiredCocktail = undefined
+        if(this.guide){
+            this.guide.destroy()
+        }
+        if(this.interactionGuide){
+            this.cocktailSelector.destroy()
+        }
+        if (this.dialogueCloud) {
+            this.dialogueCloud.destroy();
+        }
     }
 }

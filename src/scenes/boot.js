@@ -17,7 +17,18 @@ export default class Boot extends Phaser.Scene{
         this.load.image('pistasButton', './assets/sprites/fondoGuia.png')
         this.load.image('pistas', './assets/sprites/Cartel.png')
         this.load.image('cocteleraButton', './assets/sprites/coctelera.png')
-        /*---*/
+        this.load.image('star', './assets/sprites/star.png')
+        this.load.image('star_empty', './assets/sprites/emptyStar.png')
+        this.load.image('cool', './assets/sprites/cool.png')
+        this.load.image('nice', './assets/sprites/nice.png')
+        this.load.image('excellent', './assets/sprites/excellent.png')
+        this.load.image('fail', './assets/sprites/failBueno.png')
+        /*----- / COCTELES /-----*/
+        this.load.image('purple_sky','./assets/sprites/PurpleSky.png' )
+        this.load.image('blue_lagoon','./assets/sprites/BlueLagoon.png' )
+        this.load.image('margarita','./assets/sprites/Margarita.png' )
+        this.load.image('mojito','./assets/sprites/Mojito.png' )
+        /*----- / INTERACTIVE ITEMS /-----*/
         this.load.image('Bebidas', './assets/sprites/Objetos/Bebidas.png');
         this.load.image('BebidasIluminadas', './assets/sprites/Objetos/BebidasIluminadas.png');
         this.load.image('Alcohol', './assets/sprites/Objetos/Cocteles.png');
@@ -35,6 +46,8 @@ export default class Boot extends Phaser.Scene{
         this.load.image("resumeButton_hover","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back03.png");
         this.load.image("resumeButton","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back01.png");
         this.load.image("resumeButton_hover","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back03.png");
+        this.load.image('homeButton', './assets/sprites/Buttons/Buttons Pixel Animation Pack/home/343px/home01.png')
+        this.load.image('homeButton_hover', './assets/sprites/Buttons/Buttons Pixel Animation Pack/home/343px/home03.png')
          /*----- / MENU / -----*/
         this.load.image('libro', './assets/sprites/Menu/Menu.png');
         this.load.image('Mb', './assets/sprites/Menu/MenuBreakout.png');

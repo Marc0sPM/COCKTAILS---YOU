@@ -14,6 +14,7 @@ class MainMenu extends Phaser.Scene{
 
     }
     update(){
+       
         this.levelsButton.update()
     }
    

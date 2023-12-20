@@ -24,7 +24,8 @@ export default class Costumer extends Phaser.Physics.Arcade.Sprite{
         
     }
     
-    update(){
+    preUpdate(t,dt){
+        super.preUpdate(t,dt)
         //comporbar que el juego esta completado para que se vaya el customer
         if(this.y > this.destinoY) {
             this.setVelocityY(-200)

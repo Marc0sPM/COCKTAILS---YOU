@@ -1,7 +1,6 @@
 import PlayerRefrescos from '../Refrescos/PlayerRefrescos.js'
-import { fruit } from '../scenes/GameManager.js';
+import { addCustomerPoints, addMinigame, fruit } from '../scenes/GameManager.js';
 import Fruta from './Fruta.js';
-import PauseMenu from "../scenes/PauseMenu.js";
 export default class Frutas extends Phaser.Scene{
     constructor(){
         super({key: 'frutas'});
@@ -16,6 +15,10 @@ export default class Frutas extends Phaser.Scene{
         this.scene.pause();
         this.scene.launch('PauseMenu');
     });
+    this.input.keyboard.on('keydown-Q', function (event) {
+        this.exitScene()
+        
+    }, this);
         // Audio
         this.frutasSound = this.sound.add('frutas',{volume: 0.50});
 
@@ -193,17 +196,29 @@ export default class Frutas extends Phaser.Scene{
         })
     }
     exitScene(){
-        //this.calculateFinalScore();
+        addMinigame()
+        this.calculateFinalScore();
         this.scene.resume('barScene')
         this.scene.stop()
     }
-
     hasDied(){
         this.gameoverImage.visible = true
         this.runCounter = false;
         this.time.delayedCall(2000, () => {
+            
         this.exitScene();
         })
+    }
+    calculateFinalScore(){
+        var stars
+        if(this.cont < 2) stars = 0;
+        else if(this.cont == 2) stars = 1
+        else if(this.cont == 3) stars = 2
+        else if(this.cont == 4) stars = 3
+        if(stars != undefined){
+            addCustomerPoints(stars)
+           
+        }
     }
 
 }

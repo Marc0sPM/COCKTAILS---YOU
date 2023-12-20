@@ -10,21 +10,19 @@ export default class InteractiveItem extends Phaser.GameObjects.Image{
         this.create()
     }
     create(){
-        //Temporal
-        let color1 = 0xDC4728
-        let color2 = 0x35D9F0
-        let color
+        
+       
         //Segun si se puede interactuar o no tiene una img u otra
         if(this.canInteract)  {this.setTexture(this.interactImgKey)
-        color = color1}
+        }
         else {this.setTexture(this.key)
-        color = color2}
+        }
 
         this.rect = this.scene.add.rectangle(this.rectPos.x,this.rectPos.y, 50, 50)
     }
     unsetInteractive(){
         this.canInteract = false;
         this.setTexture(this.key)
-        this.rect.setFillStyle(0x35D9F0)
+        
     }
 }
