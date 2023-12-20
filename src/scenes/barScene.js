@@ -8,7 +8,7 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { setAlcohol, setFruit, setOther, setRefreshment } from "./GameManager.js";
+import { currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -183,6 +183,7 @@ export default class barScene extends Phaser.Scene {
                         case "breakout_item": 
                             setOther(others[this.cocktail.others]);
                             item.unsetInteractive();
+                            setMinigame('Breakout');
                             this.scene.launch('Breakout')
                             break
                         case "ices_item":

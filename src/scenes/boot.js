@@ -11,8 +11,6 @@ export default class Boot extends Phaser.Scene{
         this.load.image("cursor", "./assets/cursor.png");
         this.load.image("background", "./assets/sprites/FondoTemporal.jpg");
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
-        this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
-        this.load.image("playButton_hover", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play03.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image('dialogueCloude', './assets/sprites/cloud.png')
         /*---*/
@@ -26,6 +24,11 @@ export default class Boot extends Phaser.Scene{
         this.load.image('EspeciasIluminadas', './assets/sprites/Objetos/EspeciasIluminadas.png');
         this.load.image('Frutas', './assets/sprites/Objetos/Frutas.png');
         this.load.image('FrutasIluminadas', './assets/sprites/Objetos/FrutasIluminadas.png');
+        /*----- / BOTONES / -----*/
+        this.load.image("playButton", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play01.png");
+        this.load.image("playButton_hover", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play03.png");
+        this.load.image("resumeButton","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back01.png");
+        this.load.image("resumeButton_hover","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back03.png");
         
         /*----- / BREAKOUT / -----*/
         this.load.image('backgroundBreakout', './assets/sprites/Breakout/background.png');

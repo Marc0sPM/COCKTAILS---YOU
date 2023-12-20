@@ -1,6 +1,7 @@
 import pelota from "./pelota.js"
 import Barra from "./barra.js";
 import { others } from "../Cocktails.js";
+import PauseMenu from "./mismuertos.js";
 
 import {  addCustomerPoints, addMinigame, other } from "../scenes/GameManager.js";
 export default class Breakout extends Phaser.Scene {
@@ -18,7 +19,12 @@ export default class Breakout extends Phaser.Scene {
        
    }
    create() {
-
+    this.scene.add('PauseMenu', PauseMenu, false);
+    this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+    });
     // Añadimos la música
     this.add.music = this.sound.add('breakoutMusic', { loop: true, volume: 0.35 });
     this.paddleHitSound = this.sound.add('boing',{volume: 0.50});
@@ -52,7 +58,8 @@ export default class Breakout extends Phaser.Scene {
         // movimiento con cursores
         this.cursors = this.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            p: Phaser.Input.Keyboard.KeyCodes.P
         });
 
        // tecla de espacio
@@ -163,6 +170,12 @@ updateFrutaCounter() {
     }
 }
 update() {
+    // if(Phaser.Input.Keyboard.KeyCodes.Esc.isDown){
+    //         this.scene.start('PauseScene');
+    //         this.scene.pause();
+    //         this.sound.stopAll();
+    // }
+    
     if (this.ball.isBallReleased) {
         if (this.cursors.left.isDown) {
             this.paddle.setVelocityX(-500);
@@ -188,6 +201,7 @@ update() {
     if (this.ball.body.blocked.left || this.ball.body.blocked.right) {
         this.borderHitSound.play();
     }
+
 
         this.hasDied();
         this.hasWon();

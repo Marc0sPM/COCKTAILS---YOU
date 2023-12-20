@@ -19,6 +19,18 @@ export function setFruit(name){
     fruit = name;
 }
 
+//minijuego actual
+export var currentminigame = "";
+export function setMinigame(name){
+ currentminigame = name;
+}
+
+
+
+
+
+
+
 
 //Customers totales del nivel
 export var numCustomers = 0;
