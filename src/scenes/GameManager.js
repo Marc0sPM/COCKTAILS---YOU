@@ -25,11 +25,7 @@ export function setMinigame(name){
  currentminigame = name;
 }
 
-
-
-
-
-
+let soundLevel = 100;
 
 
 //Customers totales del nivel

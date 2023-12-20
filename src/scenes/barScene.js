@@ -249,10 +249,11 @@ export default class barScene extends Phaser.Scene {
         this.player.setDepth(2); // Ajusta la profundidad del jugador según sea necesario
 
         this.createObstacle(400, 300, 'obstacle1', 800, 100, 0);  
-        this.createObstacle(200, 150, 'obstacle2', 100, 100, 0);  
-        this.createObstacle(400, 300, 'obstacle3', 10, 10, 0);  
+        this.createObstacle(105, 0, 'obstacle2', 160, 150, 0);  
+        this.createObstacle(360, 0, 'obstacle3', 160, 150, 0);  
+        this.createObstacle(775, 0, 'obstacle4', 160, 115, 0);  
 
-        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3];
+        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3,  this.obstacle4];
         this.physics.add.collider(this.player, this.obstacles);
     
     }
