@@ -25,7 +25,10 @@ export function setMinigame(name){
  currentminigame = name;
 }
 
-
+export var currentLevel = 1;
+export function unlockNextLevel(){
+    currentLevel++;
+}
 
 
 
