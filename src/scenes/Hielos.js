@@ -19,7 +19,10 @@ export default class Hielos extends Phaser.Scene {
         this.sound.pauseAll();
         this.scene.pause();
         this.scene.launch('PauseMenu');
+        
     });
+        this.win = this.add.image(400, 300, 'win').setScale(0.8).setDepth(4);
+        this.win.visible = false;
         // Crear obstáculos
         this.createObstacle(765, 500, 'obstacle1', 10, 100, 0);
         this.createObstacle(635, 500, 'obstacle2', 10, 100, 0);
@@ -51,17 +54,6 @@ export default class Hielos extends Phaser.Scene {
         this.physics.add.collider(this.cube, this.target, this.onCollision, null, this);
         this.physics.add.collider(this.cube, this.obstacles);
 
-        // Texto para mostrar cuando se completa la colisión
-        this.completionText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Completado',
-            { fontSize: '32px', fill: '#fff' });
-        this.completionText.setOrigin(0.5);
-        this.completionText.setVisible(false);
-
-         // Texto de Reinicio
-         //this.restartText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 8, 'Space para reintentar',
-         //{ fontSize: '32px', fill: '#000', fontWeight: 'bold' });
-         //this.restartText.setOrigin(0.5);
-
          // Cartel
         let cartel = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 8, "spaceParaReiniciar");
         cartel.setScale(0.75);
@@ -73,6 +65,9 @@ export default class Hielos extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', function (event) {
             this.sound.stopAll();
             this.scene.restart();
+        }, this);
+        this.input.keyboard.on('keydown-Q', () =>{
+            this.hasWon()
         }, this);
     }
 
@@ -156,17 +151,20 @@ export default class Hielos extends Phaser.Scene {
     
 
     onCollision() {
-        if (!this.completionText.visible && this.isCubeLaunched) {
-            this.completionText.setVisible(true);
-            this.time.delayedCall(2000, () => {
-                this.exitScene();
-            }, null, this);
+        if (!this.win.visible && this.isCubeLaunched) {
+            this.hasWon()
         }
+    }
+    hasWon(){
+        this.win.visible = true
+        this.time.delayedCall(2000, () => {
+            this.exitScene();
+        },this);
     }
     exitScene(){
         // Paramos el audio
         this.sound.stopAll();
-        this.completionText.setVisible(false);
+        this.win.visible = false;
         addMinigame()
         this.calculateFinalScore()
         this.scene.resume('barScene')

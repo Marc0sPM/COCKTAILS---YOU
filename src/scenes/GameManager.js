@@ -33,9 +33,12 @@ export var canUnlockLevel = false;
 export function setCanUnlockLevel(param){
     canUnlockLevel = param
 }
-export var currentLevel = 2;
+export var currentLevel = 1;
 export function unlockNextLevel(){
-    if(canUnlockLevel) currentLevel++;
+    if(canUnlockLevel) {
+        currentLevel++;
+        setCanUnlockLevel(false)
+    }
     resetStats()
 }
 function resetStats(){

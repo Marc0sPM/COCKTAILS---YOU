@@ -456,7 +456,6 @@ export default class barScene extends Phaser.Scene {
         this.resetStats()
         this.scene.stop()
         this.scene.start('Stars')
-        setCanUnlockLevel(false)
     }
     restartScene() {
         // Detener sonidos si están reproduciéndose

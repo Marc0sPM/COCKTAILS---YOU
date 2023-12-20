@@ -20,7 +20,6 @@ export default class Stars extends Phaser.Scene{
         this.homeButton.update()
     }
     loadStars(){
-        this.numStars = 0
         for( var i = 0; i < 3; i++){
             if(i < this.numStars)
             this.add.image(i*this.offsetX + this.offsetX, this.pos1.y, 'star').setScale(0.1)
