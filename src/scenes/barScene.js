@@ -46,13 +46,18 @@ export default class barScene extends Phaser.Scene {
         // });
         // Audio customer
         this.pipipibu = this.sound.add('pipipibu', { volume:1});
-        //mbappe
+//mbappe
         this.eladio = this.sound.add('eladiomusic', {    volume: 0.35 });
         this.radio = this.add.image(70,335,'radio');
         this.radio.setDepth(5);
         this.radio.setInteractive();
         this.radio.setScale(0.2);
+<<<<<<< Updated upstream
         this.radio.on('pointerdown',(pointer)=> {
+=======
+        this.radio.removeAllListeners('pointerdown')
+        this.radio.on('pointerdown', function (pointer) {
+>>>>>>> Stashed changes
             if (pointer.leftButtonDown()) {
                 this.eladio.play();
                 // Se ha hecho clic izquierdo en la imagen
@@ -66,7 +71,11 @@ export default class barScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true)
 
         this.guide = this.add.image(110, 700, 'pistasButton').setDepth(5).setScale(0.2).setInteractive()
-        this.cocktailSelector = this.add.image(700, 700, 'cocteleraButton').setDepth(5).setScale(0.7).setInteractive()
+        this.interactionGuide()
+        this.cocktailSelector = this.add.image(740, 700, 'cocteleraButton').setDepth(5).setScale(0.7).setInteractive().setSize(200, 400)
+        this.interactionCocktailSelector()
+
+       
 
         this.generateRandomCustomer()
         this.generateCocktail();
@@ -79,8 +88,7 @@ export default class barScene extends Phaser.Scene {
         this.checkExit()
         this.player.update();
         this.customer.update()
-        this.updateGuide()
-        this.updateCocktailSelector()
+       
         //Pausar el juego
         if(this.player.cursors.esc.isDown){
             setMinigame('barScene')
@@ -95,7 +103,7 @@ export default class barScene extends Phaser.Scene {
             });
             }
     }
-    updateCocktailSelector(){
+    interactionCocktailSelector(){
         this.cocktailSelector.removeAllListeners("pointerdown");
         this.cocktailSelector.on('pointerdown', ()=> {
             var selector = this.add.image(400, 300, 'pistas').setScale(0.5).setInteractive().setDepth(7)
@@ -110,7 +118,7 @@ export default class barScene extends Phaser.Scene {
             this.cocktailSelector.y = 700
         })
     }
-    updateGuide(){
+    interactionGuide(){
         this.guide.removeAllListeners("pointerdown");
         this.guide.on('pointerdown', ()=> {
             var guide = this.add.image(400, 300, 'pistas').setScale(0.5).setInteractive().setDepth(7)
@@ -145,8 +153,9 @@ export default class barScene extends Phaser.Scene {
     generateItems(){
         //modificar mas tarde, queda crear un archivo de entrada para cada cocktail, que llevara a ciertos minijuegos ...
         Object.entries(intItems).forEach(([id, itemInfo]) => {
-            const { key, x, y} = itemInfo;
+            const { key, x, y, rectX, rectY} = itemInfo;
             let activate = true;
+            
             console.log(key)
             if(key == "breakout_item") {
                 if(this.cocktail.others == -1) activate = false;
@@ -154,7 +163,7 @@ export default class barScene extends Phaser.Scene {
             else if( key == "ices_item"){
                 if(this.cocktail.ice == 0) activate = false;
             }
-            this.itemList.push(new InteractiveItem(this, x, y, x, y , activate, key).setDepth(6));
+            this.itemList.push(new InteractiveItem(this, x, y, rectX, rectY , activate, key).setDepth(6));
         });
     }
     createItemsPhysics(){

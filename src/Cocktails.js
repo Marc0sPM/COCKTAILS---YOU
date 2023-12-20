@@ -1,9 +1,9 @@
 export const intItems = {
-    1: {key:"breakout_item", x: 100, y:50 },
-    2: {key: "ices_item" , x: 75, y:192},
-    3: {key: "platforms_item", x: 280, y:200},
-    4: {key: "tree_item", x: 500, y: 190 },
-    5: {key: "shoot_item", x: 750, y: 200}
+    1: {key:"breakout_item",   x: 100, y:50,    rectX: 100, rectY:100},
+    2: {key: "ices_item" ,     x: 75,  y:192,   rectX: 75,  rectY:192},
+    3: {key: "platforms_item", x: 280, y:200,   rectX: 280, rectY:200},
+    4: {key: "tree_item",      x: 500, y: 190 , rectX: 500, rectY:190},
+    5: {key: "shoot_item",     x: 750, y: 200,  rectX: 750, rectY:200}
 }
 
 export const cocktails = {
