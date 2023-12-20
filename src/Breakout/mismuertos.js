@@ -1,5 +1,5 @@
-import { currentminigame } from "./GameManager.js";
-import Button from "./button.js";
+import { currentminigame } from "../scenes/GameManager.js";
+import Button from "../scenes/button.js";
 class PauseMenu extends Phaser.Scene {
     constructor() {
         super({ key: 'PauseMenu' });
@@ -11,10 +11,6 @@ class PauseMenu extends Phaser.Scene {
         this.add.text(400, 300, 'Juego en pausa', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
 
         // Manejar la resolución del juego
-        this.scale.once('resize', (gameSize) => {
-            this.scene.stop('PauseMenu');
-            this.scene.resume('Breakout');
-        });
 
         // Pausar el juego principal
         this.scene.pause('Breakout');
@@ -23,7 +19,7 @@ class PauseMenu extends Phaser.Scene {
         this.resume = new Button(this,400, 300, 0.25,()=>{
         this.scene.stop()
         this.scene.resume(currentminigame)
-        
+        this.sound.resumeAll();
          },'resumeButton');
         // Volver al juego cuando se hace clic en el menú de pausa
         this.input.on('pointerdown', () => {
@@ -31,6 +27,9 @@ class PauseMenu extends Phaser.Scene {
             this.scene.resume('Breakout');
         });
     }
+    update(){
+        this.resume.update();
+       }
 }
 
 export default PauseMenu;
