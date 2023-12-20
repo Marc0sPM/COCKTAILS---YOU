@@ -102,12 +102,14 @@ export default class Boot extends Phaser.Scene{
         this.load.image("ices_item_interact", "./assets/sprites/Objetos/CubiteraIluminada.png")
         this.load.image("breakout_item", "./assets/sprites/Objetos/Especias.png")
         this.load.image("breakout_item_interact", "./assets/sprites/Objetos/EspeciasIluminadas.png")
-        
+        /*----- / ELADIO/ -----*/
+        this.load.image("radio", "./assets/radio.png")
         /*----- / AUDIO / -----*/
         this.load.audio('breakoutMusic', ['./assets/OST/BreakoutTheme.mp3']);
         this.load.audio('aimMusic', ['./assets/OST/ValorantTheme.mp3']);
         this.load.audio('iceMusic', ['./assets/OST/iceTheme.mp3']);
         this.load.audio('jumpMusic', ['./assets/OST/JumpTheme.mp3']);
+        this.load.audio('eladiomusic', ['./assets/OST/EasterEggTheme.WaV']);
 
         this.load.audio('boing', ['./assets/FX/boing.mp3']);
         this.load.audio('destroy', ['./assets/FX/destroy.mp3']);
