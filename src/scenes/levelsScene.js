@@ -10,7 +10,8 @@ export default class LevelScene extends Phaser.Scene{
     }
     create(){
         //Background
-        this.background = this.add.image(400, 300, 'levelsBackground').setDepth(0).setAlpha(0.5)
+        this.background = this.add.image(400, 300, 'FondoLevel').setDepth(0).setAlpha(0.5)
+        this.background.setScale(0.5)
         // this.background.setAlpha(0.5)
 
         this.createButtons()
