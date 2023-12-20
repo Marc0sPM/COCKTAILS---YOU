@@ -8,7 +8,7 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { setMM,checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
+import { setMM, checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment, unlockNextLevel, addCurrentCustomer } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -16,8 +16,10 @@ export default class barScene extends Phaser.Scene {
         console.log("constructor")
         // super(/*customersQuantity,*/ {key: "BarScene"}); --> cuando metamos varios npcs 
         super({ key: 'barScene' });
+        
         this.customerSpawn = {x :600 , y: 600}
         this.customerDestiny = {x: 300, y: 325}
+        this.playerSpawn = {x: 300, y: 100}
 
         //Cabiar cuando tenga el tile map hecho ;P
         this.cloudPos = {x: 500, y: 500}
@@ -34,7 +36,7 @@ export default class barScene extends Phaser.Scene {
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         //intancia el player
-        this.player = new Player(this, 300, 100);
+        this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
         this.createTileMap()
 
         this.player.setCollideWorldBounds(true)
@@ -286,7 +288,14 @@ export default class barScene extends Phaser.Scene {
         })
         if(allPlayed){
             //Comporbar si todos los customers del nivel han terminado
+            if(checkExitLevel()) {
+                unlockNextLevel();
+                this.scene.start('Levels')}
+            else {
+                addCurrentCustomer()
+
+            }
         }
-        if(checkExitLevel()) this.scene.start('Levels')
+        
     }
 }

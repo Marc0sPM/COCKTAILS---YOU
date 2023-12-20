@@ -10,7 +10,6 @@ import Aim from "./Aim/aim.js"
 import Refrescos from "./Refrescos/Refrescos.js";
 import Frutas from "./Frutas/Frutas.js";
 import LevelScene from "./scenes/levelsScene.js";
-import Pause from "./scenes/pause.js";
 
 
   const config = {
@@ -18,7 +17,7 @@ import Pause from "./scenes/pause.js";
     height: 600,
     parent: "container",
     type: Phaser.CANVAS,
-    scene: [Boot, MainMenu,LevelScene, ,barScene, A, MainScene, EscenaVivuPrueba, Breakout,Aim , Refrescos,Hielos, Frutas,Pause],
+    scene: [Boot, MainMenu,LevelScene, ,barScene, A, MainScene, EscenaVivuPrueba, Breakout,Aim , Refrescos,Hielos, Frutas,],
     scale: {
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
 
