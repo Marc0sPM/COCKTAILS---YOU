@@ -38,12 +38,12 @@ export default class barScene extends Phaser.Scene {
     create() {
 
         // Añadimos la música
-        this.add.music = this.sound.add('CanonInD', { loop: true, volume: 0.75 });
+        this.music = this.sound.add('CanonInD', { loop: true, volume: 0.75 });
         this.paddleHitSound = this.sound.add('boing',{volume: 0.50});
         this.borderHitSound = this.sound.add('reboundWall',{volume: 0.50});
         this.blockDestroySound = this.sound.add('destroy',{volume: 0.50});
         // Reproduce la música
-        this.add.music.play();
+        this.music.play();
 
         //Pausa
         this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
@@ -100,7 +100,7 @@ export default class barScene extends Phaser.Scene {
                     this.isplaying = true;
                 } else {
                     this.eladio.stop();
-                    this.music.resume();
+                    this.music.play();
                     this.isplaying = false;
                 }
             }
