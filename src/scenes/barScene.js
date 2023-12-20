@@ -54,6 +54,7 @@ export default class barScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true)
 
         this.guide = this.add.image(110, 700, 'pistasButton').setDepth(5).setScale(0.2).setInteractive()
+        this.cocktailSelector = this.add.image(700, 700, 'cocteleraButton').setDepth(5).setScale(0.7).setInteractive()
 
         this.generateRandomCustomer()
         this.generateCocktail();
@@ -67,6 +68,7 @@ export default class barScene extends Phaser.Scene {
         this.player.update();
         this.customer.update()
         this.updateGuide()
+        this.updateCocktailSelector()
         //Pausar el juego
         if(this.player.cursors.esc.isDown){
             setMinigame('barScene')
@@ -80,6 +82,21 @@ export default class barScene extends Phaser.Scene {
                 this.hideDialogue()
             });
             }
+    }
+    updateCocktailSelector(){
+        this.cocktailSelector.removeAllListeners("pointerdown");
+        this.cocktailSelector.on('pointerdown', ()=> {
+            var selector = this.add.image(400, 300, 'pistas').setScale(0.5).setInteractive().setDepth(7)
+            selector.on('pointerdown', () => {
+                guide.destroy()
+            })
+        })
+        this.cocktailSelector.on('pointerover', ()=> {
+            this.cocktailSelector.y = 650
+        })
+        this.cocktailSelector.on('pointerout', ()=> {
+            this.cocktailSelector.y = 700
+        })
     }
     updateGuide(){
         this.guide.removeAllListeners("pointerdown");
