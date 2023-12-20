@@ -6,7 +6,7 @@ import EscenaVivuPrueba from "./scenes/EscenaVivuPrueba.js";
 import Breakout from "./Breakout/breakout.js";
 import barScene from "./scenes/barScene.js";
 import Hielos from "./scenes/Hielos.js";
-import Aim from "./Aim/aim.js"
+import Aim from "./aim/aim.js"
 import Refrescos from "./Refrescos/Refrescos.js";
 import Frutas from "./Frutas/Frutas.js";
 import LevelScene from "./scenes/levelsScene.js";
