@@ -23,7 +23,7 @@ export default class barScene extends Phaser.Scene {
         this.playerSpawn = {x: 300, y: 100}
 
         //Cabiar cuando tenga el tile map hecho ;P
-        this.cloudPos = {x: 500, y: 500}
+        this.cloudPos = {x: 500, y: 450}
 
         this.dialogueCreated = false;
         this.dialogueShown = false;
@@ -82,6 +82,13 @@ export default class barScene extends Phaser.Scene {
             }
     }
     updateGuide(){
+        this.guide.removeAllListeners("pointerdown");
+        this.guide.on('pointerdown', ()=> {
+            var guide = this.add.image(400, 300, 'pistas').setScale(0.5).setInteractive().setDepth(7)
+            guide.on('pointerdown', () => {
+                guide.destroy()
+            })
+        })
         this.guide.on('pointerover', ()=> {
             this.guide.y = 650
         })
@@ -162,12 +169,12 @@ export default class barScene extends Phaser.Scene {
     }
     printDialogue(){
         //Poner
-        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude').setInteractive();
+        this.dialogueCloud = this.add.image(this.cloudPos.x, this.cloudPos.y, 'dialogueCloude').setInteractive().setFlipY(true);
         this.dialogueCloud.setScale(1.5)
-        this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y - (this.dialogueCloud.height/6),
+        this.dialogueRect = this.add.rectangle(this.dialogueCloud.x + 5, this.dialogueCloud.y + (this.dialogueCloud.height/6),
                                                 this.dialogueCloud.width/1.05, this.dialogueCloud.height/1.3)
         this.dialogueText = this.add.text(this.dialogueRect.x, this.dialogueRect.y, this.dialogue, { 
-            fontFamily: 'Arial', 
+            fontFamily: 'Comic Sans MS', 
             fontSize: 20, 
             color: '#000022' });
 

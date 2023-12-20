@@ -34,6 +34,22 @@ let soundLevel = 100;
 export var currentLevel = 1;
 export function unlockNextLevel(){
     currentLevel++;
+    resetStats()
+}
+function resetStats(){
+    currentminigame =""
+    currenttext = ""
+    other = ''
+    refreshment = ''
+    alcohol = ''
+    fruit = ''
+    numCustomers = 0;
+    currentCustomerPoints = 0;
+    currentCustomers = 0
+    currentCustomersStars = 0
+    individualTotalStars = []
+    finalStars = 0
+    cantMinigames = 0
 }
 
 
