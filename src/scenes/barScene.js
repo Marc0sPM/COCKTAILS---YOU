@@ -8,7 +8,7 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
+import { checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -75,7 +75,7 @@ export default class barScene extends Phaser.Scene {
     generateItems(){
         //modificar mas tarde, queda crear un archivo de entrada para cada cocktail, que llevara a ciertos minijuegos ...
         Object.entries(intItems).forEach(([id, itemInfo]) => {
-            const { key, x, y } = itemInfo;
+            const { key, x, y} = itemInfo;
             let activate = true;
             console.log(key)
             if(key == "breakout_item") {
@@ -84,7 +84,7 @@ export default class barScene extends Phaser.Scene {
             else if( key == "ices_item"){
                 if(this.cocktail.ice == 0) activate = false;
             }
-            this.itemList.push(new InteractiveItem(this, x, y, x, y + 100, activate, key));
+            this.itemList.push(new InteractiveItem(this, x, y, x, y , activate, key));
         });
     }
     createItemsPhysics(){
@@ -267,5 +267,16 @@ export default class barScene extends Phaser.Scene {
         this.physics.add.collider(this.player, obstacle)
     
         this[key] = obstacle;
+    }
+
+    checkExit(){
+        var allPlayed = true;
+        this.itemList.forEach(item => {
+            if(item.canInteract) allPlayed = false
+        })
+        if(allPlayed){
+            //Comporbar si todos los customers del nivel han terminado
+        }
+        if(checkExitLevel()) this.scene.start('Levels')
     }
 }

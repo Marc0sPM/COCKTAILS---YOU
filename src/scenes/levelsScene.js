@@ -22,7 +22,6 @@ export default class LevelScene extends Phaser.Scene{
         if(!this.accesibleLevels.includes(button)){
             this.add.image(button.x, button.y, 'candado').setScale(0.2)
         }
-
        })
     }
     createButtons(){
