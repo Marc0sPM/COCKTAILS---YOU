@@ -13,6 +13,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image('dialogueCloude', './assets/sprites/cloud.png')
+        this.load.image('candado', './assets/sprites/candado.png')
         /*---*/
         this.load.image('Bebidas', './assets/sprites/Objetos/Bebidas.png');
         this.load.image('BebidasIluminadas', './assets/sprites/Objetos/BebidasIluminadas.png');
@@ -29,6 +30,15 @@ export default class Boot extends Phaser.Scene{
         this.load.image("playButton_hover", "./assets/sprites/Buttons/Buttons Pixel Animation Pack/play/343px/play03.png");
         this.load.image("resumeButton","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back01.png");
         this.load.image("resumeButton_hover","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back03.png");
+        this.load.image("resumeButton","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back01.png");
+        this.load.image("resumeButton_hover","./assets/sprites/Buttons/Buttons Pixel Animation Pack/back/343px/back03.png");
+         /*----- / MENU / -----*/
+        this.load.image('libro', './assets/sprites/Menu/Menu.png');
+        this.load.image('Mb', './assets/sprites/Menu/MenuBreakout.png');
+        this.load.image('Md', './assets/sprites/Menu/MenuDisparo.png');
+        this.load.image('mf', './assets/sprites/Menu/MenuFrutas.png');
+        this.load.image('Mh', './assets/sprites/Menu/MenuHielo.png');
+        this.load.image('Mr', './assets/sprites/Menu/MenuRefresco.png');
         
         /*----- / BREAKOUT / -----*/
         this.load.image('backgroundBreakout', './assets/sprites/Breakout/background.png');

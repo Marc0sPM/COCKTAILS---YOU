@@ -24,8 +24,18 @@ export var currentminigame = "";
 export function setMinigame(name){
  currentminigame = name;
 }
+export var currenttext = "";
+export function setMM(name){
+ currenttext = name;
+}
 
 let soundLevel = 100;
+
+export var currentLevel = 1;
+export function unlockNextLevel(){
+    currentLevel++;
+}
+
 
 
 //Customers totales del nivel
