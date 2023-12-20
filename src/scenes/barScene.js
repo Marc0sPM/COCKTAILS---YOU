@@ -18,6 +18,7 @@ export default class barScene extends Phaser.Scene {
         super({ key: 'barScene' });
         this.customerSpawn = {x :700 , y: 600}
         this.customerDestiny = {x: 300, y: 250}
+        this.playerSpawn = {x: 300, y: 100}
 
         //Cabiar cuando tenga el tile map hecho ;P
         this.cloudPos = {x: 500, y: 500}
@@ -34,7 +35,7 @@ export default class barScene extends Phaser.Scene {
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         //intancia el player
-        this.player = new Player(this, 300, 100);
+        this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
         this.createTileMap()
 
         this.player.setCollideWorldBounds(true)
