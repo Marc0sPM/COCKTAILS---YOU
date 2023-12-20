@@ -48,12 +48,11 @@ export default class barScene extends Phaser.Scene {
         this.pipipibu = this.sound.add('pipipibu', { volume:1});
         //mbappe
         this.eladio = this.sound.add('eladiomusic', {    volume: 0.35 });
-        
         this.radio = this.add.image(70,335,'radio');
         this.radio.setDepth(5);
         this.radio.setInteractive();
         this.radio.setScale(0.2);
-        this.radio.on('pointerdown', function (pointer) {
+        this.radio.on('pointerdown',(pointer)=> {
             if (pointer.leftButtonDown()) {
                 this.eladio.play();
                 // Se ha hecho clic izquierdo en la imagen
