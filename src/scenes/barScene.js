@@ -362,7 +362,7 @@ export default class barScene extends Phaser.Scene {
                         case "shoot_item":
                             setAlcohol(alcoholicDrinks[this.cocktail.alcohol])
                             item.unsetInteractive();
-                            setMM('Ma');
+                            setMM('Md');
                             setMinigame('Aim');
                             this.scene.launch('Aim')    
                         break

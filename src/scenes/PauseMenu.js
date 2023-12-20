@@ -12,8 +12,8 @@ class PauseMenu extends Phaser.Scene {
         this.libro = this.add.image(400,300,'libro').setDepth(0);
         this.libro.setScale(0.5);
         if(currenttext != ""){
-            this.texto = this.add.image(400,300,currenttext).setDepth(0);
-            this.texto.setScale(0.5);
+            this.texto = this.add.image(400,330,currenttext).setDepth(0);
+            this.texto.setScale(0.7);
         }
         
        
