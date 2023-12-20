@@ -17,6 +17,8 @@ export default class LevelScene extends Phaser.Scene{
         this.buttonLevel3 = this.add.image(480, 300, 'levelsButton').setInteractive().setScale(this.buttonScale)
         this.buttonLevel4 = this.add.image(640, 300, 'levelsButton').setInteractive().setScale(this.buttonScale)
 
+        this.accesibleLevels.push(this.buttonLevel1)
+        this.accesibleLevels.push(this.buttonLevel2)
         if(!this.accesibleLevels.includes(this.buttonLevel1)){
             
         }
@@ -29,8 +31,8 @@ export default class LevelScene extends Phaser.Scene{
         
     }
     updateLv1(){
-        this.hover(this.buttonLevel1)
         if(this.accesibleLevels.includes(this.buttonLevel1)){
+            this.hover(this.buttonLevel1)
             //DOWN
             this.buttonLevel1.removeAllListeners("pointerdown");
             this.buttonLevel1.on('pointerdown', () => {
@@ -41,27 +43,30 @@ export default class LevelScene extends Phaser.Scene{
     }
     updateLv2(){
         if(this.accesibleLevels.includes(this.buttonLevel2)){
-            this.buttonLevel1.removeAllListeners("pointerdown");
-            this.buttonLevel1.on('pointerdown', () => {
-                setNumCustomers(levels[0])
+            this.hover(this.buttonLevel2)
+            this.buttonLevel2.removeAllListeners("pointerdown");
+            this.buttonLevel2.on('pointerdown', () => {
+                setNumCustomers(levels[1])
                 this.scene.start('barScene')
             })
         }
     }
     updateLv3(){
         if(this.accesibleLevels.includes(this.buttonLevel3)){
+            this.hover(this.buttonLevel3)
             this.buttonLevel1.removeAllListeners("pointerdown");
             this.buttonLevel1.on('pointerdown', () => {
-                setNumCustomers(levels[0])
+                setNumCustomers(levels[2])
                 this.scene.start('barScene')
             })
         }
     }
     updateLv4(){
         if(this.accesibleLevels.includes(this.buttonLevel4)){
+            this.hover(this.buttonLevel4)
             this.buttonLevel1.removeAllListeners("pointerdown");
             this.buttonLevel1.on('pointerdown', () => {
-                setNumCustomers(levels[0])
+                setNumCustomers(levels[3])
                 this.scene.start('barScene')
             })
         }
