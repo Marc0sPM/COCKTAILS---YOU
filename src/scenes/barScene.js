@@ -36,6 +36,15 @@ export default class barScene extends Phaser.Scene {
         this.fail = false;
     }
     create() {
+
+        // Añadimos la música
+        this.add.music = this.sound.add('CanonInD', { loop: true, volume: 0.75 });
+        this.paddleHitSound = this.sound.add('boing',{volume: 0.50});
+        this.borderHitSound = this.sound.add('reboundWall',{volume: 0.50});
+        this.blockDestroySound = this.sound.add('destroy',{volume: 0.50});
+        // Reproduce la música
+        this.add.music.play();
+
         //Pausa
         this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
         this.player.setCollideWorldBounds(true)
@@ -84,14 +93,18 @@ export default class barScene extends Phaser.Scene {
         this.radio.on('pointerdown',  (pointer)=> {
             
             if (pointer.leftButtonDown()) {
-                if(!this.isplaying){
+                if (!this.isplaying) {
+                    // Pausa la música actual
+                    this.music.pause();
                     this.eladio.play();
-                    this.isplaying = true
-                }else {
+                    this.isplaying = true;
+                } else {
                     this.eladio.stop();
+                    this.music.resume();
                     this.isplaying = false;
-                }}
-                // Se ha hecho clic izquierdo en la imagen
+                }
+            }
+            // Se ha hecho clic izquierdo en la imagen
         });
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);

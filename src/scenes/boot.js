@@ -23,6 +23,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('nice', './assets/sprites/nice.png')
         this.load.image('excellent', './assets/sprites/excellent.png')
         this.load.image('fail', './assets/sprites/failBueno.png')
+        this.load.image('FondoLevel', './assets/sprites/FondoPixel.png')
         /*----- / COCTELES /-----*/
         this.load.image('purple_sky','./assets/sprites/PurpleSky.png' )
         this.load.image('blue_lagoon','./assets/sprites/BlueLagoon.png' )
@@ -122,6 +123,8 @@ export default class Boot extends Phaser.Scene{
         this.load.audio('aimMusic', ['./assets/OST/ValorantTheme.mp3']);
         this.load.audio('iceMusic', ['./assets/OST/iceTheme.mp3']);
         this.load.audio('jumpMusic', ['./assets/OST/JumpTheme.mp3']);
+        this.load.audio('fruitsMusic', ['./assets/OST/FrutasTheme.mp3']);
+        this.load.audio('CanonInD', ['./assets/OST/Canon in D.mp3']);
         this.load.audio('eladiomusic', ['./assets/OST/EasterEggTheme.WaV']);
 
         this.load.audio('boing', ['./assets/FX/boing.mp3']);
