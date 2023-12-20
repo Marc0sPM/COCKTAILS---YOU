@@ -12,7 +12,7 @@ export default class Refrescos extends Phaser.Scene {
 
     create() {
         //Pausa
-        this.scene.add('PauseMenu', PauseMenu, false);
+        //this.scene.add('PauseMenu', PauseMenu, false);
      this.input.keyboard.on('keydown-ESC', () => {
         // Pausar el juego y mostrar el menú de pausa
         this.sound.pauseAll();
