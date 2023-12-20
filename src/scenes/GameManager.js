@@ -59,7 +59,7 @@ export function addCurrentCustomer(){
     currentCustomers ++
 }
 export function checkExitLevel(){
-    return currentCustomer >= numCustomers
+    return currentCustomers >= numCustomers
 }
 
 //Despues de calcular la puntuacion de cada minijuago, se agregar a la variable

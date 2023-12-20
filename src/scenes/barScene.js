@@ -32,21 +32,24 @@ export default class barScene extends Phaser.Scene {
     }
     create() {
         //Pausa
-     this.scene.add('PauseMenu', PauseMenu, false);
-     this.input.keyboard.on('keydown-ESC', () => {
-        // Pausar el juego y mostrar el menú de pausa
-        this.sound.pauseAll();
-        this.scene.pause();
-        this.scene.launch('PauseMenu');
-     });
+        this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
+        this.createTileMap()
+        //Pausar
+        if(!this.pauseScene)
+        this.pauseScene = this.scene.add('PauseMenu', PauseMenu, false);
+       
+        // this.input.keyboard.on('keydown-ESC', () => {
+        //     // Pausar el juego y mostrar el menú de pausa
+        //     this.sound.pauseAll();
+        //     this.scene.pause();
+        //     this.scene.launch('PauseMenu');
+        // });
         // Audio customer
         this.pipipibu = this.sound.add('pipipibu', { volume:1});
 
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         //intancia el player
-        this.player = new Player(this, this.playerSpawn.x, this.playerSpawn.y);
-        this.createTileMap()
 
         this.player.setCollideWorldBounds(true)
         this.generateRandomCustomer()
@@ -57,10 +60,18 @@ export default class barScene extends Phaser.Scene {
         console.log(this.cocktail)
     }
     update() {
+        this.checkExit()
         this.player.update();
         this.customer.update()
-        
+        //Pausar el juego
+        if(this.player.cursors.esc.isDown){
+            setMinigame('barScene')
+            this.sound.pauseAll();
+            this.scene.pause();
+            this.scene.launch('PauseMenu');
+        }
         if(this.dialogueShown){
+            
             this.dialogueCloud.on("pointerdown", () => {
                 this.hideDialogue()
             });
@@ -298,7 +309,7 @@ export default class barScene extends Phaser.Scene {
         if(allPlayed){
             //Comporbar si todos los customers del nivel han terminado
             if(checkExitLevel()) {
-                unlockNextLevel();
+                unlockNextLevel()
                 this.scene.start('Levels')}
             else {
                 addCurrentCustomer()
