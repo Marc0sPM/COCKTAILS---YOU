@@ -133,6 +133,7 @@ export default class barScene extends Phaser.Scene {
         if(this.player){
             if(this.player.cursors.esc.isDown){
                 setMinigame('barScene')
+                setMM('');
                 this.sound.pauseAll();
                 this.scene.pause();
                 this.scene.launch('PauseMenu');
