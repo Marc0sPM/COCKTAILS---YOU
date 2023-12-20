@@ -1,3 +1,5 @@
+import { currentminigame } from "./GameManager.js";
+import Button from "./button.js";
 class PauseMenu extends Phaser.Scene {
     constructor() {
         super({ key: 'PauseMenu' });
@@ -17,6 +19,12 @@ class PauseMenu extends Phaser.Scene {
         // Pausar el juego principal
         this.scene.pause('Breakout');
 
+        this.bg = this.add.image(400,300,'aimbackground').setDepth(0);
+        this.resume = new Button(this,400, 300, 0.25,()=>{
+        this.scene.stop()
+        this.scene.resume(currentminigame)
+        
+         },'resumeButton');
         // Volver al juego cuando se hace clic en el menú de pausa
         this.input.on('pointerdown', () => {
             this.scene.stop('PauseMenu');
