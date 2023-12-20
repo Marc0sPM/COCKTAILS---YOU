@@ -14,7 +14,7 @@ export default class Hielos extends Phaser.Scene {
         this.music = this.sound.add('iceMusic', { loop: true, volume: 0.75 });
         this.music.play();
         //this.scene.add('PauseMenu', PauseMenu, false);
-    this.input.keyboard.on('keydown-ESC', () => {
+        this.input.keyboard.on('keydown-ESC', () => {
         // Pausar el juego y mostrar el menú de pausa
         this.sound.pauseAll();
         this.scene.pause();
@@ -73,10 +73,6 @@ export default class Hielos extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', function (event) {
             this.sound.stopAll();
             this.scene.restart();
-        }, this);
-        this.input.keyboard.on('keydown-Q', function (event) {
-            this.exitScene()
-            
         }, this);
     }
 

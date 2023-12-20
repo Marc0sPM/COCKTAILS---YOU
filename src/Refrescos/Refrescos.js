@@ -22,10 +22,6 @@ export default class Refrescos extends Phaser.Scene {
         this.scene.pause();
         this.scene.launch('PauseMenu');
      });
-     this.input.keyboard.on('keydown-Q', function (event) {
-        this.exitScene()
-        
-    }, this);
         // Audio
         this.drinkSound = this.sound.add('drink',{volume: 0.50});
 
