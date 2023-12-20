@@ -1,6 +1,6 @@
 import { addCustomerPoints, addMinigame } from "./GameManager.js";
 import icecube from "./icecube.js";
-
+import PauseMenu from "../scenes/PauseMenu.js";
 let ForceX = 20,
     ForceY = 10;
 
@@ -11,6 +11,14 @@ export default class Hielos extends Phaser.Scene {
     }
 
     create() {
+        //Pausa
+        this.scene.add('PauseMenu', PauseMenu, false);
+    this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.sound.pauseAll();
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+    });
         // Crear obstáculos
         this.createObstacle(765, 500, 'obstacle1', 10, 100, 0);
         this.createObstacle(635, 500, 'obstacle2', 10, 100, 0);

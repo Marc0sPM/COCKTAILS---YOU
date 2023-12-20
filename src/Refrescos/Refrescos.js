@@ -1,6 +1,7 @@
 import PlayerRefrescos from "./PlayerRefrescos.js";
 import Estantes from "./Estantes.js";
 import { addCustomerPoints, addMinigame, refreshment } from "../scenes/GameManager.js";
+import PauseMenu from "../scenes/PauseMenu.js";
 let info;
 
 export default class Refrescos extends Phaser.Scene {
@@ -10,6 +11,14 @@ export default class Refrescos extends Phaser.Scene {
     }
 
     create() {
+        //Pausa
+        this.scene.add('PauseMenu', PauseMenu, false);
+     this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.sound.pauseAll();
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+     });
         // Audio
         this.drinkSound = this.sound.add('drink',{volume: 0.50});
 

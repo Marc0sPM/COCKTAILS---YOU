@@ -38,7 +38,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('Md', './assets/sprites/Menu/MenuDisparo.png');
         this.load.image('mf', './assets/sprites/Menu/MenuFrutas.png');
         this.load.image('Mh', './assets/sprites/Menu/MenuHielo.png');
-        this.load.image('Mr', './assets/sprites/Menu/MenuRefresco.png');
+        this.load.image('Mr', './assets/sprites/Menu/MenuRefrescos.png');
         
         /*----- / BREAKOUT / -----*/
         this.load.image('backgroundBreakout', './assets/sprites/Breakout/background.png');

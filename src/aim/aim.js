@@ -1,6 +1,7 @@
 import Bottle from "./bottle.js"
 import { alcoholicDrinks } from "../Cocktails.js";
 import { addCustomerPoints, addMinigame, alcohol } from "../scenes/GameManager.js";
+import PauseMenu from "../scenes/PauseMenu.js";
 
 export default class Aim extends Phaser.Scene {
     
@@ -14,6 +15,14 @@ export default class Aim extends Phaser.Scene {
         this.CounterValue  = 0;
     }
  create(){
+    //Pausa
+    this.scene.add('PauseMenu', PauseMenu, false);
+    this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.sound.pauseAll();
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+    });
     // Añadimos la música
     this.add.music = this.sound.add('aimMusic', { loop: true, volume: 0.30 });
     //audio

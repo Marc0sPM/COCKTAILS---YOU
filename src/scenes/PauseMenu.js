@@ -1,5 +1,5 @@
-import { currentminigame, currenttext } from "../scenes/GameManager.js";
-import Button from "../scenes/button.js";
+import { currentminigame, currenttext } from "./GameManager.js";
+import Button from "./button.js";
 class PauseMenu extends Phaser.Scene {
     constructor() {
         super({ key: 'PauseMenu' });

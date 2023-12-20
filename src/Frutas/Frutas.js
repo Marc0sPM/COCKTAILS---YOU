@@ -1,12 +1,21 @@
 import PlayerRefrescos from '../Refrescos/PlayerRefrescos.js'
 import { fruit } from '../scenes/GameManager.js';
 import Fruta from './Fruta.js';
+import PauseMenu from "../scenes/PauseMenu.js";
 export default class Frutas extends Phaser.Scene{
     constructor(){
         super({key: 'frutas'});
         this.runCounter = true
     }
     create(){
+        //Pausa
+        this.scene.add('PauseMenu', PauseMenu, false);
+    this.input.keyboard.on('keydown-ESC', () => {
+        // Pausar el juego y mostrar el menú de pausa
+        this.sound.pauseAll();
+        this.scene.pause();
+        this.scene.launch('PauseMenu');
+    });
         // Audio
         this.frutasSound = this.sound.add('frutas',{volume: 0.50});
 
