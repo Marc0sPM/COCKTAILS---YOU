@@ -13,6 +13,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image("cartelGame", "./assets/sprites/CartelGame.png");
         this.load.image("mainMenuBackground", "./assets/sprites/MenuBackground.jpeg");
         this.load.image('dialogueCloude', './assets/sprites/cloud.png')
+        this.load.image('candado', './assets/sprites/candado.png')
         /*---*/
         this.load.image('Bebidas', './assets/sprites/Objetos/Bebidas.png');
         this.load.image('BebidasIluminadas', './assets/sprites/Objetos/BebidasIluminadas.png');
@@ -73,7 +74,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('gin', './assets/sprites/aim/gin.png');
 
         /*----- /FRUTAS/ -----*/
-        this.load.image('frutasBackground', './assets./sprites/Frutas/frutasBackground.png');
+        this.load.image('frutasBackground', './assets/sprites/Frutas/frutasBackground.png');
         this.load.image('frutasSuelo', './assets/sprites/Frutas/Suelo.png');
         this.load.image('blackberry_fruit', './assets/sprites/Frutas/mora.png');
         this.load.image('lime_fruit', './assets/sprites/Frutas/lima.png');
@@ -111,6 +112,11 @@ export default class Boot extends Phaser.Scene{
         this.load.audio('drink', ['./assets/FX/drink.mp3']);
         this.load.audio('frutas', ['./assets/FX/frutas.mp3']);
         this.load.audio('pipipibu', ['./assets/FX/pipipibu.mp3']);
+        
+        /*----- / TILEMAP / -----*/
+        this.load.image('floor', 'floorTiles.png');
+        this.load.image('barObjects', 'tilesetBar.png');
+        this.load.tilemapTiledJSON('barTiled', 'barTiled.json');
 
         /*----- / PLAYER / -----*/
         //Player - idle 

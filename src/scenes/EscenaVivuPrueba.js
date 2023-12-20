@@ -25,18 +25,22 @@ export default class EscenaVivuPrueba extends Phaser.Scene {
         console.log('create EscenaVivuPrueba');
 
         // Tilemap
-        let map = this.make.tilemap({ key: "barTiled" });
+        let map = this.make.tilemap({ 
+            key: "barTiled",
+            tileWidth: 32,
+            tileHeight: 32
+        });
 
         let floor = map.addTilesetImage("floorTiles", "floor");
         let barObjects = map.addTilesetImage("tilesetBar", "barObjects", 32, 32);
 
         // Capas del mapa
-        let groundLayer = map.createLayer("Suelo", floor, 0, 0);
-        let objectsLayer = map.createLayer("Objetos", barObjects, 0, 0);
-        let wallLayer = map.createLayer("Pared", barObjects, 0, 0);
+        let groundLayer = map.createLayer("Suelo", floor);
+        let objectsLayer = map.createLayer("Objetos", barObjects);
+        let wallLayer = map.createLayer("Pared", barObjects);
 
-        // Agrega la capa de objetos al mapa
-        //map.addLayer(objectsLayer);
+        this.objectsLayer.setCollisionByExclusion([-1], true);
+        this.wallLayer.setCollisionByExclusion([-1], true);
 
         // Profundidad de las capas
         if (groundLayer) groundLayer.setDepth(0);
@@ -44,21 +48,8 @@ export default class EscenaVivuPrueba extends Phaser.Scene {
         if (objectsLayer) objectsLayer.setDepth(2);
 
         // Colisiones del Player con la escena
-        if (wallLayer) {
-            this.physics.world.enable(wallLayer);
-            this.physics.add.collider(this.player, wallLayer, () => {
-                console.log('Colisión con la capa de pared');
-            });
-        }
-
-        if (objectsLayer) {
-            this.physics.world.enable(objectsLayer);
-            this.physics.add.collider(this.player, objectsLayer, () => {
-                console.log('Colisión con la capa de objetos');
-            });
-            objectsLayer.setDepth(3); // Ajusta la profundidad de la capa de objetos
-        }
-
+        this.physics.add.collider(this.player, wallLayer);
+        this.physics.add.collider(this.player, objectsLayer);
 
         // Ajusta la profundidad del jugador
         if (this.player) {

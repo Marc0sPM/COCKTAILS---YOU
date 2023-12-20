@@ -29,7 +29,10 @@ export function setMM(name){
  currenttext = name;
 }
 
-
+export var currentLevel = 1;
+export function unlockNextLevel(){
+    currentLevel++;
+}
 
 
 
