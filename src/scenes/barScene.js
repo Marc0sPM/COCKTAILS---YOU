@@ -33,9 +33,9 @@ export default class barScene extends Phaser.Scene {
 
         //Se agregan fisicas a la escena
         this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
-        this.createTileMap()
         //intancia el player
-        this.player = new Player(this, 300, 300);
+        this.player = new Player(this, 300, 100);
+        this.createTileMap()
 
         this.player.setCollideWorldBounds(true)
         this.generateRandomCustomer()
@@ -213,45 +213,59 @@ export default class barScene extends Phaser.Scene {
 
     }
     createTileMap(){
-        this.map = this.make.tilemap({ key: "barTiled" });
+        
+        // Se agregan físicas a la escena
+        this.physics.world.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
 
-        this.floor = this.map.addTilesetImage("floorTiles", "floor");
-        this.barObjects = this.map.addTilesetImage("tilesetBar", "barObjects", 32, 32);
+        // Tilemap
+        let map = this.make.tilemap({ 
+            key: "barTiled",
+            tileWidth: 32,
+            tileHeight: 32
+        });
+
+        let floor = map.addTilesetImage("floorTiles", "floor");
+        let barObjects = map.addTilesetImage("tilesetBar", "barObjects", 32, 32);
 
         // Capas del mapa
-        this.groundLayer = this.map.createLayer("Suelo", this.floor, 0, 0);
-        this.objectsLayer = this.map.createLayer("Objetos", this.barObjects, 0, 0);
-        this.wallLayer = this.map.createLayer("Pared", this.barObjects, 0, 0);
+        let groundLayer = map.createLayer("Suelo", floor);
+        let objectsLayer = map.createLayer("Objetos", barObjects);
+        let wallLayer = map.createLayer("Pared", barObjects);
+        let woodLayer = map.createLayer("Muebles", barObjects);
 
-        // Agrega la capa de objetos al mapa
-        //map.addLayer(objectsLayer);
+        //this.objectsLayer.setCollisionByExclusion([-1], true);
+        //this.wallLayer.setCollisionByExclusion([-1], true);
 
         // Profundidad de las capas
-        if (this.groundLayer) this.groundLayer.setDepth(0);
-        if (this.wallLayer) this.wallLayer.setDepth(1);
-        if (this.objectsLayer) this.objectsLayer.setDepth(2);
+        groundLayer.setDepth(0);
+        woodLayer.setDepth(1)
+        wallLayer.setDepth(3);
+        objectsLayer.setDepth(4);
 
         // Colisiones del Player con la escena
-        // if (this.wallLayer) {
-        //     this.physics.world.enable(this.wallLayer);
-        //     this.physics.add.collider(this.player, this.wallLayer, () => {
-        //         console.log('Colisión con la capa de pared');
-        //     });
-        // }
+        //this.physics.add.collider(this.player, wallLayer);
+        //this.physics.add.collider(this.player, objectsLayer);
 
-        // if (this.objectsLayer) {
-        //     this.physics.world.enable(this.objectsLayer);
-        //     this.physics.add.collider(this.player, this.objectsLayer, () => {
-        //         console.log('Colisión con la capa de objetos');
-        //     });
-        //     this.objectsLayer.setDepth(3); // Ajusta la profundidad de la capa de objetos
-        // }
+        this.player.setDepth(2); // Ajusta la profundidad del jugador según sea necesario
 
+        this.createObstacle(400, 300, 'obstacle1', 800, 100, 0);  
+        this.createObstacle(200, 150, 'obstacle2', 100, 100, 0);  
+        this.createObstacle(400, 300, 'obstacle3', 10, 10, 0);  
 
-        // Ajusta la profundidad del jugador
-        if (this.player) {
-            this.player.setDepth(4); // Ajusta la profundidad del jugador según sea necesario
-        }
+        this.obstacles = [this.obstacle1, this.obstacle2, this.obstacle3];
+        this.physics.add.collider(this.player, this.obstacles);
+    
+    }
 
+    createObstacle(x, y, key, width, height, rotation) {
+        const obstacle = this.add.sprite(x, y, key);
+        this.physics.world.enable([obstacle]);
+        obstacle.body.setAllowGravity(false);
+        obstacle.body.setImmovable(true);
+        obstacle.body.setSize(width, height);
+        obstacle.setRotation(Phaser.Math.DegToRad(rotation));
+        this.physics.add.collider(this.player, obstacle)
+    
+        this[key] = obstacle;
     }
 }
