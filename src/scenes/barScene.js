@@ -52,12 +52,10 @@ export default class barScene extends Phaser.Scene {
         this.radio.setDepth(5);
         this.radio.setInteractive();
         this.radio.setScale(0.2);
-<<<<<<< Updated upstream
-        this.radio.on('pointerdown',(pointer)=> {
-=======
+
         this.radio.removeAllListeners('pointerdown')
         this.radio.on('pointerdown', function (pointer) {
->>>>>>> Stashed changes
+
             if (pointer.leftButtonDown()) {
                 this.eladio.play();
                 // Se ha hecho clic izquierdo en la imagen
