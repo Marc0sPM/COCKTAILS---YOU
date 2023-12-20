@@ -78,7 +78,6 @@ export default class Aim extends Phaser.Scene {
    
     if (bottle.type === this.targetBottle) {
         this.CounterValue++;
-        console.log("añade");
         this.updateCounterText();
     }
     else{
@@ -87,7 +86,6 @@ export default class Aim extends Phaser.Scene {
     this.shootSound.play();
     this.breakSound.play();
     bottle.destroy();
-    console.log("destruye");
 }
  createBottle() {
     for(var i = 1; i <= 4; i++){

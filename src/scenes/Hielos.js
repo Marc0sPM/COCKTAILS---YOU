@@ -11,7 +11,8 @@ export default class Hielos extends Phaser.Scene {
     }
 
     create() {
-        //Pausa
+        this.music = this.sound.add('iceMusic', { loop: true, volume: 0.75 });
+        this.music.play();
         //this.scene.add('PauseMenu', PauseMenu, false);
     this.input.keyboard.on('keydown-ESC', () => {
         // Pausar el juego y mostrar el menú de pausa
@@ -70,15 +71,13 @@ export default class Hielos extends Phaser.Scene {
         this.isCubeLaunched = false;
 
         this.input.keyboard.on('keydown-SPACE', function (event) {
-            
+            this.sound.stopAll();
             this.scene.restart();
         }, this);
         this.input.keyboard.on('keydown-Q', function (event) {
             this.exitScene()
             
         }, this);
-
-        console.log('create Hielos');
     }
 
     update() {
@@ -114,6 +113,7 @@ export default class Hielos extends Phaser.Scene {
     
             if (pointer.x > this.sys.game.config.width / 2) {
                 // Si el puntero está en la parte derecha de la pantalla reiniciamos la escena
+                this.sound.stopAll();
                 this.scene.restart();
             }
     
@@ -168,6 +168,8 @@ export default class Hielos extends Phaser.Scene {
         }
     }
     exitScene(){
+        // Paramos el audio
+        this.sound.stopAll();
         this.completionText.setVisible(false);
         addMinigame()
         this.calculateFinalScore()
@@ -181,7 +183,6 @@ export default class Hielos extends Phaser.Scene {
         else if(this.attempts < 14) stars = 1
         else stars = 0;
         if(stars != undefined){
-            console.log(stars)
             addCustomerPoints(stars)
             
         }

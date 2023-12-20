@@ -4,7 +4,6 @@ class MainMenu extends Phaser.Scene{
         super({key: "MainMenu"});
     }
     create() {
-        console.log("MainMenu")
         // Crea el fondo
         let background = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, "mainMenuBackground");
         // Reducimos el tamaño del fondo

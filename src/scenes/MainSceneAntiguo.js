@@ -16,7 +16,6 @@ export default class MainSceneAntiguo extends Phaser.Scene {
       }, this);
    }
     preload(){
-      console.log("Soy preload");
       this.load.image("background", "..\\assets\\sprites\\FondoTemporal.jpg");
       this.load.spritesheet('player',
                      '..\\assets\\sprites\\Player\\sprites-walk.png',
@@ -31,9 +30,6 @@ export default class MainSceneAntiguo extends Phaser.Scene {
     }
     
     create(){
-      
-      
-      console.log("Soy create");
       background = this.add.image(0,0, "background")
       background.setOrigin(0, 0); // Ajusta el origen de la imagen a la esquina superior izquierda
       background.setScale(800 / background.width, 600 / background.height); // Ajusta la escala para que llene la pantalla

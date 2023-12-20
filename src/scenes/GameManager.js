@@ -6,7 +6,6 @@ export function setOther(num){
 //Refresco del coctel  actual
 export var refreshment = ''
 export function setRefreshment(name){
-    console.log(name)
     refreshment = name
 }
 //Alcohol del coctel actual 
@@ -59,7 +58,6 @@ function resetStats(){
 
 export var customerList = []
 export function setCustomerList(list){
-    console.log('nmms')
     list.forEach(x => {
 customerList.push(x)
 
@@ -85,8 +83,6 @@ export function addMaxMinigames(){
 var cantMinigames = 0
 
 export function checkCustomer(){
-    console.log(maxMinigames)
-    console.log(cantMinigames)
     if(cantMinigames == 0 && maxMinigames == 0) return false;
     return cantMinigames >= maxMinigames
 }

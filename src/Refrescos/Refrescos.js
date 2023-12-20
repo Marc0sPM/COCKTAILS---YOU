@@ -11,6 +11,9 @@ export default class Refrescos extends Phaser.Scene {
     }
 
     create() {
+    this.music = this.sound.add('jumpMusic', { loop: true, volume: 0.75 });
+    this.music.play();
+
         //Pausa
         //this.scene.add('PauseMenu', PauseMenu, false);
      this.input.keyboard.on('keydown-ESC', () => {
@@ -95,8 +98,6 @@ export default class Refrescos extends Phaser.Scene {
         }
         if(this.temporizador <= 0) this.hasDied();
       
-        //console.log("Valor del temporizador: " + this.temporizador); //debug
-      
         this.temporizadorText.setText('Tiempo: ' + Math.ceil(this.temporizador));
         
     }
@@ -106,7 +107,6 @@ export default class Refrescos extends Phaser.Scene {
         // Elimina solo el refresco
         refresco.destroy();
         this.drinkSound.play();
-        console.log("destruye")
         // Incrementa el contador de refrescos
         this.cont++;
         this.contadorText.setText('Refrescos: ' + this.cont + ' / ' + this.num);
@@ -115,7 +115,6 @@ export default class Refrescos extends Phaser.Scene {
         if (this.cont >= this.num) {
             // Cambiar de escena y eso
             this.hasWon();
-            console.log('Has alcanzado el número necesario de refrescos!');
         } else {
             this.refresco = this.spawnRefresco();
             this.physics.add.collider(this.Player, this.refresco, this.handleColision.bind(this));
@@ -139,7 +138,6 @@ export default class Refrescos extends Phaser.Scene {
     spawnRefresco() {
         let nuevoRefresco;
         let pos = this.randomPos()
-        console.log(this.type)
         nuevoRefresco = this.physics.add.image(pos[0], pos[1], this.type);
         
         if (nuevoRefresco) {
@@ -170,6 +168,8 @@ export default class Refrescos extends Phaser.Scene {
             })
     }
     exitScene(){
+        // Paramos el audio
+        this.sound.stopAll();
         addMinigame()
         this.calculateFinalScore();
         this.runCounter = true

@@ -7,6 +7,8 @@ export default class Frutas extends Phaser.Scene{
         this.runCounter = true
     }
     create(){
+        this.music = this.sound.add('fruitsMusic', { loop: true, volume: 0.5 });
+        this.music.play();
         //Pausa
         //this.scene.add('PauseMenu', PauseMenu, false);
     this.input.keyboard.on('keydown-ESC', () => {
@@ -196,6 +198,8 @@ export default class Frutas extends Phaser.Scene{
         })
     }
     exitScene(){
+        // Paramos el audio
+        this.sound.stopAll();
         addMinigame()
         this.calculateFinalScore();
         this.scene.resume('barScene')

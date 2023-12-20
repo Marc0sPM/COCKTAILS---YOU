@@ -115,11 +115,7 @@ export default class barScene extends Phaser.Scene {
         this.guide = this.add.image(110, 700, 'pistasButton').setDepth(5).setScale(0.2).setInteractive()
         this.interactionGuide()
         this.cocktailSelector = this.add.image(740, 700, 'cocteleraButton').setDepth(5).setScale(0.7).setInteractive().setSize(200, 400)
-        this.interactionCocktailSelector()
-
-        
-        console.log(this.customerType)
-        
+        this.interactionCocktailSelector()        
     }
     update() {
         if(this.desiredCocktail !== undefined){
@@ -239,7 +235,6 @@ export default class barScene extends Phaser.Scene {
             const { key, x, y, rectX, rectY} = itemInfo;
             let activate = true;
             
-            console.log(key)
             if(key == "breakout_item") {
                 if(this.cocktail.others == -1) activate = false;
             }
@@ -321,7 +316,6 @@ export default class barScene extends Phaser.Scene {
     onTriggerEnter(x,y, rect){
         
             if((x > (rect.x - rect.width/2) && x < (rect.x + rect.width/2)) && (y > (rect.y - rect.height/2) && y < (rect.y + rect.height/2))){
-                console.log('esta encima');
                 return true;
             }else return false;
         
@@ -442,17 +436,13 @@ export default class barScene extends Phaser.Scene {
     }
 
     checkExit(){
-        console.log('entra je')
         if(checkCustomer() || this.fail){
         this.customerCompleted()}
     }
     customerCompleted(){
-        
-            console.log('entra jeje')
             addCurrentCustomer()
             calculateCustomerStarts()
             if(checkExitLevel()) {
-                console.log('entra jejeje')
                 this.exitScene()
             }
             else {
@@ -472,7 +462,6 @@ export default class barScene extends Phaser.Scene {
         this.pipipibu.stop();
         this.eladio.stop();
 
-        console.log('entra customer')
         this.resetStats()
         this.scene.restart()
     }
