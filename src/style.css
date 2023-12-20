@@ -1,7 +1,7 @@
 /*Definicion de la fuente para titulos*/
 @font-face {
     font-family: 'myFont';
-    src: url(/assets/webFonts/KaushanScript-Regular.ttf);
+    src: url(../assets/webFonts/KaushanScript-Regular.ttf);
 }
 /*--------------------*/
 
