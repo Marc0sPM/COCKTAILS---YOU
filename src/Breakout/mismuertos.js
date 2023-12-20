@@ -1,4 +1,4 @@
-import { currentminigame } from "../scenes/GameManager.js";
+import { currentminigame, currenttext } from "../scenes/GameManager.js";
 import Button from "../scenes/button.js";
 class PauseMenu extends Phaser.Scene {
     constructor() {
@@ -8,10 +8,10 @@ class PauseMenu extends Phaser.Scene {
     create() {
 
         // Pausar el juego principal
-        this.scene.pause('Breakout');
+        this.scene.pause(currentminigame);
         this.libro = this.add.image(400,300,'libro').setDepth(0);
         this.libro.setScale(0.5);
-        this.texto = this.add.image(400,300,'Mb').setDepth(0);
+        this.texto = this.add.image(400,300,currenttext).setDepth(0);
         this.texto.setScale(0.5)
 
         this.resume = new Button(this,550, 270, 0.25,()=>{
