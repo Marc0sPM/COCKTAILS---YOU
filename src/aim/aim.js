@@ -1,7 +1,7 @@
 import Bottle from "./bottle.js"
 import { alcoholicDrinks } from "../Cocktails.js";
 import { addCustomerPoints, addMinigame, alcohol } from "../scenes/GameManager.js";
-import PauseMenu from "../scenes/PauseMenu.js";
+
 
 export default class Aim extends Phaser.Scene {
     
