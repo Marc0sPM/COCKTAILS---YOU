@@ -8,7 +8,7 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
+import { setMM,checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
