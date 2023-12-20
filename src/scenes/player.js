@@ -20,7 +20,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
-            interact: Phaser.Input.Keyboard.KeyCodes.E
+            interact: Phaser.Input.Keyboard.KeyCodes.E,
+            esc:  Phaser.Input.Keyboard.KeyCodes.ESC
             
         });
         
