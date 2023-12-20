@@ -8,7 +8,7 @@ import { fruits } from "../Cocktails.js";
 import { alcoholicDrinks } from "../Cocktails.js";
 import { refreshments } from "../Cocktails.js";
 import { others } from "../Cocktails.js";
-import { setMM,checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment } from "./GameManager.js";
+import { setMM, checkExitLevel, currentminigame, setAlcohol, setFruit, setMinigame, setOther, setRefreshment, unlockNextLevel, addCurrentCustomer } from "./GameManager.js";
 
 
 export default class barScene extends Phaser.Scene {
@@ -285,7 +285,14 @@ export default class barScene extends Phaser.Scene {
         })
         if(allPlayed){
             //Comporbar si todos los customers del nivel han terminado
+            if(checkExitLevel()) {
+                unlockNextLevel();
+                this.scene.start('Levels')}
+            else {
+                addCurrentCustomer()
+
+            }
         }
-        if(checkExitLevel()) this.scene.start('Levels')
+        
     }
 }
